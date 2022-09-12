@@ -12,19 +12,19 @@ import javax.transaction.Transactional
 @Transactional
 open class HospitalServiceImp(
     @Autowired
-    private val hospitalDao: HospitalDAO
+    private val hospitalDAO: HospitalDAO
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
-        return hospitalDao.save(hospital)
+        return hospitalDAO.save(hospital)
     }
 
     override fun actualizar(hospital: Hospital): Hospital {
-        return this.hospitalDao.save(hospital)
+        return this.hospitalDAO.save(hospital)
     }
 
     override fun recuperar(hospitalId:Int): Hospital {
-        val hospital = hospitalDao.findByIdOrNull(hospitalId.toLong())
+        val hospital = hospitalDAO.findByIdOrNull(hospitalId.toLong())
         if (hospital == null) {
             throw RuntimeException("El id [${hospitalId}] no existe.")
         }
@@ -33,15 +33,15 @@ open class HospitalServiceImp(
 
     override fun eliminar(hospitalId:Int) {
         this.recuperar(hospitalId)
-        hospitalDao.deleteById(hospitalId.toLong())
+        hospitalDAO.deleteById(hospitalId.toLong())
     }
 
     override fun recuperarTodos():List<Hospital> {
-        return hospitalDao.findAllByOrderByNombreAsc()
+        return hospitalDAO.findAllByOrderByNombreAsc()
     }
 
     override fun clear() {
-        hospitalDao.deleteAll()
+        hospitalDAO.deleteAll()
     }
 
 }
