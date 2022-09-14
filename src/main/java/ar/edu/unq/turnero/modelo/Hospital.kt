@@ -40,7 +40,6 @@ class Hospital() {
         if (nombre != other.nombre) return false
         if (zona != other.zona) return false
         if (direccion != other.direccion) return false
-        if (especialidades != other.especialidades) return false
 
         return true
     }

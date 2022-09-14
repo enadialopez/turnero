@@ -41,7 +41,9 @@ class HospitalServiceTest {
     lateinit var oftalmologia: Especialidad
     lateinit var dermatologia: Especialidad
 
-    var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    var especialidades1: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    var especialidades2: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    var especialidades3: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
     @BeforeEach
     fun prepare() {
@@ -59,36 +61,50 @@ class HospitalServiceTest {
         dermatologia = Especialidad("Dermatologia")
 
         serviceEspecialidad.crear(pediatria)
+        serviceEspecialidad.crear(kinesiologia)
         serviceEspecialidad.crear(cardiologia)
         serviceEspecialidad.crear(urologia)
         serviceEspecialidad.crear(traumatologia)
+        serviceEspecialidad.crear(nefrologia)
+        serviceEspecialidad.crear(reumatologia)
+        serviceEspecialidad.crear(oftalmologia)
+        serviceEspecialidad.crear(dermatologia)
 
-        evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle Falsa 123", especialidades)
+        evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle Falsa 123", especialidades1)
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
         evitaPueblo.agregarEspecialidad(urologia)
         service.crear(evitaPueblo)
 
-        elCruce = Hospital("Hospital El Cruce - Nestor Kirchner", "Florencio Varela", "Calle Falsa 123", especialidades)
+        elCruce = Hospital("Hospital El Cruce - Nestor Kirchner", "Florencio Varela", "Calle Falsa 123", especialidades2)
+        elCruce.agregarEspecialidad(pediatria)
+        elCruce.agregarEspecialidad(traumatologia)
+        elCruce.agregarEspecialidad(urologia)
+        elCruce.agregarEspecialidad(nefrologia)
+        elCruce.agregarEspecialidad(dermatologia)
+        elCruce.agregarEspecialidad(reumatologia)
         service.crear(elCruce)
 
-        quilmes = Hospital("Hospital Quilmes - Isidoro Iriarte", "Quilmes", "Calle Falsa 123", especialidades)
+        quilmes = Hospital("Hospital Quilmes - Isidoro Iriarte", "Quilmes", "Calle Falsa 123", especialidades3)
+        quilmes.agregarEspecialidad(dermatologia)
+        quilmes.agregarEspecialidad(urologia)
+        quilmes.agregarEspecialidad(traumatologia)
+        quilmes.agregarEspecialidad(nefrologia)
         service.crear(quilmes)
     }
 
-
     @Test
     fun seCreaHospitalTest() {
-        evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle Falsa 123", especialidades)
-        val hospital = service.crear(evitaPueblo)
+        val wilde = Hospital("Hospital Zonal General de Agudos “Dr. E. Wilde”", "Quilmes", "Calle Falsa 123", mutableListOf<Especialidad>())
+        wilde.agregarEspecialidad(traumatologia)
+        wilde.agregarEspecialidad(nefrologia)
+        val hospital = service.crear(wilde)
 
         val hospitalId = hospital.id!!.toInt()
-        var evitaPuebloRecuperado = service.recuperar(hospitalId)
+        var wildeRecuperado = service.recuperar(hospitalId)
 
-        Assert.assertEquals(evitaPueblo, evitaPuebloRecuperado)
+        Assert.assertEquals(wilde, wildeRecuperado)
     }
-
-
 
     @AfterEach
     fun cleanup() {

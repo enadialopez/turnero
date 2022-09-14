@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface HospitalDAO : CrudRepository<Hospital, Long> {
 
     fun findAllByOrderByNombreAsc() : List<Hospital>
+
 }
