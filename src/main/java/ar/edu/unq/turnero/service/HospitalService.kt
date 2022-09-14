@@ -8,6 +8,9 @@ interface HospitalService {
     fun recuperar(hospitalId:Int): Hospital?
     fun eliminar(hospitalId:Int)
     fun recuperarTodos(): List<Hospital>
+    fun recuperarPorNombre(nombre: String): List<Hospital>
+    fun recuperarPorZona(zona: String): List<Hospital>
+    fun recuperarPorEspecialidad(especialidad: String): List<Hospital>
     fun clear()
 
 }

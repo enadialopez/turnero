@@ -106,6 +106,20 @@ class HospitalServiceTest {
         Assert.assertEquals(wilde, wildeRecuperado)
     }
 
+    @Test
+    fun seRecuperaUnHospitalPorNombreNestorTest() {
+        var hospitales = service.recuperarPorNombre("nestor")
+
+        Assert.assertTrue(hospitales.contains(elCruce))
+    }
+
+    @Test
+    fun seRecuperaUnHospitalPorEspecialidadTest() {
+        var hospitales = service.recuperarPorEspecialidad("pediatria")
+
+        Assert.assertTrue(hospitales.contains(elCruce))
+    }
+
     @AfterEach
     fun cleanup() {
     }

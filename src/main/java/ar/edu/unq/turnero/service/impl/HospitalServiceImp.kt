@@ -40,6 +40,19 @@ open class HospitalServiceImp(
         return hospitalDAO.findAllByOrderByNombreAsc()
     }
 
+    // Dado un nombre devuelve una lista de hospitales cuyo nombre contiene el termino de busqueda.
+    override fun recuperarPorNombre(nombre: String) : List<Hospital> {
+        return hospitalDAO.findByNombreContaining(nombre)
+    }
+
+    override fun recuperarPorZona(zona: String): List<Hospital> {
+        return hospitalDAO.findByZonaContaining(zona)
+    }
+
+    override fun recuperarPorEspecialidad(especialidad: String): List<Hospital> {
+        return hospitalDAO.recuperarPorEspecialidad(especialidad)
+    }
+
     override fun clear() {
         hospitalDAO.deleteAll()
     }
