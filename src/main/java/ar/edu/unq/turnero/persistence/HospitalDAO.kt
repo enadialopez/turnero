@@ -12,8 +12,8 @@ interface HospitalDAO : CrudRepository<Hospital, Long> {
 
     fun findByNombreContaining(nombre: String) : List<Hospital>
 
-    fun findByZonaContaining(nombre: String) : List<Hospital>
+    fun findByZonaContaining(zona: String) : List<Hospital>
 
-    @Query( "SELECT h FROM Hospital h INNER JOIN h.especialidades WHERE h.especialidades.nombre = ?1" )
+    @Query( "SELECT h FROM Hospital h INNER JOIN h.especialidades e WHERE e.nombre LIKE %?1%" )
     fun recuperarPorEspecialidad(especialidad: String) : List<Hospital>
 }
