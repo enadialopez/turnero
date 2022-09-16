@@ -12,6 +12,7 @@ class Hospital() {
     var nombre: String? = null
     var zona: String? = null
     var direccion: String? = null
+    var imagen: String? = null
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="hospital_especialidades",
         joinColumns= [JoinColumn(name="hospital_id", referencedColumnName="id")],
@@ -19,10 +20,11 @@ class Hospital() {
     )
     var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
-    constructor(nombre: String, zona: String, direccion: String, especialidades: MutableList<Especialidad>):this() {
+    constructor(nombre: String, zona: String, direccion: String, imagen: String, especialidades: MutableList<Especialidad>):this() {
         this.nombre = nombre
         this.zona = zona
         this.direccion = direccion
+        this.imagen = imagen
         this.especialidades = especialidades
     }
 
@@ -40,6 +42,7 @@ class Hospital() {
         if (nombre != other.nombre) return false
         if (zona != other.zona) return false
         if (direccion != other.direccion) return false
+        if (imagen != other.imagen) return false
 
         return true
     }
