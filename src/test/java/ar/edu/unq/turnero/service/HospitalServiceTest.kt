@@ -70,13 +70,13 @@ class HospitalServiceTest {
         serviceEspecialidad.crear(oftalmologia)
         serviceEspecialidad.crear(dermatologia)
 
-        evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle Falsa 123", especialidades1)
+        evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle Falsa 123", "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/", especialidades1)
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
         evitaPueblo.agregarEspecialidad(urologia)
         service.crear(evitaPueblo)
 
-        elCruce = Hospital("Hospital El Cruce - Nestor Kirchner", "Florencio Varela", "Calle Falsa 123", especialidades2)
+        elCruce = Hospital("Hospital El Cruce - Nestor Kirchner", "Florencio Varela", "Calle Falsa 123", "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/", especialidades2)
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
         elCruce.agregarEspecialidad(urologia)
@@ -85,7 +85,7 @@ class HospitalServiceTest {
         elCruce.agregarEspecialidad(reumatologia)
         service.crear(elCruce)
 
-        quilmes = Hospital("Hospital Quilmes - Isidoro Iriarte", "Quilmes", "Calle Falsa 123", especialidades3)
+        quilmes = Hospital("Hospital Quilmes - Isidoro Iriarte", "Quilmes", "Calle Falsa 123", "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/", especialidades3)
         quilmes.agregarEspecialidad(dermatologia)
         quilmes.agregarEspecialidad(urologia)
         quilmes.agregarEspecialidad(traumatologia)
@@ -95,7 +95,7 @@ class HospitalServiceTest {
 
     @Test
     fun seCreaHospitalTest() {
-        val wilde = Hospital("Hospital Zonal General de Agudos “Dr. E. Wilde”", "Quilmes", "Calle Falsa 123", mutableListOf<Especialidad>())
+        val wilde = Hospital("Hospital Zonal General de Agudos “Dr. E. Wilde”", "Quilmes", "Calle Falsa 123", "https://clinica-web.com.ar/listing/hospital-wilde/", mutableListOf<Especialidad>())
         wilde.agregarEspecialidad(traumatologia)
         wilde.agregarEspecialidad(nefrologia)
         val hospital = service.crear(wilde)
@@ -120,7 +120,5 @@ class HospitalServiceTest {
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
-    @AfterEach
-    fun cleanup() {
-    }
+
 }
