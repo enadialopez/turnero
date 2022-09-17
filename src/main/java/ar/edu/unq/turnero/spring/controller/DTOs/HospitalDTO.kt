@@ -6,7 +6,7 @@ import ar.edu.unq.turnero.modelo.Hospital
 class HospitalDTO(
     var id: Long?,
     var nombre:String?,
-    var zona: String?,
+    var municipio: String?,
     var direccion: String?,
     var imagen: String?,
     var especialidades: MutableList<EspecialidadDTO>
@@ -17,7 +17,7 @@ class HospitalDTO(
             HospitalDTO(
                 id = hospital.id,
                 nombre = hospital.nombre,
-                zona = hospital.zona,
+                municipio = hospital.municipio,
                 direccion = hospital.direccion,
                 imagen = hospital.imagen,
                 especialidades = hospital.especialidades
@@ -30,7 +30,7 @@ class HospitalDTO(
         val hospital = Hospital()
         hospital.id = this.id
         hospital.nombre = this.nombre!!
-        hospital.zona = this.zona
+        hospital.municipio = this.municipio
         hospital.direccion = this.direccion!!
         hospital.imagen = this.imagen!!
         hospital.especialidades = (this.especialidades
