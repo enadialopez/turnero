@@ -17,4 +17,8 @@ class HospitalController(private val hospitalService: HospitalService) {
 
     @GetMapping("")
     fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
+
+    @GetMapping("/search")
+    @ResponseBody
+    fun recuperarPor(@RequestParam q: String, value: String) = hospitalService.recuperarPor(value, q).map { hospital -> HospitalDTO.desdeModelo(hospital)  }
 }
