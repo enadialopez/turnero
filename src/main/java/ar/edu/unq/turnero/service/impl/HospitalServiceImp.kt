@@ -19,21 +19,12 @@ open class HospitalServiceImp(
         return hospitalDAO.save(hospital)
     }
 
-    override fun actualizar(hospital: Hospital): Hospital {
-        return this.hospitalDAO.save(hospital)
-    }
-
     override fun recuperar(hospitalId:Int): Hospital {
         val hospital = hospitalDAO.findByIdOrNull(hospitalId.toLong())
         if (hospital == null) {
             throw RuntimeException("El id [${hospitalId}] no existe.")
         }
         return hospital
-    }
-
-    override fun eliminar(hospitalId:Int) {
-        this.recuperar(hospitalId)
-        hospitalDAO.deleteById(hospitalId.toLong())
     }
 
     override fun recuperarTodos():List<Hospital> {
@@ -45,12 +36,21 @@ open class HospitalServiceImp(
         return hospitalDAO.findByNombreContaining(nombre)
     }
 
-    override fun recuperarPorZona(zona: String): List<Hospital> {
-        return hospitalDAO.findByZonaContaining(zona)
+    override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {
+        if (select == "nombre") {
+            return this.recuperarPorNombre(busqueda)
+        } else if (select == "municipio") {
+            return this.recuperarPorMunicipio(busqueda)
+        } else {
+            return this.recuperarPorEspecialidad(busqueda)
+        }
+    }
+    override fun recuperarPorMunicipio(busqueda: String): List<Hospital> {
+        return hospitalDAO.findByMunicipioContaining(busqueda)
     }
 
-    override fun recuperarPorEspecialidad(especialidad: String): List<Hospital> {
-        return hospitalDAO.recuperarPorEspecialidad(especialidad)
+    override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
+        return hospitalDAO.findByEspecialidad(busqueda)
     }
 
     override fun clear() {
