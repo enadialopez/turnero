@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.exception.SinResultadosException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
 import org.springframework.beans.factory.annotation.Autowired
@@ -33,7 +34,8 @@ open class HospitalServiceImp(
 
     // Dado un nombre devuelve una lista de hospitales cuyo nombre contiene el termino de busqueda.
     override fun recuperarPorNombre(nombre: String) : List<Hospital> {
-        return hospitalDAO.findByNombreContaining(nombre)
+        var resultado = hospitalDAO.findByNombreContaining(nombre)
+        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {
@@ -46,11 +48,13 @@ open class HospitalServiceImp(
         }
     }
     override fun recuperarPorMunicipio(busqueda: String): List<Hospital> {
-        return hospitalDAO.findByMunicipioContaining(busqueda)
+        var resultado = hospitalDAO.findByMunicipioContaining(busqueda)
+        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-        return hospitalDAO.findByEspecialidad(busqueda)
+        var resultado = hospitalDAO.findByEspecialidad(busqueda)
+        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
     }
 
     override fun clear() {
