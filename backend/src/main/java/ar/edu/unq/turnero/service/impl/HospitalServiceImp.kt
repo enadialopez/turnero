@@ -2,7 +2,7 @@ package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.exception.CampoVacioException
-import ar.edu.unq.turnero.modelo.exception.SinResultadosException
+import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
 import org.springframework.beans.factory.annotation.Autowired
@@ -42,8 +42,17 @@ open class HospitalServiceImp(
 
     // Dado un nombre devuelve una lista de hospitales cuyo nombre contiene el termino de busqueda.
     override fun recuperarPorNombre(nombre: String) : List<Hospital> {
-        var resultado = hospitalDAO.findByNombreContaining(nombre)
-        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
+        return hospitalDAO.findByNombreContaining(nombre)
+    }
+
+    override fun recuperarPorMunicipio(busqueda: String): List<Hospital> {
+        hospitalDAO.findByMunicipioContaining(busqueda)
+        return hospitalDAO.findByMunicipioContaining(busqueda)
+    }
+
+    override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
+        hospitalDAO.findByEspecialidad(busqueda)
+        return hospitalDAO.findByEspecialidad(busqueda)
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {
@@ -51,18 +60,11 @@ open class HospitalServiceImp(
             return this.recuperarPorNombre(busqueda)
         } else if (select == "municipio") {
             return this.recuperarPorMunicipio(busqueda)
-        } else {
+        } else if ( select == "especialidad"){
             return this.recuperarPorEspecialidad(busqueda)
+        } else {
+            throw ErrorSelectionException()
         }
-    }
-    override fun recuperarPorMunicipio(busqueda: String): List<Hospital> {
-        var resultado = hospitalDAO.findByMunicipioContaining(busqueda)
-        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
-    }
-
-    override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-        var resultado = hospitalDAO.findByEspecialidad(busqueda)
-        if (resultado.isEmpty()) throw SinResultadosException() else return resultado
     }
 
     override fun clear() {

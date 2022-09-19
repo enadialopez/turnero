@@ -3,6 +3,7 @@ package ar.edu.unq.turnero.service
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.exception.CampoVacioException
+import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.persistence.*
 import ar.edu.unq.turnero.service.impl.*
 import org.junit.Assert
@@ -24,9 +25,10 @@ class HospitalServiceTest {
     lateinit var serviceEspecialidad: EspecialidadService
 
     @Autowired
-    lateinit var hospitalDAO : HospitalDAO
+    lateinit var hospitalDAO: HospitalDAO
+
     @Autowired
-    lateinit var especialidadDAO : EspecialidadDAO
+    lateinit var especialidadDAO: EspecialidadDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var evita: Hospital
@@ -115,7 +117,13 @@ class HospitalServiceTest {
 
     @Test
     fun seCreaHospitalTest() {
-        val wilde = Hospital("Hospital Zonal General de Agudos “Dr. E. Wilde”", "Quilmes", "Calle Falsa 123", "https://clinica-web.com.ar/listing/hospital-wilde/", mutableListOf<Especialidad>())
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "Quilmes",
+            "Calle Falsa 123",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
         wilde.agregarEspecialidad(traumatologia)
         wilde.agregarEspecialidad(nefrologia)
         val hospital = service.crear(wilde)
@@ -140,24 +148,74 @@ class HospitalServiceTest {
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
-    /*@Test
-    fun NoSePuedeCrearUnHospitalSinAtributosTest() {
-        evita = Hospital("", "", "", "", especialidades1)
-
+    @Test
+    fun NoSePuedeCrearUnHospitalSinNombreTest() {
+        val wilde = Hospital(
+            "",
+            "Quilmes",
+            "Calle Falsa 123",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
         try {
-            service.crear(evita)
+            service.crear(wilde)
             Assertions.fail("Expected a CampoVacioException to be thrown")
         } catch (e: CampoVacioException) {
-            Assertions.assertEquals(e.message, "Debe completar este campo")
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
         }
     }
 
     @Test
-    fun seRecuperaPorSegunLaSeleccion () {
-        var hospitales = service.recuperarPor("pediatria", "especialidad")
+    fun NoSePuedeCrearUnHospitalSinMunicipioTest() {
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "",
+            "Calle Falsa 123",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
+        try {
+            service.crear(wilde)
+            Assertions.fail("Expected a CampoVacioException to be thrown")
+        } catch (e: CampoVacioException) {
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+        }
+    }
+
+    @Test
+    fun NoSePuedeCrearUnHospitalSinDireccionTest() {
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "Quilmes",
+            "",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
+        try {
+            service.crear(wilde)
+            Assertions.fail("Expected a CampoVacioException to be thrown")
+        } catch (e: CampoVacioException) {
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+        }
+    }
+
+    @Test
+    fun seRecuperaPorLaEspecialidadPediatria() {
+        var hospitales = service.recuperarPor("especialidad", "pediatria")
 
         Assert.assertTrue(hospitales.contains(elCruce))
-    }*/
+        Assert.assertTrue(elCruce.especialidades.contains(pediatria))
+    }
+
+    @Test
+    fun noSePuedeRecuperaPorLaSeleccionNoExiste() {
+        try {
+            service.recuperarPor("berazategui", "oncologia")
+            Assertions.fail("Expected a ErrorSelectionException to be thrown")
+        } catch (e: ErrorSelectionException) {
+            Assertions.assertEquals(e.message, "El valor pasado del selector no es correcto.")
+        }
+    }
 
     @AfterEach
     fun cleanUp(){
