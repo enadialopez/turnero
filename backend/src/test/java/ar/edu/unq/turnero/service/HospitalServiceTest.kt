@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.service
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.exception.CampoVacioException
 import ar.edu.unq.turnero.persistence.*
 import ar.edu.unq.turnero.service.impl.*
 import org.junit.Assert
@@ -28,6 +29,7 @@ class HospitalServiceTest {
     lateinit var especialidadDAO : EspecialidadDAO
 
     lateinit var evitaPueblo: Hospital
+    lateinit var evita: Hospital
     lateinit var elCruce: Hospital
     lateinit var iriarte: Hospital
 
@@ -139,6 +141,18 @@ class HospitalServiceTest {
     }
 
     /*@Test
+    fun NoSePuedeCrearUnHospitalSinAtributosTest() {
+        evita = Hospital("", "", "", "", especialidades1)
+
+        try {
+            service.crear(evita)
+            Assertions.fail("Expected a CampoVacioException to be thrown")
+        } catch (e: CampoVacioException) {
+            Assertions.assertEquals(e.message, "Debe completar este campo")
+        }
+    }
+
+    @Test
     fun seRecuperaPorSegunLaSeleccion () {
         var hospitales = service.recuperarPor("pediatria", "especialidad")
 

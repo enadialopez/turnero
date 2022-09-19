@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.exception.CampoVacioException
 import ar.edu.unq.turnero.modelo.exception.SinResultadosException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
@@ -17,7 +18,14 @@ open class HospitalServiceImp(
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
+        this.validarCampo(hospital)
         return hospitalDAO.save(hospital)
+    }
+
+    private fun validarCampo(hospital : Hospital) {
+        if(hospital.nombre == "" && hospital.direccion == "" && hospital.municipio == "") {
+            throw CampoVacioException()
+        }
     }
 
     override fun recuperar(hospitalId:Int): Hospital {
