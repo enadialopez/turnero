@@ -21,7 +21,7 @@ class HospitalTest {
         Assert.assertEquals("Hospital Mi Pueblo", miPueblo.nombre)
         Assert.assertEquals("Florencio Varela", miPueblo.municipio)
         Assert.assertEquals("Florida 202", miPueblo.direccion)
-       // Assert.assertEquals(0, miPueblo.especialidades.size)
+        Assert.assertEquals(0, miPueblo.especialidades.size)
     }
 
     @Test

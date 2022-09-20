@@ -13,15 +13,20 @@ class Hospital() {
     var municipio: String? = null
     var direccion: String? = null
     var imagen: String? = null
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
+
+    @ElementCollection ( fetch = FetchType.EAGER)
+    @CollectionTable(name = "hospital_especialidades")
+    @JoinColumn(name = "hospital_id")
+    @Column(name = "especialidad")
+    var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
     constructor(nombre: String, municipio: String, direccion: String, imagen: String, especialidades: MutableList<Especialidad>):this() {
         this.nombre = nombre
         this.municipio = municipio
         this.direccion = direccion
         this.imagen = imagen
-        //.especialidades = especialidades
+        this.especialidades = especialidades
+
     }
 
     fun agregarEspecialidad(nuevaEspecialidad: Especialidad) {
