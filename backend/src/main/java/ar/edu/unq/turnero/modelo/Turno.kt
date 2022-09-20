@@ -18,10 +18,9 @@ class Turno() {
     var especialista: String? = null
     var hospital: String? = null
 
-    constructor(nombre: String, dni: Long, fechaYHora: String, especialidad: String, especialista: String, hospital: String):this() {
+    constructor(nombre: String, dni: Long, especialidad: String, especialista: String, hospital: String):this() {
         this.nombreYApellidoPaciente = nombre
         this.dniPaciente = dni
-        this.fechaYHora = fechaYHora
         this.especialidad = especialidad
         this.especialista = especialista
         this.hospital = hospital
