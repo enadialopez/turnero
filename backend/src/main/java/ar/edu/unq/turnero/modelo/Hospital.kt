@@ -13,23 +13,19 @@ class Hospital() {
     var municipio: String? = null
     var direccion: String? = null
     var imagen: String? = null
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="hospital_especialidades",
-        joinColumns= [JoinColumn(name="hospital_id", referencedColumnName="id")],
-        inverseJoinColumns= [JoinColumn(name="especialidad", referencedColumnName="id")]
-    )
-    var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    //@ManyToOne(fetch = FetchType.EAGER)
+    //var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
     constructor(nombre: String, municipio: String, direccion: String, imagen: String, especialidades: MutableList<Especialidad>):this() {
         this.nombre = nombre
         this.municipio = municipio
         this.direccion = direccion
         this.imagen = imagen
-        this.especialidades = especialidades
+        //.especialidades = especialidades
     }
 
     fun agregarEspecialidad(nuevaEspecialidad: Especialidad) {
-        this.especialidades.add(nuevaEspecialidad)
+        //this.especialidades.add(nuevaEspecialidad)
     }
 
     override fun equals(other: Any?): Boolean {

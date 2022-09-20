@@ -51,8 +51,10 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-        hospitalDAO.findByEspecialidad(busqueda)
-        return hospitalDAO.findByEspecialidad(busqueda)
+        //hospitalDAO.findByEspecialidad(busqueda)
+        //return hospitalDAO.findByEspecialidad(busqueda)
+        var lista : List<Hospital> = listOf()
+        return lista
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

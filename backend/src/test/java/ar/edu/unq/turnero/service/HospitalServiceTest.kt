@@ -22,64 +22,32 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 class HospitalServiceTest {
 
     lateinit var service: HospitalService
-    lateinit var serviceEspecialidad: EspecialidadService
 
     @Autowired
     lateinit var hospitalDAO: HospitalDAO
-
-    @Autowired
-    lateinit var especialidadDAO: EspecialidadDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var evita: Hospital
     lateinit var elCruce: Hospital
     lateinit var iriarte: Hospital
 
-    lateinit var pediatria: Especialidad
-    lateinit var kinesiologia: Especialidad
-    lateinit var cardiologia: Especialidad
-    lateinit var urologia: Especialidad
-    lateinit var traumatologia: Especialidad
-    lateinit var nefrologia: Especialidad
-    lateinit var reumatologia: Especialidad
-    lateinit var oftalmologia: Especialidad
-    lateinit var dermatologia: Especialidad
-
-    var especialidades1: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades2: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades3: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    var pediatria: Especialidad = Especialidad.PEDIATRIA
+    var urologia: Especialidad = Especialidad.UROLOGIA
+    var traumatologia: Especialidad = Especialidad.TRAUMATOLOGIA
+    var nefrologia: Especialidad = Especialidad.NEFROLOGIA
+    var reumatologia: Especialidad = Especialidad.REUMATOLOGIA
+    var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
 
     @BeforeEach
     fun prepare() {
         this.service = HospitalServiceImp(hospitalDAO)
-        this.serviceEspecialidad = EspecialidadServiceImp(especialidadDAO)
-
-        pediatria = Especialidad("Pediatria")
-        kinesiologia = Especialidad("Kinesiologia")
-        cardiologia = Especialidad("Cardiologia")
-        urologia = Especialidad("Urologia")
-        traumatologia = Especialidad("Traumatologia")
-        nefrologia = Especialidad("Nefrologia")
-        reumatologia = Especialidad("Reumatologia")
-        oftalmologia = Especialidad("Oftalmologia")
-        dermatologia = Especialidad("Dermatologia")
-
-        serviceEspecialidad.crear(pediatria)
-        serviceEspecialidad.crear(kinesiologia)
-        serviceEspecialidad.crear(cardiologia)
-        serviceEspecialidad.crear(urologia)
-        serviceEspecialidad.crear(traumatologia)
-        serviceEspecialidad.crear(nefrologia)
-        serviceEspecialidad.crear(reumatologia)
-        serviceEspecialidad.crear(oftalmologia)
-        serviceEspecialidad.crear(dermatologia)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
             "Berazategui",
             "Calle Falsa 123",
             "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades1
+            mutableListOf<Especialidad>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
@@ -91,7 +59,7 @@ class HospitalServiceTest {
             "Florencio Varela",
             "Calle Falsa 123",
             "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades2
+            mutableListOf<Especialidad>()
         )
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
@@ -106,7 +74,7 @@ class HospitalServiceTest {
             "Quilmes",
             "Calle Falsa 123",
             "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades3
+            mutableListOf<Especialidad>()
         )
         iriarte.agregarEspecialidad(dermatologia)
         iriarte.agregarEspecialidad(urologia)
@@ -116,7 +84,7 @@ class HospitalServiceTest {
     }
 
     @Test
-    fun seCreaHospitalTest() {
+    fun seCreaHospitalWildeTest() {
         val wilde = Hospital(
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
@@ -131,6 +99,10 @@ class HospitalServiceTest {
         val hospitalId = hospital.id!!.toInt()
         var wildeRecuperado = service.recuperar(hospitalId)
 
+        Assert.assertEquals("Hospital Zonal General de Agudos “Dr. E. Wilde”", wildeRecuperado!!.nombre)
+        Assert.assertEquals("Quilmes", wildeRecuperado!!.municipio)
+        Assert.assertEquals("Calle Falsa 123", wildeRecuperado!!.direccion)
+        //Assert.assertEquals(3, wildeRecuperado!!.especialidades.size)
         Assert.assertEquals(wilde, wildeRecuperado)
     }
 
@@ -138,13 +110,23 @@ class HospitalServiceTest {
     fun seRecuperaUnHospitalPorNombreNestorTest() {
         var hospitales = service.recuperarPorNombre("nestor")
 
+        Assert.assertEquals(1, hospitales!!.size)
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
     @Test
-    fun seRecuperaUnHospitalPorEspecialidadTest() {
+    fun seRecuperaUnHospitalPorElMunicipioQuilmesTest() {
+        var hospitales = service.recuperarPorMunicipio("quilmes")
+
+        Assert.assertEquals(1, hospitales!!.size)
+        Assert.assertTrue(hospitales.contains(iriarte))
+    }
+
+    @Test
+    fun seRecuperanHospitalesPorEspecialidadTest() {
         var hospitales = service.recuperarPorEspecialidad("pediatria")
 
+        Assert.assertEquals(2, hospitales!!.size)
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
@@ -204,7 +186,7 @@ class HospitalServiceTest {
         var hospitales = service.recuperarPor("especialidad", "pediatria")
 
         Assert.assertTrue(hospitales.contains(elCruce))
-        Assert.assertTrue(elCruce.especialidades.contains(pediatria))
+        //Assert.assertTrue(elCruce.especialidades.contains(pediatria))
     }
 
     @Test

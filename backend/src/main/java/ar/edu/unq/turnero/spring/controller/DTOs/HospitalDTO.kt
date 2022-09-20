@@ -9,7 +9,7 @@ class HospitalDTO(
     var municipio: String?,
     var direccion: String?,
     var imagen: String?,
-    var especialidades: MutableList<EspecialidadDTO>
+    //var especialidades: MutableList<String>
 ) {
 
     companion object {
@@ -20,10 +20,10 @@ class HospitalDTO(
                 municipio = hospital.municipio,
                 direccion = hospital.direccion,
                 imagen = hospital.imagen,
-                especialidades = hospital.especialidades
+                /*especialidades = hospital.especialidades
                     .map { especialidad -> EspecialidadDTO.desdeModelo(especialidad)}
                     .toCollection(HashSet()).toMutableList(),
-            )
+            */)
     }
 
     fun aModelo(): Hospital {
@@ -33,10 +33,10 @@ class HospitalDTO(
         hospital.municipio = this.municipio
         hospital.direccion = this.direccion!!
         hospital.imagen = this.imagen!!
-        hospital.especialidades = (this.especialidades
+        /*hospital.especialidades = (this.especialidades
             ?.map { EspecialidadDTO  -> EspecialidadDTO.aModelo()}?.
             toCollection(mutableListOf<Especialidad>())
-            ?: mutableListOf<Especialidad>())
+            ?: mutableListOf<Especialidad>())*/
 
         return hospital
     }
