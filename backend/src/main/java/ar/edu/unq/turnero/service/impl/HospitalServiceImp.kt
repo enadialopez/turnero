@@ -1,8 +1,8 @@
 package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.modelo.exception.CampoVacioException
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
+import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,13 +18,13 @@ open class HospitalServiceImp(
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
-        this.validarCampo(hospital)
+        this.validarCampos(hospital)
         return hospitalDAO.save(hospital)
     }
 
-    private fun validarCampo(hospital : Hospital) {
+    private fun validarCampos(hospital : Hospital) {
         if(hospital.nombre == "" && hospital.direccion == "" && hospital.municipio == "") {
-            throw CampoVacioException()
+            throw StringVacioException()
         }
     }
 
@@ -51,8 +51,8 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-        //hospitalDAO.findByEspecialidad(busqueda)
-        //return hospitalDAO.findByEspecialidad(busqueda)
+       // hospitalDAO.findByEspecialidad(busqueda)
+       // return hospitalDAO.findByEspecialidad(busqueda)
         var lista : List<Hospital> = listOf()
         return lista
     }

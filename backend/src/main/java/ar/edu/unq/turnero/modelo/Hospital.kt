@@ -30,7 +30,7 @@ class Hospital() {
     }
 
     fun agregarEspecialidad(nuevaEspecialidad: Especialidad) {
-        //this.especialidades.add(nuevaEspecialidad)
+        this.especialidades.add(nuevaEspecialidad)
     }
 
     override fun equals(other: Any?): Boolean {

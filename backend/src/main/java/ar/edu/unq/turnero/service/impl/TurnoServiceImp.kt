@@ -1,7 +1,7 @@
 package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Turno
-import ar.edu.unq.turnero.modelo.exception.CampoVacioException
+import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.TurnoService
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +24,7 @@ open class TurnoServiceImp(
     private fun validar(turno : Turno) {
         if(turno.nombreYApellidoPaciente == "" || turno.fechaYHora == "" || turno.especialidad == "" ||
             turno.especialista == "" || turno.hospital == "") {
-            throw CampoVacioException()
+            throw StringVacioException()
         }
     }
 

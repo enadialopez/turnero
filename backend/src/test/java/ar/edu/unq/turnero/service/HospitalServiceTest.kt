@@ -2,8 +2,8 @@ package ar.edu.unq.turnero.service
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.modelo.exception.CampoVacioException
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
+import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.*
 import ar.edu.unq.turnero.service.impl.*
 import org.junit.Assert
@@ -27,9 +27,10 @@ class HospitalServiceTest {
     lateinit var hospitalDAO: HospitalDAO
 
     lateinit var evitaPueblo: Hospital
-    lateinit var evita: Hospital
+    lateinit var garrahan: Hospital
     lateinit var elCruce: Hospital
     lateinit var iriarte: Hospital
+    lateinit var italianoCABA: Hospital
 
     var pediatria: Especialidad = Especialidad.PEDIATRIA
     var urologia: Especialidad = Especialidad.UROLOGIA
@@ -81,6 +82,31 @@ class HospitalServiceTest {
         iriarte.agregarEspecialidad(traumatologia)
         iriarte.agregarEspecialidad(nefrologia)
         service.crear(iriarte)
+
+        garrahan = Hospital(
+            "Hospital Garrahan",
+            "CABA",
+            "Pichincha 1890",
+            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
+            mutableListOf<Especialidad>()
+        )
+        garrahan.agregarEspecialidad(dermatologia)
+        garrahan.agregarEspecialidad(urologia)
+        garrahan.agregarEspecialidad(traumatologia)
+        garrahan.agregarEspecialidad(nefrologia)
+        service.crear(garrahan)
+
+        italianoCABA = Hospital(
+            "Hospital Italiano de Buenos Aires",
+            "CABA",
+            "Av. Juan Bautista Alberdi 439",
+            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
+            mutableListOf<Especialidad>()
+        )
+        italianoCABA.agregarEspecialidad(pediatria)
+        italianoCABA.agregarEspecialidad(traumatologia)
+        italianoCABA.agregarEspecialidad(urologia)
+        service.crear(italianoCABA)
     }
 
     @Test
@@ -102,8 +128,53 @@ class HospitalServiceTest {
         Assert.assertEquals("Hospital Zonal General de Agudos “Dr. E. Wilde”", wildeRecuperado!!.nombre)
         Assert.assertEquals("Quilmes", wildeRecuperado!!.municipio)
         Assert.assertEquals("Calle Falsa 123", wildeRecuperado!!.direccion)
-        //Assert.assertEquals(3, wildeRecuperado!!.especialidades.size)
+        Assert.assertEquals(2, wildeRecuperado!!.especialidades.size)
         Assert.assertEquals(wilde, wildeRecuperado)
+    }
+
+    @Test
+    fun NoSePuedeCrearUnHospitalSinNombreTest() {
+        val hospital = Hospital("", "municipio", "direccion","", mutableListOf<Especialidad>())
+        try {
+            service.crear(hospital)
+            Assertions.fail("Expected a StringVacioException to be thrown")
+        } catch (e: StringVacioException) {
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+        }
+    }
+
+    @Test
+    fun NoSePuedeCrearUnHospitalSinMunicipioTest() {
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "",
+            "Calle Falsa 123",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
+        try {
+            service.crear(wilde)
+            Assertions.fail("Expected a StringVacioException to be thrown")
+        } catch (e: StringVacioException) {
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+        }
+    }
+
+    @Test
+    fun NoSePuedeCrearUnHospitalSinDireccionTest() {
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "Quilmes",
+            "",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
+        try {
+            service.crear(wilde)
+            Assertions.fail("Expected a StringVacioException to be thrown")
+        } catch (e: StringVacioException) {
+            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+        }
     }
 
     @Test
@@ -126,71 +197,22 @@ class HospitalServiceTest {
     fun seRecuperanHospitalesPorEspecialidadTest() {
         var hospitales = service.recuperarPorEspecialidad("pediatria")
 
-        Assert.assertEquals(2, hospitales!!.size)
+        Assert.assertEquals(2, hospitales!!.size) // no funciona por query
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
-    @Test
-    fun NoSePuedeCrearUnHospitalSinNombreTest() {
-        val wilde = Hospital(
-            "",
-            "Quilmes",
-            "Calle Falsa 123",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
-            mutableListOf<Especialidad>()
-        )
-        try {
-            service.crear(wilde)
-            Assertions.fail("Expected a CampoVacioException to be thrown")
-        } catch (e: CampoVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
-        }
-    }
 
-    @Test
-    fun NoSePuedeCrearUnHospitalSinMunicipioTest() {
-        val wilde = Hospital(
-            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
-            "",
-            "Calle Falsa 123",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
-            mutableListOf<Especialidad>()
-        )
-        try {
-            service.crear(wilde)
-            Assertions.fail("Expected a CampoVacioException to be thrown")
-        } catch (e: CampoVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
-        }
-    }
-
-    @Test
-    fun NoSePuedeCrearUnHospitalSinDireccionTest() {
-        val wilde = Hospital(
-            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
-            "Quilmes",
-            "",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
-            mutableListOf<Especialidad>()
-        )
-        try {
-            service.crear(wilde)
-            Assertions.fail("Expected a CampoVacioException to be thrown")
-        } catch (e: CampoVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
-        }
-    }
 
     @Test
     fun seRecuperaPorLaEspecialidadPediatria() {
         var hospitales = service.recuperarPor("especialidad", "pediatria")
 
         Assert.assertTrue(hospitales.contains(elCruce))
-        //Assert.assertTrue(elCruce.especialidades.contains(pediatria))
+        Assert.assertTrue(elCruce.especialidades.contains(pediatria)) // no funciona por query
     }
 
     @Test
-    fun noSePuedeRecuperaPorLaSeleccionNoExiste() {
+    fun noSePuedeRecuperaPorQueLaSeleccionNoExiste() {
         try {
             service.recuperarPor("berazategui", "oncologia")
             Assertions.fail("Expected a ErrorSelectionException to be thrown")
