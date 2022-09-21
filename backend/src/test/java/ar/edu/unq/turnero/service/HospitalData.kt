@@ -70,7 +70,6 @@ class HospitalData {
             "Hospital Evita Pueblo",
             "Berazategui",
             "Calle Falsa 123",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
@@ -82,7 +81,6 @@ class HospitalData {
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
             "Calle Falsa 123",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         elCruce.agregarEspecialidad(pediatria)
@@ -97,7 +95,6 @@ class HospitalData {
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
             "Calle Falsa 123",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         iriarte.agregarEspecialidad(dermatologia)
@@ -110,7 +107,6 @@ class HospitalData {
             "Hospital Mi Pueblo",
             "Florencio Varela",
             "Florida 202",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         miPueblo.agregarEspecialidad(pediatria)
@@ -122,7 +118,6 @@ class HospitalData {
             "Hospital Interzonal de Agudos Evita",
             "Lanus",
             "Diego Armando Maradona 1910",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         interzonal.agregarEspecialidad(pediatria)
@@ -137,7 +132,6 @@ class HospitalData {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         garrahan.agregarEspecialidad(dermatologia)
@@ -150,7 +144,6 @@ class HospitalData {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         italianoCABA.agregarEspecialidad(pediatria)
@@ -162,7 +155,6 @@ class HospitalData {
             "Hospital Pirovano",
             "CABA",
             "Av. Monroe 3555",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         pirovano.agregarEspecialidad(pediatria)
@@ -177,7 +169,6 @@ class HospitalData {
             "Hospital San Martin",
             "La Plata",
             "Calle 1 y 70,1900",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         sanMartin.agregarEspecialidad(dermatologia)
@@ -190,7 +181,6 @@ class HospitalData {
             "Hospital San Roque",
             "La Plata",
             "Calle 508, 1897, Gonnet",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         sanRoque.agregarEspecialidad(pediatria)
@@ -202,7 +192,6 @@ class HospitalData {
             "Hospital Municipal Santa Marina",
             "Esteban Echeverria",
             "Gral. Alvear 350, Monte Grande",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         santamarina.agregarEspecialidad(pediatria)
@@ -217,7 +206,6 @@ class HospitalData {
             "Hospital Dr. Carlos Bocalandro",
             "Tres de Febrero",
             "RP8 Nº9100 Km. 20,5, Loma Hermosa",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         bocalandro.agregarEspecialidad(dermatologia)
@@ -230,7 +218,6 @@ class HospitalData {
             "Hospital Italiano",
             "La Plata",
             "Av. 51",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         italianoLP.agregarEspecialidad(pediatria)
@@ -242,7 +229,6 @@ class HospitalData {
             "Hospital San Juan de Dios",
             "CABA",
             "Santa Rosa 1355",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         sanJuan.agregarEspecialidad(pediatria)
@@ -257,7 +243,6 @@ class HospitalData {
             "Hospital Dr. Arturo Oñativia",
             "Rafael Calzada",
             "Dr. Ramon Carillo, 1339",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         arturoOnativia.agregarEspecialidad(dermatologia)
@@ -270,7 +255,6 @@ class HospitalData {
             "Hospital Municipal San Cayetano",
             "Virreyes",
             "Av. Avellaneda y Chile 4850",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         sanCayetano.agregarEspecialidad(pediatria)
@@ -282,7 +266,6 @@ class HospitalData {
             "Hospital Presidente Peron",
             "Avellaneda",
             "Antole France 773, Sarandi",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         presidentePeron.agregarEspecialidad(pediatria)
@@ -297,7 +280,6 @@ class HospitalData {
             "Hospital Materno Infantil Ramon Sarda",
             "CABA",
             "Esteban de Luca 2151",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         ramonSarda.agregarEspecialidad(dermatologia)
@@ -311,7 +293,6 @@ class HospitalData {
             "Hospital Gral. de Agudos Dr. Cosme Argerich",
             "CABA",
             "Pi y Margall 750",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         argerich.agregarEspecialidad(pediatria)
@@ -326,7 +307,6 @@ class HospitalData {
             "Hospital Oncologico De Jose C. Paz",
             "Jose C. Paz",
             "Av. Hector Arregui 501",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         joseCPaz.agregarEspecialidad(dermatologia)

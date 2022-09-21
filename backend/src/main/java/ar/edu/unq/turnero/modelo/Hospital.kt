@@ -12,7 +12,6 @@ class Hospital() {
     var nombre: String? = null
     var municipio: String? = null
     var direccion: String? = null
-    var imagen: String? = null
 
     @ElementCollection ( fetch = FetchType.EAGER)
     @CollectionTable(name = "hospital_especialidades")
@@ -21,11 +20,10 @@ class Hospital() {
     @Enumerated(EnumType.STRING)
     var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
-    constructor(nombre: String, municipio: String, direccion: String, imagen: String, especialidades: MutableList<Especialidad>):this() {
+    constructor(nombre: String, municipio: String, direccion: String, especialidades: MutableList<Especialidad>):this() {
         this.nombre = nombre
         this.municipio = municipio
         this.direccion = direccion
-        this.imagen = imagen
         this.especialidades = especialidades
 
     }
@@ -44,7 +42,6 @@ class Hospital() {
         if (nombre != other.nombre) return false
         if (municipio != other.municipio) return false
         if (direccion != other.direccion) return false
-        if (imagen != other.imagen) return false
 
         return true
     }

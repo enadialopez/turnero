@@ -12,8 +12,8 @@ class HospitalTest {
 
     @BeforeEach
     fun prepare(){
-        miPueblo = Hospital("Hospital Mi Pueblo", "Florencio Varela", "Florida 202", "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/", mutableListOf<Especialidad>())
-        interzonal= Hospital("Hospital Interzonal de Agudos Evita", "Lanus", "Diego Armando Maradona 1910", "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/", mutableListOf<Especialidad>())
+        miPueblo = Hospital("Hospital Mi Pueblo", "Florencio Varela", "Florida 202", mutableListOf<Especialidad>())
+        interzonal= Hospital("Hospital Interzonal de Agudos Evita", "Lanus", "Diego Armando Maradona 1910", mutableListOf<Especialidad>())
     }
 
     @Test

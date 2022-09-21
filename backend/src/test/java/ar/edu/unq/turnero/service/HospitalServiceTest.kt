@@ -47,7 +47,6 @@ class HospitalServiceTest {
             "Hospital Evita Pueblo",
             "Berazategui",
             "Calle Falsa 123",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
@@ -59,7 +58,6 @@ class HospitalServiceTest {
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
             "Calle Falsa 123",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
             mutableListOf<Especialidad>()
         )
         elCruce.agregarEspecialidad(pediatria)
@@ -74,7 +72,6 @@ class HospitalServiceTest {
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
             "Calle Falsa 123",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         iriarte.agregarEspecialidad(dermatologia)
@@ -87,7 +84,6 @@ class HospitalServiceTest {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
             mutableListOf<Especialidad>()
         )
         garrahan.agregarEspecialidad(dermatologia)
@@ -100,7 +96,6 @@ class HospitalServiceTest {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
             mutableListOf<Especialidad>()
         )
         italianoCABA.agregarEspecialidad(pediatria)
@@ -115,7 +110,6 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "Calle Falsa 123",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
             mutableListOf<Especialidad>()
         )
         wilde.agregarEspecialidad(traumatologia)
@@ -134,7 +128,7 @@ class HospitalServiceTest {
 
     @Test
     fun NoSePuedeCrearUnHospitalSinNombreTest() {
-        val hospital = Hospital("", "municipio", "direccion","", mutableListOf<Especialidad>())
+        val hospital = Hospital("", "municipio", "direccion", mutableListOf<Especialidad>())
         try {
             service.crear(hospital)
             Assertions.fail("Expected a StringVacioException to be thrown")
@@ -149,7 +143,6 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "",
             "Calle Falsa 123",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
             mutableListOf<Especialidad>()
         )
 
@@ -169,7 +162,6 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "",
-            "https://clinica-web.com.ar/listing/hospital-wilde/",
             mutableListOf<Especialidad>()
         )
         try {

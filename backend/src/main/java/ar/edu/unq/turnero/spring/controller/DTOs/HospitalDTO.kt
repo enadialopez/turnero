@@ -8,7 +8,6 @@ class HospitalDTO(
     var nombre:String?,
     var municipio: String?,
     var direccion: String?,
-    var imagen: String?,
     //var especialidades: MutableList<String>
 ) {
 
@@ -19,7 +18,6 @@ class HospitalDTO(
                 nombre = hospital.nombre,
                 municipio = hospital.municipio,
                 direccion = hospital.direccion,
-                imagen = hospital.imagen,
                 /*especialidades = hospital.especialidades
                     .map { especialidad -> EspecialidadDTO.desdeModelo(especialidad)}
                     .toCollection(HashSet()).toMutableList(),
@@ -32,7 +30,6 @@ class HospitalDTO(
         hospital.nombre = this.nombre!!
         hospital.municipio = this.municipio
         hospital.direccion = this.direccion!!
-        hospital.imagen = this.imagen!!
         /*hospital.especialidades = (this.especialidades
             ?.map { EspecialidadDTO  -> EspecialidadDTO.aModelo()}?.
             toCollection(mutableListOf<Especialidad>())
