@@ -1,5 +1,6 @@
 package ar.edu.unq.turnero.service.impl
 
+import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
@@ -52,9 +53,18 @@ open class HospitalServiceImp(
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
        // hospitalDAO.findByEspecialidad(busqueda)
-       // return hospitalDAO.findByEspecialidad(busqueda)
-        var lista : List<Hospital> = listOf()
-        return lista
+        return hospitalDAO.findByEspecialidad(busqueda)
+        //var lista : List<Hospital> = listOf()
+        //return lista
+    }
+
+    // Las especialidades quedan como string en MAYUSCULA
+    override fun especialidadesDeHospital(idDeHospital: Int): MutableList<String> {
+        var hospital : Hospital = recuperar(idDeHospital)
+        var especialidades : List<Especialidad> = hospital.especialidades
+        var especialidadesComoString : MutableList<String> = mutableListOf()
+        especialidades.map{ e -> especialidadesComoString.add(e.toString()) }
+        return especialidadesComoString
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

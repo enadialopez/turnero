@@ -200,7 +200,7 @@ class HospitalServiceTest {
     fun seRecuperanHospitalesPorEspecialidadTest() {
         var hospitales = service.recuperarPorEspecialidad("pediatria")
 
-        Assert.assertEquals(2, hospitales!!.size) // no funciona por query
+        Assert.assertEquals(3, hospitales!!.size) // no funciona por query
         Assert.assertTrue(hospitales.contains(elCruce))
     }
 
@@ -208,7 +208,7 @@ class HospitalServiceTest {
 
     @Test
     fun seRecuperaPorLaEspecialidadPediatria() {
-        var hospitales = service.recuperarPor("especialidad", "pediatria")
+        var hospitales = service.recuperarPor("especialidad", "pediat")
 
         Assert.assertTrue(hospitales.contains(elCruce))
         Assert.assertTrue(elCruce.especialidades.contains(pediatria)) // no funciona por query
@@ -222,6 +222,18 @@ class HospitalServiceTest {
         } catch (e: ErrorSelectionException) {
             Assertions.assertEquals(e.message, "El valor pasado del selector no es correcto.")
         }
+    }
+
+    @Test
+    fun seRecuperanLasEspecialidadesDeUnHospitalCorrectamente() {
+        var idGarrahan = garrahan.id!!.toInt()
+        var especialidades = service.especialidadesDeHospital(idGarrahan)
+        println(especialidades)
+        Assertions.assertTrue(especialidades.contains("DERMATOLOGIA"))
+        Assertions.assertTrue(especialidades.contains("UROLOGIA"))
+        Assertions.assertTrue(especialidades.contains("TRAUMATOLOGIA"))
+        Assertions.assertTrue(especialidades.contains("NEFROLOGIA"))
+        Assertions.assertFalse(especialidades.contains("PEDIATRIA"))
     }
 
     @AfterEach

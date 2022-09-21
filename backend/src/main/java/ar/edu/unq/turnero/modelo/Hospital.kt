@@ -18,6 +18,7 @@ class Hospital() {
     @CollectionTable(name = "hospital_especialidades")
     @JoinColumn(name = "hospital_id")
     @Column(name = "especialidad")
+    @Enumerated(EnumType.STRING)
     var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
     constructor(nombre: String, municipio: String, direccion: String, imagen: String, especialidades: MutableList<Especialidad>):this() {
