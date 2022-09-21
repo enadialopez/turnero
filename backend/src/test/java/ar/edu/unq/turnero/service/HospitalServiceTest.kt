@@ -139,7 +139,7 @@ class HospitalServiceTest {
             service.crear(hospital)
             Assertions.fail("Expected a StringVacioException to be thrown")
         } catch (e: StringVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+            Assertions.assertEquals("El string no puede ser vacío.", e.message)
         }
     }
 
@@ -152,12 +152,15 @@ class HospitalServiceTest {
             "https://clinica-web.com.ar/listing/hospital-wilde/",
             mutableListOf<Especialidad>()
         )
+
         try {
             service.crear(wilde)
             Assertions.fail("Expected a StringVacioException to be thrown")
         } catch (e: StringVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+            Assertions.assertEquals(e.message, "El string no puede ser vacío.")
         }
+
+
     }
 
     @Test
@@ -173,7 +176,7 @@ class HospitalServiceTest {
             service.crear(wilde)
             Assertions.fail("Expected a StringVacioException to be thrown")
         } catch (e: StringVacioException) {
-            Assertions.assertEquals(e.message, "No se puede crear estando un campo vacío.")
+            Assertions.assertEquals("El string no puede ser vacío.", e.message)
         }
     }
 

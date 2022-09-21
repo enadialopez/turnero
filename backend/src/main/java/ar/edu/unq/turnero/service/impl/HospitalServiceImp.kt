@@ -23,7 +23,7 @@ open class HospitalServiceImp(
     }
 
     private fun validarCampos(hospital : Hospital) {
-        if(hospital.nombre == "" && hospital.direccion == "" && hospital.municipio == "") {
+        if(hospital.nombre == "" || hospital.direccion == "" || hospital.municipio == "") {
             throw StringVacioException()
         }
     }
