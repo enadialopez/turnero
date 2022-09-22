@@ -6,8 +6,6 @@ const HospitalModel = (props) => {
 
     const { hospital } = props
 
-    console.log(hospital.especialidades) 
-
     return (
         <div className="hospitalModel-container">
             <Link to={`/hospital/search/${hospital.id}/especialidades`} className="link">
