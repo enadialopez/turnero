@@ -48,6 +48,10 @@ open class TurnoServiceImp(
         turnoDAO.deleteById(turnoId.toLong())
     }
 
+    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: String, especialidad: String): List<Turno> {
+        return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIs(hospital, especialidad, 0)
+    }
+
     override fun clear() {
         turnoDAO.deleteAll()
     }

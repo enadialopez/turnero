@@ -10,4 +10,6 @@ interface TurnoDAO : CrudRepository<Turno, Long> {
 
     fun findAllByOrderByNombreYApellidoPacienteAsc() : List<Turno>
 
+    fun findByHospitalAndEspecialidadAndDniPacienteIs(hospital: String, especialidad: String, dni: Long) : List<Turno>
+
 }
