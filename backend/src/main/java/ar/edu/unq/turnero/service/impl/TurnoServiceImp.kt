@@ -17,19 +17,28 @@ open class TurnoServiceImp(
 ) : TurnoService {
 
     override fun crear(turno: Turno): Turno {
-        this.validar(turno)
+        this.validarBase(turno)
         return turnoDAO.save(turno)
     }
 
-    private fun validar(turno : Turno) {
-        if(turno.fechaYHora == "" || turno.especialidad == "" ||
-            turno.especialista == "" || turno.hospital == "") {
+    private fun validarBase(turno : Turno) {
+        if(turno.fechaYHora == "" || turno.especialidad == null ||
+            turno.especialista == "" || turno.hospital == null) {
+            throw StringVacioException()
+        }
+    }
+
+    private fun validarActualizacion(turno : Turno) {
+        if(turno.nombreYApellidoPaciente == "" || turno.dniPaciente == null ||
+            turno.telefonoPaciente == null || turno.emailPaciente == "") {
             throw StringVacioException()
         }
     }
 
     override fun actualizar(turno: Turno): Turno {
-        return this.crear(turno)    }
+        //this.validarActualizacion(turno)
+        return this.crear(turno)
+    }
 
     override fun recuperar(turnoId:Int): Turno {
         val turno = turnoDAO.findByIdOrNull(turnoId.toLong())
