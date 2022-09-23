@@ -18,11 +18,12 @@ const Hospital = () => {
     }, [id]
     );
 
+    console.log(hospital)
 
     return (
         <>
             <div className="container">
-                hola
+                    {hospital.nombre}
             </div>
         </>  
     );
