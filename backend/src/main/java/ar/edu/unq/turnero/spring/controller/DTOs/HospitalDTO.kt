@@ -20,7 +20,7 @@ class HospitalDTO(
                 municipio = hospital.municipio,
                 direccion = hospital.direccion,
                 especialidades = hospital.especialidades
-                    .map { especialidad -> especialidad.toString()}
+                    .map { especialidad -> especialidad.toString().toLowerCase()}
                     .toCollection(HashSet()).toList(),
             )
 

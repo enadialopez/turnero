@@ -12,13 +12,15 @@ class HospitalController(private val hospitalService: HospitalService) {
     @PostMapping
     fun crear(@RequestBody hospital: HospitalDTO) = hospitalService.crear(hospital.aModelo())
 
-    @GetMapping("/{Id}")
+    @GetMapping("/{hospitalId}")
     fun recuperar(@PathVariable hospitalId: Long) = HospitalDTO.desdeModelo(hospitalService.recuperar(hospitalId.toInt())!!)
-
-    @GetMapping("")
-    fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
 
     @GetMapping("/search")
     @ResponseBody
     fun recuperarPor(@RequestParam q: String, value: String) = hospitalService.recuperarPor(value, q).map { hospital -> HospitalDTO.desdeModelo(hospital)  }
+
+    @GetMapping("")
+    fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
+
+
 }
