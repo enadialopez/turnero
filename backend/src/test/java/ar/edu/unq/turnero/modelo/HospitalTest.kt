@@ -12,8 +12,8 @@ class HospitalTest {
 
     @BeforeEach
     fun prepare(){
-        miPueblo = Hospital("Hospital Mi Pueblo", "Florencio Varela", "Florida 202", mutableListOf<Especialidad>())
-        interzonal= Hospital("Hospital Interzonal de Agudos Evita", "Lanus", "Diego Armando Maradona 1910", mutableListOf<Especialidad>())
+        miPueblo = Hospital("Hospital Mi Pueblo", "Florencio Varela", "Florida 202", mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        interzonal= Hospital("Hospital Interzonal de Agudos Evita", "Lanus", "Diego Armando Maradona 1910", mutableListOf<Especialidad>(), mutableListOf<Turno>())
     }
 
     @Test

@@ -23,7 +23,6 @@ class HospitalDTO(
                     .map { especialidad -> especialidad.toString().toLowerCase()}
                     .toCollection(HashSet()).toList(),
             )
-
     }
 
     fun aModelo(): Hospital {

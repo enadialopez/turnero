@@ -69,8 +69,9 @@ class HospitalData {
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
             "Berazategui",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Calle 136 2905",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
@@ -80,8 +81,9 @@ class HospitalData {
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Av. Calchaquí 5401",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
@@ -94,8 +96,9 @@ class HospitalData {
         iriarte = Hospital(
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Allison Bell N°770",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         iriarte.agregarEspecialidad(dermatologia)
         iriarte.agregarEspecialidad(urologia)
@@ -107,7 +110,8 @@ class HospitalData {
             "Hospital Mi Pueblo",
             "Florencio Varela",
             "Florida 202",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         miPueblo.agregarEspecialidad(pediatria)
         miPueblo.agregarEspecialidad(traumatologia)
@@ -118,7 +122,8 @@ class HospitalData {
             "Hospital Interzonal de Agudos Evita",
             "Lanus",
             "Diego Armando Maradona 1910",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         interzonal.agregarEspecialidad(pediatria)
         interzonal.agregarEspecialidad(traumatologia)
@@ -132,7 +137,8 @@ class HospitalData {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         garrahan.agregarEspecialidad(dermatologia)
         garrahan.agregarEspecialidad(urologia)
@@ -144,7 +150,8 @@ class HospitalData {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         italianoCABA.agregarEspecialidad(pediatria)
         italianoCABA.agregarEspecialidad(traumatologia)
@@ -155,7 +162,8 @@ class HospitalData {
             "Hospital Pirovano",
             "CABA",
             "Av. Monroe 3555",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         pirovano.agregarEspecialidad(pediatria)
         pirovano.agregarEspecialidad(traumatologia)
@@ -169,7 +177,8 @@ class HospitalData {
             "Hospital San Martin",
             "La Plata",
             "Calle 1 y 70,1900",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanMartin.agregarEspecialidad(dermatologia)
         sanMartin.agregarEspecialidad(urologia)
@@ -181,7 +190,8 @@ class HospitalData {
             "Hospital San Roque",
             "La Plata",
             "Calle 508, 1897, Gonnet",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanRoque.agregarEspecialidad(pediatria)
         sanRoque.agregarEspecialidad(traumatologia)
@@ -192,7 +202,8 @@ class HospitalData {
             "Hospital Municipal Santa Marina",
             "Esteban Echeverria",
             "Gral. Alvear 350, Monte Grande",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         santamarina.agregarEspecialidad(pediatria)
         santamarina.agregarEspecialidad(traumatologia)
@@ -206,7 +217,8 @@ class HospitalData {
             "Hospital Dr. Carlos Bocalandro",
             "Tres de Febrero",
             "RP8 Nº9100 Km. 20,5, Loma Hermosa",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         bocalandro.agregarEspecialidad(dermatologia)
         bocalandro.agregarEspecialidad(urologia)
@@ -218,7 +230,8 @@ class HospitalData {
             "Hospital Italiano",
             "La Plata",
             "Av. 51",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         italianoLP.agregarEspecialidad(pediatria)
         italianoLP.agregarEspecialidad(traumatologia)
@@ -229,7 +242,8 @@ class HospitalData {
             "Hospital San Juan de Dios",
             "CABA",
             "Santa Rosa 1355",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanJuan.agregarEspecialidad(pediatria)
         sanJuan.agregarEspecialidad(traumatologia)
@@ -243,7 +257,8 @@ class HospitalData {
             "Hospital Dr. Arturo Oñativia",
             "Rafael Calzada",
             "Dr. Ramon Carillo, 1339",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         arturoOnativia.agregarEspecialidad(dermatologia)
         arturoOnativia.agregarEspecialidad(urologia)
@@ -255,7 +270,8 @@ class HospitalData {
             "Hospital Municipal San Cayetano",
             "Virreyes",
             "Av. Avellaneda y Chile 4850",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanCayetano.agregarEspecialidad(pediatria)
         sanCayetano.agregarEspecialidad(traumatologia)
@@ -266,7 +282,8 @@ class HospitalData {
             "Hospital Presidente Peron",
             "Avellaneda",
             "Antole France 773, Sarandi",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         presidentePeron.agregarEspecialidad(pediatria)
         presidentePeron.agregarEspecialidad(traumatologia)
@@ -280,7 +297,8 @@ class HospitalData {
             "Hospital Materno Infantil Ramon Sarda",
             "CABA",
             "Esteban de Luca 2151",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         ramonSarda.agregarEspecialidad(dermatologia)
         ramonSarda.agregarEspecialidad(urologia)
@@ -293,7 +311,8 @@ class HospitalData {
             "Hospital Gral. de Agudos Dr. Cosme Argerich",
             "CABA",
             "Pi y Margall 750",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         argerich.agregarEspecialidad(pediatria)
         argerich.agregarEspecialidad(traumatologia)
@@ -307,7 +326,8 @@ class HospitalData {
             "Hospital Oncologico De Jose C. Paz",
             "Jose C. Paz",
             "Av. Hector Arregui 501",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         joseCPaz.agregarEspecialidad(dermatologia)
         joseCPaz.agregarEspecialidad(urologia)
@@ -315,7 +335,7 @@ class HospitalData {
         joseCPaz.agregarEspecialidad(nefrologia)
         service.crear(joseCPaz)
 
-        turno = Turno("Jose Perez", 38611455, traumatologia.toString(), "Leonardo Sanchez", sanRoque.nombre!!)
+        turno = Turno("02/11/2022     17:45 hs", traumatologia, "Leonardo Sanchez", sanRoque)
 
          turnoService.crear(turno)
     }
@@ -326,7 +346,7 @@ class HospitalData {
         val wilde = Hospital(
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
-            "Calle Falsa 123",
+            "Baradero 5808",
             "https://clinica-web.com.ar/listing/hospital-wilde/",
             mutableListOf<Especialidad>()
         )

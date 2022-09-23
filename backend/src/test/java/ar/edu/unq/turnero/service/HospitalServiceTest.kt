@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.service
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.*
@@ -46,8 +47,9 @@ class HospitalServiceTest {
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
             "Berazategui",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Calle 136 2905",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
@@ -57,8 +59,9 @@ class HospitalServiceTest {
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Av. Calchaquí 5401",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
@@ -71,8 +74,9 @@ class HospitalServiceTest {
         iriarte = Hospital(
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
-            "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            "Allison Bell N°770",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         iriarte.agregarEspecialidad(dermatologia)
         iriarte.agregarEspecialidad(urologia)
@@ -84,7 +88,8 @@ class HospitalServiceTest {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         garrahan.agregarEspecialidad(dermatologia)
         garrahan.agregarEspecialidad(urologia)
@@ -96,7 +101,8 @@ class HospitalServiceTest {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>(),
         )
         italianoCABA.agregarEspecialidad(pediatria)
         italianoCABA.agregarEspecialidad(traumatologia)
@@ -110,7 +116,8 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         wilde.agregarEspecialidad(traumatologia)
         wilde.agregarEspecialidad(nefrologia)
@@ -128,7 +135,7 @@ class HospitalServiceTest {
 
     @Test
     fun NoSePuedeCrearUnHospitalSinNombreTest() {
-        val hospital = Hospital("", "municipio", "direccion", mutableListOf<Especialidad>())
+        val hospital = Hospital("", "municipio", "direccion", mutableListOf<Especialidad>(), mutableListOf<Turno>())
         try {
             service.crear(hospital)
             Assertions.fail("Expected a StringVacioException to be thrown")
@@ -143,7 +150,8 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "",
             "Calle Falsa 123",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
 
         try {
@@ -162,7 +170,8 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "",
-            mutableListOf<Especialidad>()
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         try {
             service.crear(wilde)
