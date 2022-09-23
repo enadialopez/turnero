@@ -22,7 +22,7 @@ open class TurnoServiceImp(
     }
 
     private fun validar(turno : Turno) {
-        if(turno.nombreYApellidoPaciente == "" || turno.fechaYHora == "" || turno.especialidad == "" ||
+        if(turno.fechaYHora == "" || turno.especialidad == "" ||
             turno.especialista == "" || turno.hospital == "") {
             throw StringVacioException()
         }
@@ -49,7 +49,7 @@ open class TurnoServiceImp(
     }
 
     override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: String, especialidad: String): List<Turno> {
-        return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIs(hospital, especialidad, 0)
+        return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital, especialidad)
     }
 
     override fun clear() {

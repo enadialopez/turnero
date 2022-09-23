@@ -39,10 +39,10 @@ class TurnoServiceTest {
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
 
-        turno1Evita = Turno("lalala", 0, "Pediatria", "Julieta Gomez", "Evita")
-        turno2Evita = Turno("lalala", 0, "Pediatria", "Carlos Ameghino", "Evita")
-        turno3Evita = Turno("lalala", 0, "Ginecologia", "Juana Molina", "Evita")
-        turno1Wilde = Turno("lalala", 0, "Pediatria", "Camila Avendanio", "Wilde")
+        turno1Evita = Turno("Pediatria", "Julieta Gomez", "Evita")
+        turno2Evita = Turno("Pediatria", "Carlos Ameghino", "Evita")
+        turno3Evita = Turno("Ginecologia", "Juana Molina", "Evita")
+        turno1Wilde = Turno("Pediatria", "Camila Avendanio", "Wilde")
 
         turnoService.crear(turno1Evita)
         turnoService.crear(turno2Evita)

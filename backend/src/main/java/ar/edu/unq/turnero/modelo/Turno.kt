@@ -11,7 +11,7 @@ class Turno() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
     @Column(nullable = false, length = 500)
-    var nombreYApellidoPaciente: String? = null
+    var nombreYApellidoPaciente: String? = ""
     var dniPaciente: Long? = null
     var fechaYHora: String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
     var especialidad: String? = null
@@ -21,6 +21,12 @@ class Turno() {
     constructor(nombre: String, dni: Long, especialidad: String, especialista: String, hospital: String):this() {
         this.nombreYApellidoPaciente = nombre
         this.dniPaciente = dni
+        this.especialidad = especialidad
+        this.especialista = especialista
+        this.hospital = hospital
+    }
+
+    constructor(especialidad: String, especialista: String, hospital: String):this() {
         this.especialidad = especialidad
         this.especialista = especialista
         this.hospital = hospital
