@@ -13,7 +13,7 @@ class Turno() {
     @Column(nullable = false, length = 500)
     var nombreYApellidoPaciente: String? = ""
     var dniPaciente: Long? = null
-    var fechaYHora: String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
+    var fechaYHora: String? = null
     var especialidad: String? = null
     var especialista: String? = null
     var hospital: String? = null
@@ -26,7 +26,8 @@ class Turno() {
         this.hospital = hospital
     }
 
-    constructor(especialidad: String, especialista: String, hospital: String):this() {
+    constructor(fecha: String, especialidad: String, especialista: String, hospital: String):this() {
+        this.fechaYHora = fecha
         this.especialidad = especialidad
         this.especialista = especialista
         this.hospital = hospital
