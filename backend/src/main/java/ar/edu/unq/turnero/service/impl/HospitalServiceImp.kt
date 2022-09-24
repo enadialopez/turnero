@@ -68,8 +68,14 @@ open class HospitalServiceImp(
         return especialidadesComoString
     }
 
-    override fun recuperarTurnosDisponiblesPorEspecialidad(especialidad: Especialidad): List<Turno> {
-        return hospitalDAO.recuperarTurnosDisponiblesPorEspecialidad(especialidad)
+    override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: Especialidad): List<Turno> {
+        var hospital : Hospital = recuperar(idDeHospital)
+        var turnos = hospital.turnos
+        println(turnos)
+        println(turnos.size)
+        var turnosDisponibles : MutableList<Turno> = mutableListOf()
+        turnos.map{ t -> if (t.especialidad == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        return turnosDisponibles
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

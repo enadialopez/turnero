@@ -24,11 +24,13 @@ interface HospitalDAO : CrudRepository<Hospital, Long> {
         hospital_turnos ht ON h.id = hospital_id INNER JOIN
         turno t on t.id = turno_id 
         WHERE t.especialidad LIKE %?1%
-    """, nativeQuery= true )*/
+    """, nativeQuery= true )
     @Query( """
         SELECT t FROM Hospital h INNER JOIN 
         h.turnos t 
         
     """ ) //WHERE t.especialidad = ?1
     fun recuperarTurnosDisponiblesPorEspecialidad(especialidad: Especialidad) : List<Turno>
+
+     */
 }
