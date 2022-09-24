@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
@@ -65,6 +66,10 @@ open class HospitalServiceImp(
         var especialidadesComoString : MutableList<String> = mutableListOf()
         especialidades.map{ e -> especialidadesComoString.add(e.toString()) }
         return especialidadesComoString
+    }
+
+    override fun recuperarTurnosDisponiblesPorEspecialidad(especialidad: Especialidad): List<Turno> {
+        return hospitalDAO.recuperarTurnosDisponiblesPorEspecialidad(especialidad)
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

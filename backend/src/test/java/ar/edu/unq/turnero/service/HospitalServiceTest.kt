@@ -23,9 +23,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 class HospitalServiceTest {
 
     lateinit var service: HospitalService
+    //lateinit var turnoService: TurnoService
 
     @Autowired
     lateinit var hospitalDAO: HospitalDAO
+    //@Autowired
+    //lateinit var turnoDAO: TurnoDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var garrahan: Hospital
@@ -40,9 +43,17 @@ class HospitalServiceTest {
     var reumatologia: Especialidad = Especialidad.REUMATOLOGIA
     var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
 
+    /*
+    lateinit var turno1Evita: Turno
+    lateinit var turno2Evita: Turno
+    lateinit var turno3Evita: Turno
+
+     */
+
     @BeforeEach
     fun prepare() {
         this.service = HospitalServiceImp(hospitalDAO)
+        //this.turnoService = TurnoServiceImp(turnoDAO)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
@@ -108,6 +119,17 @@ class HospitalServiceTest {
         italianoCABA.agregarEspecialidad(traumatologia)
         italianoCABA.agregarEspecialidad(urologia)
         service.crear(italianoCABA)
+
+        /*
+        turno1Evita = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        turno2Evita = Turno("Chiquito Garcia", 54679333, 1123409876, "08/11/2022         17:30 hs", "vjgvtyvv", pediatria, "Carlos Ameghino", evitaPueblo)
+        turno3Evita = Turno("02/11/2022         11:15 hs", nefrologia, "Juana Molina", elCruce)
+
+        turnoService.crear(turno1Evita)
+        turnoService.crear(turno2Evita)
+        turnoService.crear(turno3Evita)
+
+         */
     }
 
     @Test
@@ -236,9 +258,17 @@ class HospitalServiceTest {
         Assertions.assertTrue(especialidades.contains("NEFROLOGIA"))
         Assertions.assertFalse(especialidades.contains("PEDIATRIA"))
     }
+/*
+    @Test
+    fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
+        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(pediatria)
+
+        Assertions.assertEquals(1, turnosDisponiblesEvita.size)
+    }*/
 
     @AfterEach
     fun cleanUp(){
         service.clear()
+        //turnoService.clear()
     }
 }

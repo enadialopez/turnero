@@ -1,5 +1,7 @@
 package ar.edu.unq.turnero.service.impl
 
+import ar.edu.unq.turnero.modelo.Especialidad
+import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.TurnoDAO
@@ -57,7 +59,7 @@ open class TurnoServiceImp(
         turnoDAO.deleteById(turnoId.toLong())
     }
 
-    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: String, especialidad: String): List<Turno> {
+    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: Hospital, especialidad: Especialidad): List<Turno> {
         return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital, especialidad)
     }
 
