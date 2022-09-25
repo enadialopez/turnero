@@ -15,7 +15,7 @@ class Hospital() {
     var municipio: String? = null
     var direccion: String? = null
 
-    @ManyToMany()
+    @ManyToMany(cascade = [CascadeType.ALL])
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name="hospital_turnos",
         joinColumns= [JoinColumn(name="hospital_id", referencedColumnName="id")],

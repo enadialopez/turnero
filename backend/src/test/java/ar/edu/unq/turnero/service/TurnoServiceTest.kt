@@ -2,7 +2,7 @@ package ar.edu.unq.turnero.service
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
-import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
+//import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.*
 import ar.edu.unq.turnero.service.impl.*
@@ -215,6 +215,7 @@ class TurnoServiceTest {
         }
     }
 
+    /*
     @Test
     fun `no se puede actualizar un turno porque el dni pasado no cumple con la validacion`() {
         var turnoEvita = Turno("10/10/2022     10:00 hs", reumatologia, "Julieta Gomez", evitaPueblo)
@@ -233,6 +234,8 @@ class TurnoServiceTest {
         }
     }
 
+     */
+
     @Test
     fun seRecuperanLosTurnosDelHospitalEvitaEnPediatria() {
         var turnos = turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(evitaPueblo!!, pediatria)
@@ -245,6 +248,7 @@ class TurnoServiceTest {
 
     @AfterEach
     fun cleanUp(){
-        //turnoService.clear()
+        turnoService.clear()
+        hospitalService.clear()
     }
 }

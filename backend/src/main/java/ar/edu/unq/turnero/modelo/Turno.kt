@@ -1,6 +1,6 @@
 package ar.edu.unq.turnero.modelo
 
-import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
+//import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -54,14 +54,14 @@ class Turno() {
 
     fun cambiarDniPaciente(nuevoDNI: Int) {
         if(nuevoDNI.toString().length != 8) {
-            throw ErrorIntegerException()
+            throw Exception() //ErrorIntegerException()
         }
         this.dniPaciente = nuevoDNI
     }
 
     fun cambiarTelefonoPaciente(nuevoTelefono: Int) {
         if(nuevoTelefono.toString().length != 10) {
-            throw ErrorIntegerException()
+            throw Exception() //ErrorIntegerException()
         }
         this.telefonoPaciente = nuevoTelefono
     }
