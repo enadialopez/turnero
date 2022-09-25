@@ -30,6 +30,10 @@ open class HospitalServiceImp(
         }
     }
 
+    override fun actualizar(hospital: Hospital): Hospital {
+        return this.crear(hospital)
+    }
+
     override fun recuperar(hospitalId:Int): Hospital {
         val hospital = hospitalDAO.findByIdOrNull(hospitalId.toLong())
         if (hospital == null) {
@@ -69,12 +73,11 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: Especialidad): List<Turno> {
-        var hospital : Hospital = recuperar(idDeHospital)
+        var hospital : Hospital = this.recuperar(idDeHospital)
         var turnos = hospital.turnos
-        println(turnos)
-        println(turnos.size)
         var turnosDisponibles : MutableList<Turno> = mutableListOf()
         turnos.map{ t -> if (t.especialidad == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        println(turnosDisponibles)
         return turnosDisponibles
     }
 

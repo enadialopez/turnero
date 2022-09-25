@@ -6,6 +6,7 @@ import ar.edu.unq.turnero.modelo.Turno
 
 interface HospitalService {
     fun crear(hospital:Hospital): Hospital
+    fun actualizar(hospital: Hospital): Hospital
     fun recuperar(hospitalId:Int): Hospital?
     fun recuperarTodos(): List<Hospital>
     fun recuperarPor(select: String, busqueda: String): List<Hospital>
