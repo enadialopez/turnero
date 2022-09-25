@@ -1,6 +1,9 @@
 package ar.edu.unq.turnero.modelo
 
+import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.persistence.*
 
 @Entity
@@ -11,23 +14,25 @@ class Turno() {
     var id: Long? = null
     @Column(nullable = false, length = 500)
     var nombreYApellidoPaciente: String? = ""
-    var dniPaciente: Long? = null
-    var telefonoPaciente: Long? = null
+    var dniPaciente: Int? = null
+    var telefonoPaciente: Int? = null
     var emailPaciente: String? = ""
-    var especialidad: Especialidad? = null
     var fechaYHora: String? = null
-
+    var fechaEmitido: String? = null
+    var especialidad: Especialidad? = null
     var especialista: String? = null
+
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     var hospital: Hospital? = null
 
-    constructor(nombre: String, dni: Long, telefono: Long, fecha: String, email: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
+    constructor(nombre: String, dni: Int, telefono: Int, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
         this.nombreYApellidoPaciente = nombre
         this.dniPaciente = dni
         this.telefonoPaciente = telefono
         this.emailPaciente = email
-        this.fechaYHora = fecha
+        this.fechaYHora = fechaYHora
+        this.fechaEmitido = fecha
         this.especialidad = especialidad
         this.especialista = especialista
         this.hospital = hospital
@@ -47,16 +52,16 @@ class Turno() {
         this.nombreYApellidoPaciente = nombreNuevo
     }
 
-    fun cambiarDniPaciente(nuevoDNI: Long) {
-        if(nuevoDNI == null) {
-            throw StringVacioException()
+    fun cambiarDniPaciente(nuevoDNI: Int) {
+        if(nuevoDNI.toString().length != 8) {
+            throw ErrorIntegerException()
         }
         this.dniPaciente = nuevoDNI
     }
 
-    fun cambiarTelefonoPaciente(nuevoTelefono: Long) {
-        if(nuevoTelefono == null) {
-            throw StringVacioException()
+    fun cambiarTelefonoPaciente(nuevoTelefono: Int) {
+        if(nuevoTelefono.toString().length != 10) {
+            throw ErrorIntegerException()
         }
         this.telefonoPaciente = nuevoTelefono
     }
@@ -66,6 +71,10 @@ class Turno() {
             throw StringVacioException()
         }
         this.emailPaciente = nuevoEmail
+    }
+
+    fun cambiarFechaEmitido() {
+        this.fechaEmitido = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
     }
 
     override fun equals(other: Any?): Boolean {

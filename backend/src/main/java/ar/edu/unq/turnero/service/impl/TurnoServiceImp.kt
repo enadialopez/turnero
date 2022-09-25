@@ -38,7 +38,8 @@ open class TurnoServiceImp(
     }
 
     override fun actualizar(turno: Turno): Turno {
-        //this.validarActualizacion(turno)
+        this.validarActualizacion(turno)
+        turno.cambiarFechaEmitido()
         return this.crear(turno)
     }
 

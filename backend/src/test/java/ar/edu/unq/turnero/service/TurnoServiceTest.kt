@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.service
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
+import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.*
 import ar.edu.unq.turnero.service.impl.*
@@ -97,10 +98,10 @@ class TurnoServiceTest {
         Assert.assertEquals(reumatologia, turnoRecuperado!!.especialidad)
         Assert.assertEquals("Julieta Gomez", turnoRecuperado!!.especialista)
         Assert.assertEquals("10/10/2022     10:00 hs", turnoRecuperado!!.fechaYHora)
+        Assert.assertEquals(null , turnoRecuperado!!.fechaEmitido)
         Assert.assertEquals(evitaPueblo.nombre, turnoRecuperado!!.hospital!!.nombre)
 
         Assert.assertEquals(turnoEvita, turnoRecuperado)
-
     }
 
     @Test
@@ -176,10 +177,61 @@ class TurnoServiceTest {
         Assert.assertEquals(22345678, turnoRecuperado!!.dniPaciente)
         Assert.assertEquals(1123456789, turnoRecuperado!!.telefonoPaciente)
         Assert.assertEquals("jorgePerez@gmail.com", turnoRecuperado!!.emailPaciente)
-
     }
 
+    @Test
+    fun `no se puede actualizar un turno porque el nombre y apellido del paciente es vacio`() {
+        var turnoEvita = Turno("10/10/2022     10:00 hs", reumatologia, "Julieta Gomez", evitaPueblo)
+        var turno = turnoService.crear(turnoEvita)
+        var turnoId = turno.id!!.toInt()
 
+        var turnoRecuperado = turnoService.recuperar(turnoId)
+
+        Assert.assertEquals("", turnoRecuperado!!.nombreYApellidoPaciente)
+        try {
+            turnoEvita.cambiarNombrePaciente("")
+            turnoService.actualizar(turnoEvita)
+            Assertions.fail("Expected a StringVacioException to be thrown")
+        } catch (e: StringVacioException) {
+            Assertions.assertEquals("El string no puede ser vacío.", e.message)
+        }
+    }
+
+    @Test
+    fun `no se puede actualizar un turno porque el email del paciente es vacio`() {
+        var turnoEvita = Turno("10/10/2022     10:00 hs", reumatologia, "Julieta Gomez", evitaPueblo)
+        var turno = turnoService.crear(turnoEvita)
+        var turnoId = turno.id!!.toInt()
+
+        var turnoRecuperado = turnoService.recuperar(turnoId)
+
+        Assert.assertEquals("", turnoRecuperado!!.nombreYApellidoPaciente)
+        try {
+            turnoEvita.cambiarEmailPaciente("")
+            turnoService.actualizar(turnoEvita)
+            Assertions.fail("Expected a StringVacioException to be thrown")
+        } catch (e: StringVacioException) {
+            Assertions.assertEquals("El string no puede ser vacío.", e.message)
+        }
+    }
+
+    @Test
+    fun `no se puede actualizar un turno porque el dni pasado no cumple con la validacion`() {
+        var turnoEvita = Turno("10/10/2022     10:00 hs", reumatologia, "Julieta Gomez", evitaPueblo)
+        var turno = turnoService.crear(turnoEvita)
+        var turnoId = turno.id!!.toInt()
+
+        var turnoRecuperado = turnoService.recuperar(turnoId)
+
+        Assert.assertEquals(null, turnoRecuperado!!.dniPaciente)
+        try {
+            turnoEvita.cambiarDniPaciente(0)
+            turnoService.actualizar(turnoEvita)
+            Assertions.fail("Expected a ErrorIntegerException to be thrown")
+        } catch (e: ErrorIntegerException) {
+            Assertions.assertEquals("El numero pasado no puede ser menor a los digitos del atributo.", e.message)
+        }
+    }
 
     @Test
     fun seRecuperanLosTurnosDelHospitalEvitaEnPediatria() {
