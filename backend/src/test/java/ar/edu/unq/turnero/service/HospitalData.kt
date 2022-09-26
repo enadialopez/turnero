@@ -78,6 +78,14 @@ class HospitalData {
         evitaPueblo.agregarEspecialidad(urologia)
         service.crear(evitaPueblo)
 
+        var turno1 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turno3 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+
+        evitaPueblo.agregarTurno(turno1)
+        evitaPueblo.agregarTurno(turno3)
+
+        service.actualizar(evitaPueblo)
+
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
@@ -92,6 +100,12 @@ class HospitalData {
         elCruce.agregarEspecialidad(dermatologia)
         elCruce.agregarEspecialidad(reumatologia)
         service.crear(elCruce)
+
+        var turno2 = Turno("02/11/2022     17:45 hs", reumatologia, "Leonardo Sanchez", elCruce)
+
+        elCruce.agregarTurno(turno2)
+
+        service.actualizar(elCruce)
 
         iriarte = Hospital(
             "Hospital Quilmes - Isidoro Iriarte",
@@ -320,6 +334,7 @@ class HospitalData {
         argerich.agregarEspecialidad(nefrologia)
         argerich.agregarEspecialidad(dermatologia)
         argerich.agregarEspecialidad(reumatologia)
+
         service.crear(argerich)
 
         joseCPaz = Hospital(
@@ -337,7 +352,10 @@ class HospitalData {
 
         turno = Turno("02/11/2022     17:45 hs", traumatologia, "Leonardo Sanchez", sanRoque)
 
-         turnoService.crear(turno)
+        turnoService.crear(turno)
+        turnoService.crear(turno1)
+        turnoService.crear(turno2)
+        turnoService.crear(turno3)
     }
 
     @Test
