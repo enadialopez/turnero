@@ -4,6 +4,7 @@ import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
+import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
@@ -72,13 +73,35 @@ open class HospitalServiceImp(
         return especialidadesComoString
     }
 
-    override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: Especialidad): List<Turno> {
+    override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
+        print(especialidad)
+        var enumEspecialidad = toEnum(especialidad)
         var hospital : Hospital = this.recuperar(idDeHospital)
         var turnos = hospital.turnos
         var turnosDisponibles : MutableList<Turno> = mutableListOf()
-        turnos.map{ t -> if (t.especialidad == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
-        println(turnosDisponibles)
+        turnos.map{ t -> print(t.especialidad); if (t.especialidad == enumEspecialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        print(turnosDisponibles)
         return turnosDisponibles
+    }
+
+    private fun toEnum(especialidad: String): Especialidad {
+        var nuevaEspecialidad: Especialidad
+        when(especialidad) {
+            "pediatria" -> nuevaEspecialidad = Especialidad.PEDIATRIA
+            "oncologia" -> nuevaEspecialidad = Especialidad.ONCOLOGIA
+            "traumatologia" -> nuevaEspecialidad = Especialidad.TRAUMATOLOGIA
+            "urologia" -> nuevaEspecialidad = Especialidad.UROLOGIA
+            "oftalmologia" -> nuevaEspecialidad = Especialidad.OFTALMOLOGIA
+            "kinesiologia" -> nuevaEspecialidad = Especialidad.KINESIOLOGIA
+            "cardiologia" -> nuevaEspecialidad = Especialidad.CARDIOLOGIA
+            "nefrologia" -> nuevaEspecialidad = Especialidad.NEFROLOGIA
+            "reumatologia" -> nuevaEspecialidad = Especialidad.REUMATOLOGIA
+            "dermatologia" -> nuevaEspecialidad = Especialidad.DERMATOLOGIA
+            else -> {
+                throw EspecialidadVacioException()
+            }
+        }
+        return nuevaEspecialidad
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

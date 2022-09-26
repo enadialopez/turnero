@@ -269,16 +269,14 @@ class HospitalServiceTest {
 
         Assertions.assertEquals(3, turnoRecuperado!!.turnos.size)
 
-        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(turnoId, pediatria)
+        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(turnoId, pediatria.toString().toLowerCase())
 
         Assertions.assertEquals(1, turnosDisponiblesEvita.size)
     }
 
-
-
     @AfterEach
     fun cleanUp(){
-        turnoService.clear()
-        service.clear()
+        //turnoService.clear()
+        //.clear()
     }
 }

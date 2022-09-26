@@ -23,10 +23,7 @@ class HospitalController(private val hospitalService: HospitalService) {
     @GetMapping("")
     fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
 
-    /*
-    @GetMapping("/{hospitalId}/{especialidad}/turnos")
-    fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: Especialidad) =
+    @GetMapping("/{hospitalId}/turnos/{especialidad}")
+    fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: String) =
         hospitalService.recuperarTurnosDisponiblesPorEspecialidad(hospitalId.toInt(), especialidad)
-
-     */
 }
