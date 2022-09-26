@@ -1,29 +1,48 @@
 import React, { useState, useEffect }   from 'react';
 import { useParams  } from "react-router-dom";
 import Service from '../Service/service';
+import EspecialidadModel from './EspecialidadModel';
+import '../styles/Hospital.css';
 
 const Hospital = () => {
 
     const { id } = useParams();
     
-    const [hospital, setHospital] = useState("");
+    const [hospital, setHospital] = useState({
+        id: "",
+        nombre: "",
+        direccion: "",
+        municipio: "",
+        especialidades: [],
+      });
 
     useEffect(() => {
         Service.getHospitalById(id)
             .then(response => { 
-            setHospital(response.data)
+                setHospital({
+                    id: response.data.id,
+                    nombre: response.data.nombre,
+                    direccion: response.data.direccion,
+                    municipio: response.data.municipio,
+                    especialidades : response.data.especialidades
+                  })
         }).catch(error => {
             console.log(error)
         });
     }, [id]
     );
 
-    console.log(hospital)
-
     return (
         <>
-            <div className="container">
-                    {hospital.nombre}
+            <div className="hospital-container">
+                <div className='title-hospital'>
+                    {hospital.nombre}, sus especialidades:
+                </div>
+                <div className='especialidades-hospital-box'>            
+                    {hospital.especialidades.map((especialidad, idx) => {          
+                        return <EspecialidadModel key={idx} especialidad={especialidad} hospital={hospital}/>
+                    })}
+                </div>   
             </div>
         </>  
     );

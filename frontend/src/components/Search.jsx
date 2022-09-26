@@ -30,7 +30,7 @@ const Search = () => {
     return (
         <>
             <div className="search-container">
-                <button className="btn btn-secondary-2" onClick={goHome} >Volver al inicio</button>
+                <button className="btn-mp" onClick={goHome} >Volver al inicio</button>
                 <div className="content">  
                     <div className="text-result">
                         <p>Tu resultado por {value}: </p>

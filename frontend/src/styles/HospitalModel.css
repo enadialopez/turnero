@@ -14,13 +14,16 @@
     justify-content: center;
     opacity: 0.9;
     cursor: pointer;
-    
 }
 
 .link {
     text-decoration: none;
     color: #000;
+}
 
+.link:hover {
+    text-decoration: none;
+    color: #000;
 }
 
 .hospitalModel-container:hover {
