@@ -79,7 +79,7 @@ open class HospitalServiceImp(
         var hospital : Hospital = this.recuperar(idDeHospital)
         var turnos = hospital.turnos
         var turnosDisponibles : MutableList<Turno> = mutableListOf()
-        turnos.map{ t -> print(t.especialidad); if (t.especialidad == enumEspecialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        turnos.map{ t -> print(t.especialidad); if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
         print(turnosDisponibles)
         return turnosDisponibles
     }
