@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.spring.controller.DTOs
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 
 class HospitalDTO(
@@ -9,7 +10,8 @@ class HospitalDTO(
     var nombre:String?,
     var municipio: String?,
     var direccion: String?,
-    var especialidades: List<String>
+    var especialidades: List<String>,
+    var turnos: List<MiniTurnoDTO>
 ) {
 
     companion object {
@@ -22,6 +24,8 @@ class HospitalDTO(
                 especialidades = hospital.especialidades
                     .map { especialidad -> especialidad.toString().toLowerCase()}
                     .toCollection(HashSet()).toList(),
+                turnos = hospital.turnos
+                    .map { turno -> MiniTurnoDTO.desdeModelo(turno)}.toMutableList(),
             )
     }
 
@@ -32,6 +36,8 @@ class HospitalDTO(
         hospital.municipio = this.municipio
         hospital.direccion = this.direccion!!
         hospital.especialidades = transformEspecialidades(this.especialidades!!)
+        hospital.turnos = this.turnos
+            ?.map { MiniTurnoDTO  ->  MiniTurnoDTO.aModelo()}.toMutableList()
         return hospital
     }
 
