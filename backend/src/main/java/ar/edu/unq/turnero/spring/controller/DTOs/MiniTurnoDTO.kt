@@ -4,7 +4,7 @@ import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 
-class TurnoDTO(
+class MiniTurnoDTO(
     var id: Long?,
     var nombreYApellidoPaciente:String?,
     var dniPaciente: Int?,
@@ -14,18 +14,12 @@ class TurnoDTO(
     var fechaEmitido: String?,
     var especialidad: String?,
     var especialista:  String?,
-    var hospital: MiniHospitalDTO?,
 ) {
 
     companion object {
 
-        fun toDTO(turnos: MutableList<Turno>): List<TurnoDTO> {
-            var listDTO = listOf<TurnoDTO>()
-            turnos.map { turno -> desdeModelo(turno) }
-            return listDTO
-        }
         fun desdeModelo(turno: Turno) =
-            TurnoDTO(
+            MiniTurnoDTO(
                 id = turno.id,
                 nombreYApellidoPaciente = turno.nombreYApellidoPaciente,
                 dniPaciente = turno.dniPaciente,
@@ -34,8 +28,7 @@ class TurnoDTO(
                 fechaYHora = turno.fechaYHora,
                 fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
-                especialista = turno.especialista,
-                hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre))
+                especialista = turno.especialista)
     }
 
     fun aModelo(): Turno {
@@ -49,7 +42,6 @@ class TurnoDTO(
         turno.fechaEmitido = this.fechaEmitido!!
         turno.especialidad = toEnum(this.especialidad)
         turno.especialista = this.especialista
-        turno.hospital = this.hospital!!.aModelo()
         return turno
     }
 
