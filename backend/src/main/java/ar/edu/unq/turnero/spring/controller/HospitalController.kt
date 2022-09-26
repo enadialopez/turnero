@@ -1,5 +1,6 @@
 package ar.edu.unq.turnero.spring.controller
 
+import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.service.HospitalService
 import ar.edu.unq.turnero.spring.controller.DTOs.HospitalDTO
 import org.springframework.web.bind.annotation.*
@@ -22,5 +23,10 @@ class HospitalController(private val hospitalService: HospitalService) {
     @GetMapping("")
     fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
 
+    /*
+    @GetMapping("/{hospitalId}/{especialidad}/turnos")
+    fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: Especialidad) =
+        hospitalService.recuperarTurnosDisponiblesPorEspecialidad(hospitalId.toInt(), especialidad)
 
+     */
 }
