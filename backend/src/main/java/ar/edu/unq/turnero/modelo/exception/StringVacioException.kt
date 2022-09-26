@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class ErrorSelectionException : Exception() {
+class StringVacioException : RuntimeException() {
 
     override val message: String?
-        get() = "El valor pasado del selector no es correcto."
+        get() = "El string no puede ser vacío."
 
     companion object {
 

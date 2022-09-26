@@ -1,5 +1,7 @@
 package ar.edu.unq.turnero.modelo
 
+//import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
+import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.persistence.*
@@ -11,20 +13,68 @@ class Turno() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
     @Column(nullable = false, length = 500)
-    var nombreYApellidoPaciente: String? = null
-    var dniPaciente: Long? = null
-    var fechaYHora: String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
-    var especialidad: String? = null
+    var nombreYApellidoPaciente: String? = ""
+    var dniPaciente: Int? = null
+    var telefonoPaciente: Int? = null
+    var emailPaciente: String? = ""
+    var fechaYHora: String? = null
+    var fechaEmitido: String? = null
+    var especialidad: Especialidad? = null
     var especialista: String? = null
-    var hospital: String? = null
 
-    constructor(nombre: String, dni: Long, fechaYHora: String, especialidad: String, especialista: String, hospital: String):this() {
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    var hospital: Hospital? = null
+
+    constructor(nombre: String, dni: Int, telefono: Int, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
         this.nombreYApellidoPaciente = nombre
         this.dniPaciente = dni
+        this.telefonoPaciente = telefono
+        this.emailPaciente = email
         this.fechaYHora = fechaYHora
+        this.fechaEmitido = fecha
         this.especialidad = especialidad
         this.especialista = especialista
         this.hospital = hospital
+    }
+
+    constructor(fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
+        this.fechaYHora = fecha
+        this.especialidad = especialidad
+        this.especialista = especialista
+        this.hospital = hospital
+    }
+
+    fun cambiarNombrePaciente(nombreNuevo: String) {
+        if(nombreNuevo == "") {
+            throw StringVacioException()
+        }
+        this.nombreYApellidoPaciente = nombreNuevo
+    }
+
+    fun cambiarDniPaciente(nuevoDNI: Int) {
+        if(nuevoDNI.toString().length != 8) {
+            throw Exception() //ErrorIntegerException()
+        }
+        this.dniPaciente = nuevoDNI
+    }
+
+    fun cambiarTelefonoPaciente(nuevoTelefono: Int) {
+        if(nuevoTelefono.toString().length != 10) {
+            throw Exception() //ErrorIntegerException()
+        }
+        this.telefonoPaciente = nuevoTelefono
+    }
+
+    fun cambiarEmailPaciente(nuevoEmail: String) {
+        if(nuevoEmail == "") {
+            throw StringVacioException()
+        }
+        this.emailPaciente = nuevoEmail
+    }
+
+    fun cambiarFechaEmitido() {
+        this.fechaEmitido = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
     }
 
     override fun equals(other: Any?): Boolean {
@@ -36,6 +86,8 @@ class Turno() {
         if (id != other.id) return false
         if (nombreYApellidoPaciente != other.nombreYApellidoPaciente) return false
         if (dniPaciente != other.dniPaciente) return false
+        if (telefonoPaciente != other.telefonoPaciente) return false
+        if (emailPaciente != other.emailPaciente) return false
         if (fechaYHora != other.fechaYHora) return false
         if (especialidad != other.especialidad) return false
         if (especialista != other.especialista) return false

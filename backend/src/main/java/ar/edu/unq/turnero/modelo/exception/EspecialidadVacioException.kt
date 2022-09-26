@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class ErrorSelectionException : Exception() {
+class EspecialidadVacioException : RuntimeException() {
 
     override val message: String?
-        get() = "El valor pasado del selector no es correcto."
+        get() = "El atributo no puede ser vacío."
 
     companion object {
 

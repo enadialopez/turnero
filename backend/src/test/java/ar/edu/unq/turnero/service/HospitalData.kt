@@ -2,21 +2,30 @@ package ar.edu.unq.turnero.service
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.persistence.EspecialidadDAO
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.persistence.HospitalDAO
-import ar.edu.unq.turnero.service.impl.EspecialidadServiceImp
+import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.impl.HospitalServiceImp
+import ar.edu.unq.turnero.service.impl.TurnoServiceImp
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
+@ExtendWith(SpringExtension::class)
+@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HospitalData {
     lateinit var service: HospitalService
-    lateinit var serviceEspecialidad: EspecialidadService
+    lateinit var turnoService: TurnoService
 
     @Autowired
     lateinit var hospitalDAO : HospitalDAO
     @Autowired
-    lateinit var especialidadDAO : EspecialidadDAO
+    lateinit var turnoDAO : TurnoDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var elCruce: Hospital
@@ -39,79 +48,50 @@ class HospitalData {
     lateinit var sanCayetano: Hospital
     lateinit var joseCPaz: Hospital
 
-    lateinit var pediatria: Especialidad
-    lateinit var kinesiologia: Especialidad
-    lateinit var cardiologia: Especialidad
-    lateinit var urologia: Especialidad
-    lateinit var traumatologia: Especialidad
-    lateinit var nefrologia: Especialidad
-    lateinit var reumatologia: Especialidad
-    lateinit var oftalmologia: Especialidad
-    lateinit var dermatologia: Especialidad
+    lateinit var turno: Turno
 
-    var especialidades1: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades2: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades3: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades4: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades5: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades6: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades7: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades8: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades9: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades10: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades11: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades12: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades13: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades14: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades15: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades16: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades17: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades18: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades19: MutableList<Especialidad> = mutableListOf<Especialidad>()
-    var especialidades20: MutableList<Especialidad> = mutableListOf<Especialidad>()
+    var pediatria: Especialidad = Especialidad.PEDIATRIA
+    var kinesiologia: Especialidad = Especialidad.KINESIOLOGIA
+    var cardiologia: Especialidad = Especialidad.CARDIOLOGIA
+    var urologia: Especialidad = Especialidad.UROLOGIA
+    var traumatologia: Especialidad = Especialidad.TRAUMATOLOGIA
+    var nefrologia: Especialidad = Especialidad.NEFROLOGIA
+    var reumatologia: Especialidad = Especialidad.REUMATOLOGIA
+    var oftalmologia: Especialidad = Especialidad.OFTALMOLOGIA
+    var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
+    var oncologia: Especialidad = Especialidad.ONCOLOGIA
+
     @BeforeEach
     fun prepare() {
         this.service = HospitalServiceImp(hospitalDAO)
-        this.serviceEspecialidad = EspecialidadServiceImp(especialidadDAO)
-
-        pediatria = Especialidad("Pediatria")
-        kinesiologia = Especialidad("Kinesiologia")
-        cardiologia = Especialidad("Cardiologia")
-        urologia = Especialidad("Urologia")
-        traumatologia = Especialidad("Traumatologia")
-        nefrologia = Especialidad("Nefrologia")
-        reumatologia = Especialidad("Reumatologia")
-        oftalmologia = Especialidad("Oftalmologia")
-        dermatologia = Especialidad("Dermatologia")
-
-        serviceEspecialidad.crear(pediatria)
-        serviceEspecialidad.crear(kinesiologia)
-        serviceEspecialidad.crear(cardiologia)
-        serviceEspecialidad.crear(urologia)
-        serviceEspecialidad.crear(traumatologia)
-        serviceEspecialidad.crear(nefrologia)
-        serviceEspecialidad.crear(reumatologia)
-        serviceEspecialidad.crear(oftalmologia)
-        serviceEspecialidad.crear(dermatologia)
+        this.turnoService = TurnoServiceImp(turnoDAO)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
             "Berazategui",
-            "Calle Falsa 123",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades1
+            "Calle 136 2905",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
         evitaPueblo.agregarEspecialidad(urologia)
         service.crear(evitaPueblo)
 
+        var turno1 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turno3 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+
+        evitaPueblo.agregarTurno(turno1)
+        evitaPueblo.agregarTurno(turno3)
+
+        service.actualizar(evitaPueblo)
+
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
-            "Calle Falsa 123",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades2
+            "Av. Calchaquí 5401",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
@@ -121,12 +101,18 @@ class HospitalData {
         elCruce.agregarEspecialidad(reumatologia)
         service.crear(elCruce)
 
+        var turno2 = Turno("02/11/2022     17:45 hs", reumatologia, "Leonardo Sanchez", elCruce)
+
+        elCruce.agregarTurno(turno2)
+
+        service.actualizar(elCruce)
+
         iriarte = Hospital(
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
-            "Calle Falsa 123",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades3
+            "Allison Bell N°770",
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         iriarte.agregarEspecialidad(dermatologia)
         iriarte.agregarEspecialidad(urologia)
@@ -138,8 +124,8 @@ class HospitalData {
             "Hospital Mi Pueblo",
             "Florencio Varela",
             "Florida 202",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades4
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         miPueblo.agregarEspecialidad(pediatria)
         miPueblo.agregarEspecialidad(traumatologia)
@@ -150,8 +136,8 @@ class HospitalData {
             "Hospital Interzonal de Agudos Evita",
             "Lanus",
             "Diego Armando Maradona 1910",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades5
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         interzonal.agregarEspecialidad(pediatria)
         interzonal.agregarEspecialidad(traumatologia)
@@ -165,8 +151,8 @@ class HospitalData {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades6
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         garrahan.agregarEspecialidad(dermatologia)
         garrahan.agregarEspecialidad(urologia)
@@ -178,8 +164,8 @@ class HospitalData {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades7
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         italianoCABA.agregarEspecialidad(pediatria)
         italianoCABA.agregarEspecialidad(traumatologia)
@@ -190,8 +176,8 @@ class HospitalData {
             "Hospital Pirovano",
             "CABA",
             "Av. Monroe 3555",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades8
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         pirovano.agregarEspecialidad(pediatria)
         pirovano.agregarEspecialidad(traumatologia)
@@ -205,8 +191,8 @@ class HospitalData {
             "Hospital San Martin",
             "La Plata",
             "Calle 1 y 70,1900",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades9
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanMartin.agregarEspecialidad(dermatologia)
         sanMartin.agregarEspecialidad(urologia)
@@ -218,8 +204,8 @@ class HospitalData {
             "Hospital San Roque",
             "La Plata",
             "Calle 508, 1897, Gonnet",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades10
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanRoque.agregarEspecialidad(pediatria)
         sanRoque.agregarEspecialidad(traumatologia)
@@ -230,8 +216,8 @@ class HospitalData {
             "Hospital Municipal Santa Marina",
             "Esteban Echeverria",
             "Gral. Alvear 350, Monte Grande",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades11
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         santamarina.agregarEspecialidad(pediatria)
         santamarina.agregarEspecialidad(traumatologia)
@@ -245,8 +231,8 @@ class HospitalData {
             "Hospital Dr. Carlos Bocalandro",
             "Tres de Febrero",
             "RP8 Nº9100 Km. 20,5, Loma Hermosa",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades12
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         bocalandro.agregarEspecialidad(dermatologia)
         bocalandro.agregarEspecialidad(urologia)
@@ -258,8 +244,8 @@ class HospitalData {
             "Hospital Italiano",
             "La Plata",
             "Av. 51",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades13
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         italianoLP.agregarEspecialidad(pediatria)
         italianoLP.agregarEspecialidad(traumatologia)
@@ -270,8 +256,8 @@ class HospitalData {
             "Hospital San Juan de Dios",
             "CABA",
             "Santa Rosa 1355",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades14
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanJuan.agregarEspecialidad(pediatria)
         sanJuan.agregarEspecialidad(traumatologia)
@@ -285,8 +271,8 @@ class HospitalData {
             "Hospital Dr. Arturo Oñativia",
             "Rafael Calzada",
             "Dr. Ramon Carillo, 1339",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades15
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         arturoOnativia.agregarEspecialidad(dermatologia)
         arturoOnativia.agregarEspecialidad(urologia)
@@ -298,8 +284,8 @@ class HospitalData {
             "Hospital Municipal San Cayetano",
             "Virreyes",
             "Av. Avellaneda y Chile 4850",
-            "https://agenhoy.com.ar/trabajo-en-conjunto-para-enfrentar-al-coronavirus/",
-            especialidades16
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         sanCayetano.agregarEspecialidad(pediatria)
         sanCayetano.agregarEspecialidad(traumatologia)
@@ -310,8 +296,8 @@ class HospitalData {
             "Hospital Presidente Peron",
             "Avellaneda",
             "Antole France 773, Sarandi",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades17
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         presidentePeron.agregarEspecialidad(pediatria)
         presidentePeron.agregarEspecialidad(traumatologia)
@@ -325,8 +311,8 @@ class HospitalData {
             "Hospital Materno Infantil Ramon Sarda",
             "CABA",
             "Esteban de Luca 2151",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades18
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         ramonSarda.agregarEspecialidad(dermatologia)
         ramonSarda.agregarEspecialidad(urologia)
@@ -339,8 +325,8 @@ class HospitalData {
             "Hospital Gral. de Agudos Dr. Cosme Argerich",
             "CABA",
             "Pi y Margall 750",
-            "https://www.laopinionsemanario.com.ar/noticia/se-acabo-la-espera-autorizaron-el-traslado-de-luciana-betancourt/",
-            especialidades19
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         argerich.agregarEspecialidad(pediatria)
         argerich.agregarEspecialidad(traumatologia)
@@ -348,19 +334,51 @@ class HospitalData {
         argerich.agregarEspecialidad(nefrologia)
         argerich.agregarEspecialidad(dermatologia)
         argerich.agregarEspecialidad(reumatologia)
+
         service.crear(argerich)
 
         joseCPaz = Hospital(
             "Hospital Oncologico De Jose C. Paz",
             "Jose C. Paz",
             "Av. Hector Arregui 501",
-            "https://quilmesenred.com/el-hospital-iriarte-fue-premiado-en-el-congreso-de-salud-que-se-realizo-en-mar-del-plata/",
-            especialidades20
+            mutableListOf<Especialidad>(),
+            mutableListOf<Turno>()
         )
         joseCPaz.agregarEspecialidad(dermatologia)
         joseCPaz.agregarEspecialidad(urologia)
         joseCPaz.agregarEspecialidad(traumatologia)
         joseCPaz.agregarEspecialidad(nefrologia)
         service.crear(joseCPaz)
+
+        turno = Turno("02/11/2022     17:45 hs", traumatologia, "Leonardo Sanchez", sanRoque)
+
+        turnoService.crear(turno)
+        turnoService.crear(turno1)
+        turnoService.crear(turno2)
+        turnoService.crear(turno3)
     }
+
+    @Test
+    fun seCreaHospitalTest() {
+        /*
+        val wilde = Hospital(
+            "Hospital Zonal General de Agudos “Dr. E. Wilde”",
+            "Quilmes",
+            "Baradero 5808",
+            "https://clinica-web.com.ar/listing/hospital-wilde/",
+            mutableListOf<Especialidad>()
+        )
+        wilde.agregarEspecialidad(traumatologia)
+        wilde.agregarEspecialidad(nefrologia)
+        val hospital = service.crear(wilde)
+
+        val hospitalId = hospital.id!!.toInt()
+        var wildeRecuperado = service.recuperar(hospitalId)
+
+        Assert.assertEquals(wilde, wildeRecuperado)
+
+         */
+    }
+
+
 }

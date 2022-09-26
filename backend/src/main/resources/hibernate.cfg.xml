@@ -19,7 +19,6 @@
 
 		<mapping class="ar.edu.unq.turnero.modelo.Hospital" />
 		<mapping class="ar.edu.unq.turnero.modelo.Turno" />
-		<mapping class="ar.edu.unq.turnero.modelo.Especialidad" />
 	
 	</session-factory>
 </hibernate-configuration>

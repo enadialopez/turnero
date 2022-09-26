@@ -1,8 +1,11 @@
 package ar.edu.unq.turnero.service.impl
 
+import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.modelo.exception.CampoVacioException
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
+import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
+import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,14 +21,18 @@ open class HospitalServiceImp(
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
-        this.validarCampo(hospital)
+        this.validarCampos(hospital)
         return hospitalDAO.save(hospital)
     }
 
-    private fun validarCampo(hospital : Hospital) {
-        if(hospital.nombre == "" && hospital.direccion == "" && hospital.municipio == "") {
-            throw CampoVacioException()
+    private fun validarCampos(hospital : Hospital) {
+        if(hospital.nombre == "" || hospital.direccion == "" || hospital.municipio == "") {
+            throw StringVacioException()
         }
+    }
+
+    override fun actualizar(hospital: Hospital): Hospital {
+        return this.crear(hospital)
     }
 
     override fun recuperar(hospitalId:Int): Hospital {
@@ -51,8 +58,50 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-        hospitalDAO.findByEspecialidad(busqueda)
+       // hospitalDAO.findByEspecialidad(busqueda)
         return hospitalDAO.findByEspecialidad(busqueda)
+        //var lista : List<Hospital> = listOf()
+        //return lista
+    }
+
+    // Las especialidades quedan como string en MAYUSCULA
+    override fun especialidadesDeHospital(idDeHospital: Int): MutableList<String> {
+        var hospital : Hospital = recuperar(idDeHospital)
+        var especialidades : List<Especialidad> = hospital.especialidades
+        var especialidadesComoString : MutableList<String> = mutableListOf()
+        especialidades.map{ e -> especialidadesComoString.add(e.toString()) }
+        return especialidadesComoString
+    }
+
+    override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
+        print(especialidad)
+        var enumEspecialidad = toEnum(especialidad)
+        var hospital : Hospital = this.recuperar(idDeHospital)
+        var turnos = hospital.turnos
+        var turnosDisponibles : MutableList<Turno> = mutableListOf()
+        turnos.map{ t -> print(t.especialidad); if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        print(turnosDisponibles)
+        return turnosDisponibles
+    }
+
+    private fun toEnum(especialidad: String): Especialidad {
+        var nuevaEspecialidad: Especialidad
+        when(especialidad) {
+            "pediatria" -> nuevaEspecialidad = Especialidad.PEDIATRIA
+            "oncologia" -> nuevaEspecialidad = Especialidad.ONCOLOGIA
+            "traumatologia" -> nuevaEspecialidad = Especialidad.TRAUMATOLOGIA
+            "urologia" -> nuevaEspecialidad = Especialidad.UROLOGIA
+            "oftalmologia" -> nuevaEspecialidad = Especialidad.OFTALMOLOGIA
+            "kinesiologia" -> nuevaEspecialidad = Especialidad.KINESIOLOGIA
+            "cardiologia" -> nuevaEspecialidad = Especialidad.CARDIOLOGIA
+            "nefrologia" -> nuevaEspecialidad = Especialidad.NEFROLOGIA
+            "reumatologia" -> nuevaEspecialidad = Especialidad.REUMATOLOGIA
+            "dermatologia" -> nuevaEspecialidad = Especialidad.DERMATOLOGIA
+            else -> {
+                throw EspecialidadVacioException()
+            }
+        }
+        return nuevaEspecialidad
     }
 
     override fun recuperarPor(select: String, busqueda: String):List<Hospital>  {

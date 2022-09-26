@@ -15,12 +15,15 @@ class Usuario() {
     var dni: Long? = null
     var email: String? = null
     var telefono: Long? = null
+    /*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="usuario_turnosAsignados",
         joinColumns= [JoinColumn(name="usuario", referencedColumnName="id")],
         inverseJoinColumns= [JoinColumn(name="turno", referencedColumnName="id")]
     )
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
+
+     */
 
     constructor(nickName: String, dni: Long, contraseña: String, nombreYApellido: String, email: String, telefono: Long):this() {
         this.nickName = nickName
