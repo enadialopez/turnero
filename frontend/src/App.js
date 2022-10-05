@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Search from './components/Search';
 import Hospital from './components/Hospital';
+import FormTurno from './components/FormTurno';
 
 const App = () => {
 
@@ -15,7 +16,8 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route path="/hospital/search" element={<Search/>}/>
-        <Route path="/hospital/search/:id/especialidades" element={<Hospital/>}/>
+        <Route path="/hospital/:id/especialidades" element={<Hospital/>}/>
+        <Route path="/hospital/:id/:especialidad/sacar-turno" element={<FormTurno/>}/>
       </Routes>
     </BrowserRouter>
   );

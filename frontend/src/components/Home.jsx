@@ -8,11 +8,11 @@ const Home = () => {
     const [selection, setSelection] = useState(""); 
     const [search, setSearch] = useState("");
     const changeSearch = (event) => setSearch(event.target.value);
-    const [searchError, setSearchError] = useState (false)
+    const [disable, setDisable] = useState (true)
 
     const changeSelectValue = (value) => {
-         setSelection(value);
-         setSearchError(true);
+        setSelection(value)
+        setDisable(false);
     }
 
     return (
@@ -23,18 +23,19 @@ const Home = () => {
                 </div>
                 <div className="search-content">  
                     <div className='search-bar'>
+                        {disable && (<div className="alert alert-danger" role="alert">ERROR</div>) }
                         <input className="search-btn" type="text" placeholder="Buscar hospital" aria-label="Search" onChange={changeSearch} />
                         <Link to={`/hospital/search?q=${search}&value=${selection}`}>
-                            <button className="btn btn-secondary" type="submit" ><AiOutlineSearch color="white" size={20}/></button>
+                            <button disabled={disable} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
                         </Link>
                     </div>
                     <div className='text-2'>
                         
                     </div>
                     <div className='search-checkbox'>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("nombre")}/><label className='checkbox'>Nombre</label>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("municipio")}/><label className='checkbox'>Municipio</label>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("especialidad")}/><label className='checkbox'>Especialidad</label>
+                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("nombre")} required/><label className='checkbox'>Nombre</label>
+                        <input type="radio" className="radio" name="2" onClick={ () => changeSelectValue("municipio")} required/><label className='checkbox'>Municipio</label>
+                        <input type="radio" className="radio" name="3" onClick={ () => changeSelectValue("especialidad")} required/><label className='checkbox'>Especialidad</label>
                     </div>
                 </div>
             </div>
