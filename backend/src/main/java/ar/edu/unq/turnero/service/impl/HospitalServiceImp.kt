@@ -58,13 +58,10 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-       // hospitalDAO.findByEspecialidad(busqueda)
         return hospitalDAO.findByEspecialidad(busqueda)
-        //var lista : List<Hospital> = listOf()
-        //return lista
     }
 
-    // Las especialidades quedan como string en MAYUSCULA
+    // Esto ya no tendria que estar ??
     override fun especialidadesDeHospital(idDeHospital: Int): MutableList<String> {
         var hospital : Hospital = recuperar(idDeHospital)
         var especialidades : List<Especialidad> = hospital.especialidades
@@ -74,13 +71,10 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
-        print(especialidad)
-        var enumEspecialidad = toEnum(especialidad)
         var hospital : Hospital = this.recuperar(idDeHospital)
         var turnos = hospital.turnos
         var turnosDisponibles : MutableList<Turno> = mutableListOf()
-        turnos.map{ t -> print(t.especialidad); if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
-        print(turnosDisponibles)
+        turnos.map{ t -> if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
         return turnosDisponibles
     }
 
