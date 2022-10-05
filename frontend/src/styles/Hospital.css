@@ -3,6 +3,7 @@
     justify-content: left;
     align-items: center;
     padding: 40px;
+    width: 100%;
 }
 
 .title-hospital {
@@ -15,4 +16,17 @@
 
 .especialidades-hospital-box {
     padding: 30px;
+    width: 1400px;
+}
+
+.btn-mp-2{
+    width: 10%;
+    height: 40px;
+    border-radius: 8px;
+    background-color:rgb(21, 16, 103);
+    margin-bottom: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
 }

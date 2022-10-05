@@ -2,7 +2,7 @@
     border-style: groove;
     border-radius: 20px;
     margin: 20px;
-    width: 300px;
+    max-width: 250px;
     height: 150px;
     background-image: url("https://previews.123rf.com/images/tirachard/tirachard1709/tirachard170900068/86897254-fondo-borroso-interior-hermoso-del-hospital-y-de-la-cl%C3%ADnica-de-lujo-hermoso-de-la-falta-de-definici%C3%B3.jpg");
     background-repeat:no-repeat;
@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.9;
+    opacity: 0.85;
     cursor: pointer;
 }
 
@@ -27,13 +27,13 @@
 }
 
 .hospitalModel-container:hover {
-    opacity: 2;
-    transform: scale(1.01);
+    opacity: 2.5;
+    transform: scale(1.07);
 }
 
 .selection-name {
     text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 900;
 }
