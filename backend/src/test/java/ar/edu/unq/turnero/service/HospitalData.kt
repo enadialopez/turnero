@@ -79,10 +79,14 @@ class HospitalData {
         service.crear(evitaPueblo)
 
         var turno1 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
-        var turno3 = Turno("02/11/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turno3 = Turno("02/11/2022     15:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turno4 = Turno("05/11/2022     10:00 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turno5 = Turno("02/12/2022     08:15 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
 
         evitaPueblo.agregarTurno(turno1)
         evitaPueblo.agregarTurno(turno3)
+        evitaPueblo.agregarTurno(turno4)
+        evitaPueblo.agregarTurno(turno5)
 
         service.actualizar(evitaPueblo)
 
