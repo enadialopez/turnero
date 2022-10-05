@@ -33,7 +33,7 @@ class HospitalDTO(
         val hospital = Hospital()
         hospital.id = this.id
         hospital.nombre = this.nombre!!
-        hospital.municipio = this.municipio
+        hospital.municipio = this.municipio!!
         hospital.direccion = this.direccion!!
         hospital.especialidades = transformEspecialidades(this.especialidades!!)
         hospital.turnos = this.turnos

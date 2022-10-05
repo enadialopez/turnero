@@ -35,7 +35,7 @@ class TurnoDTO(
                 fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
                 especialista = turno.especialista,
-                hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre))
+                hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre, turno.hospital!!.direccion))
     }
 
     fun aModelo(): Turno {
