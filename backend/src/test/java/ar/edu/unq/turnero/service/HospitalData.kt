@@ -63,7 +63,7 @@ class HospitalData {
 
     @BeforeEach
     fun prepare() {
-        this.service = HospitalServiceImp(hospitalDAO)
+        this.service = HospitalServiceImp(hospitalDAO, turnoDAO)
         this.turnoService = TurnoServiceImp(turnoDAO)
 
         evitaPueblo = Hospital(

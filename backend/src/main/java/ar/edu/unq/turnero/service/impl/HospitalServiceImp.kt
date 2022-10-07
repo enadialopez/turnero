@@ -7,6 +7,7 @@ import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
+import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.HospitalService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -17,7 +18,9 @@ import javax.transaction.Transactional
 @Transactional
 open class HospitalServiceImp(
     @Autowired
-    private val hospitalDAO: HospitalDAO
+    private val hospitalDAO: HospitalDAO,
+    @Autowired
+    private val turnoDAO: TurnoDAO
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
@@ -108,6 +111,34 @@ open class HospitalServiceImp(
         } else {
             throw ErrorSelectionException()
         }
+    }
+
+    /**
+     * Crea el turno en la base de datos y lo agrega a la lista
+     * de turnos del hospital.
+     * Quedan actualizados tanto el turno como el hospital
+     * en la base de datos y sus correspondientes instancias.
+     * Devuelve el turno actualizado.
+     */
+    override fun crearTurno(turno: Turno) : Turno {
+        turnoDAO.save(turno)
+        var hospital = turno.hospital
+        hospital!!.agregarTurno(turno)
+        this.actualizar(hospital)
+        return turno
+    }
+
+    /**
+     * Borra el turno de la base de datos y de la lista
+     * de turnos del hospital.
+     * Quedan actualizados tanto el turno como el hospital
+     * en la base de datos y sus correspondientes instancias.
+     */
+    override fun borrarTurno(turno: Turno) {
+        var hospital = turno.hospital
+        turnoDAO.deleteById(turno.id!!)
+        hospital!!.turnos.remove(turno)
+        this.actualizar(hospital)
     }
 
     override fun clear() {

@@ -23,7 +23,7 @@ class Turno() {
     var especialista: String? = null
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id")
+    //@JoinColumn(name = "hospital_id")
     var hospital: Hospital? = null
 
     constructor(nombre: String, dni: Int, telefono: Int, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {

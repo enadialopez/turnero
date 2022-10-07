@@ -51,7 +51,7 @@ class TurnoServiceTest {
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
-        this.hospitalService = HospitalServiceImp(hospitalDAO)
+        this.hospitalService = HospitalServiceImp(hospitalDAO, turnoDAO)
 
         evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>(), mutableListOf<Turno>())
         evitaPueblo.agregarEspecialidad(pediatria)

@@ -49,7 +49,7 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        this.service = HospitalServiceImp(hospitalDAO)
+        this.service = HospitalServiceImp(hospitalDAO, turnoDAO)
         this.turnoService = TurnoServiceImp(turnoDAO)
 
         evitaPueblo = Hospital(
@@ -255,6 +255,32 @@ class HospitalServiceTest {
     }
 
     @Test
+    fun seCreaUnTurnoParaUnHospitalCorrectamente() {
+        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
+        var turnoCreado = service.crearTurno(turno)
+
+        Assertions.assertNotNull(turnoService.recuperar(turnoCreado.id!!.toInt()))
+        Assertions.assertEquals(elCruce, turnoCreado.hospital)
+        Assertions.assertEquals(1, elCruce!!.turnos.size)
+    }
+
+
+    /*
+    @Test
+    fun seBorraUnTurnoDeUnHospitalCorrectamente() {
+        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
+        var turnoCreado = service.crearTurno(turno)
+        var idTurnoCreado = turnoCreado.id!!.toInt()
+
+        service.borrarTurno(turnoCreado)
+
+        Assertions.assertEquals(0, elCruce!!.turnos.size)
+        Assertions.assertNull(turnoService.recuperar(idTurnoCreado))
+    }
+
+     */
+
+    @Test
     fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
         var turno = service.crear(evitaPueblo)
         val turnoId = turno.id!!.toInt()
@@ -276,7 +302,7 @@ class HospitalServiceTest {
 
     @AfterEach
     fun cleanUp(){
-        //turnoService.clear()
-        //.clear()
+        turnoService.clear()
+        service.clear()
     }
 }

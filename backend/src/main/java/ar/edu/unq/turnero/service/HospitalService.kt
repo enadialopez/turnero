@@ -15,6 +15,8 @@ interface HospitalService {
     fun recuperarPorEspecialidad(busqueda: String): List<Hospital>
     fun especialidadesDeHospital(idDeHospital: Int): MutableList<String>
     fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String) : List<Turno>
+    fun crearTurno(turno: Turno) : Turno
+    fun borrarTurno(turno: Turno)
     fun clear()
 
 }
