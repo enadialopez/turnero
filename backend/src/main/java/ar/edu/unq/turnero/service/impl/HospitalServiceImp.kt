@@ -7,8 +7,8 @@ import ar.edu.unq.turnero.modelo.exception.ErrorSelectionException
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
-import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.HospitalService
+import ar.edu.unq.turnero.service.TurnoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -20,7 +20,7 @@ open class HospitalServiceImp(
     @Autowired
     private val hospitalDAO: HospitalDAO,
     @Autowired
-    private val turnoDAO: TurnoDAO
+    private val turnoService : TurnoService
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
@@ -62,15 +62,6 @@ open class HospitalServiceImp(
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
         return hospitalDAO.findByEspecialidad(busqueda)
-    }
-
-    // Esto ya no tendria que estar ??
-    override fun especialidadesDeHospital(idDeHospital: Int): MutableList<String> {
-        var hospital : Hospital = recuperar(idDeHospital)
-        var especialidades : List<Especialidad> = hospital.especialidades
-        var especialidadesComoString : MutableList<String> = mutableListOf()
-        especialidades.map{ e -> especialidadesComoString.add(e.toString()) }
-        return especialidadesComoString
     }
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
@@ -121,7 +112,7 @@ open class HospitalServiceImp(
      * Devuelve el turno actualizado.
      */
     override fun crearTurno(turno: Turno) : Turno {
-        turnoDAO.save(turno)
+        turnoService.crear(turno)
         var hospital = turno.hospital
         hospital!!.agregarTurno(turno)
         this.actualizar(hospital)
@@ -136,7 +127,7 @@ open class HospitalServiceImp(
      */
     override fun borrarTurno(turno: Turno) {
         var hospital = turno.hospital
-        turnoDAO.deleteById(turno.id!!)
+        turnoService.eliminar(turno.id!!.toInt())
         hospital!!.turnos.remove(turno)
         this.actualizar(hospital)
     }

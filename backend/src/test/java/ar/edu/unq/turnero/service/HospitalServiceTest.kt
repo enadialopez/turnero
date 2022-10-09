@@ -49,7 +49,7 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        this.service = HospitalServiceImp(hospitalDAO, turnoDAO)
+        this.service = HospitalServiceImp(hospitalDAO, turnoService)
         this.turnoService = TurnoServiceImp(turnoDAO)
 
         evitaPueblo = Hospital(
@@ -240,18 +240,6 @@ class HospitalServiceTest {
         } catch (e: ErrorSelectionException) {
             Assertions.assertEquals(e.message, "El valor pasado del selector no es correcto.")
         }
-    }
-
-    @Test
-    fun seRecuperanLasEspecialidadesDeUnHospitalCorrectamente() {
-        var idGarrahan = garrahan.id!!.toInt()
-        var especialidades = service.especialidadesDeHospital(idGarrahan)
-        println(especialidades)
-        Assertions.assertTrue(especialidades.contains("DERMATOLOGIA"))
-        Assertions.assertTrue(especialidades.contains("UROLOGIA"))
-        Assertions.assertTrue(especialidades.contains("TRAUMATOLOGIA"))
-        Assertions.assertTrue(especialidades.contains("NEFROLOGIA"))
-        Assertions.assertFalse(especialidades.contains("PEDIATRIA"))
     }
 
     @Test

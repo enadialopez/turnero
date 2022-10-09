@@ -19,8 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HospitalData {
-    lateinit var service: HospitalService
     lateinit var turnoService: TurnoService
+    lateinit var service: HospitalService
 
     @Autowired
     lateinit var hospitalDAO : HospitalDAO
@@ -63,8 +63,8 @@ class HospitalData {
 
     @BeforeEach
     fun prepare() {
-        this.service = HospitalServiceImp(hospitalDAO, turnoDAO)
         this.turnoService = TurnoServiceImp(turnoDAO)
+        this.service = HospitalServiceImp(hospitalDAO, turnoService)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
