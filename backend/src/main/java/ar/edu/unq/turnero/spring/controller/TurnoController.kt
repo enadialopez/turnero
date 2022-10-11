@@ -18,4 +18,7 @@ class TurnoController(private val turnoService: TurnoService) {
 
     @GetMapping("")
     fun recuperarTodos() = turnoService.recuperarTodos().map { turno -> TurnoDTO.desdeModelo(turno)  }
+
+    @PutMapping("/{turnoId}")
+    fun actualizar(@RequestBody turno: TurnoDTO) = turnoService.actualizar(turno.aModelo())
 }
