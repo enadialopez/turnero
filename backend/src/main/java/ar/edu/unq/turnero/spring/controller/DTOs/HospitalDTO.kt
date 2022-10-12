@@ -41,6 +41,13 @@ class HospitalDTO(
         return hospital
     }
 
+    fun aModelo(hospital : Hospital): Hospital {
+        hospital.nombre = this.nombre!!
+        hospital.municipio = this.municipio!!
+        hospital.direccion = this.direccion!!
+        return hospital
+    }
+
     private fun transformEspecialidades( especialidades: List<String> ) : MutableList<Especialidad> {
         var nuevasEspecialidades : MutableList<Especialidad> = mutableListOf()
          especialidades.forEach { especialidad -> nuevasEspecialidades += toEnum(especialidad) }

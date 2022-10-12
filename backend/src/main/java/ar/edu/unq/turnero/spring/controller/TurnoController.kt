@@ -20,5 +20,8 @@ class TurnoController(private val turnoService: TurnoService) {
     fun recuperarTodos() = turnoService.recuperarTodos().map { turno -> TurnoDTO.desdeModelo(turno)  }
 
     @PutMapping("/{turnoId}")
-    fun actualizar(@RequestBody turno: TurnoDTO) = turnoService.actualizar(turno.aModelo())
+    fun actualizar(@PathVariable turnoId: Long, @RequestBody turno: TurnoDTO) {
+        var hospitalRecuperado = turnoService.recuperar(turnoId.toInt())!!
+        turnoService.actualizar(turno.aModelo(hospitalRecuperado))
+    }
 }
