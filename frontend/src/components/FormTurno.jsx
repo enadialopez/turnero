@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
 import '../styles/FormTurno.css';
 
 const FormTurno = () => {
 
     const { id, especialidad } = useParams();
+    const navigate = useNavigate();
 
     const [hospital, setHospital] = useState({
         id: "",
@@ -26,7 +27,9 @@ const FormTurno = () => {
         especialista: "",
         nombreHospital: "",
         direccionHospital: "",
+        hospital: "",
     })
+    
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
@@ -62,8 +65,21 @@ const FormTurno = () => {
     
     const handleSubmit = (event) =>{
         event.preventDefault();
-        //completar
-      }
+        Service.putTurno(turno.id).then(response => {
+          setTurno((prevState)=>({
+            nombreYApellidoPaciente: turno.nombreYApellidoPaciente,
+            dniPaciente: turno.dniPaciente,
+            telefonoPaciente: turno.telefonoPaciente,
+            emailPaciente: turno.emailPaciente,
+            fechaYHora: turno.fechaYHora,
+            fechaEmitido: turno.fechaEmitido,
+            especialidad: turno.especialidad,
+            especialista: turno.especialista,
+            hospital: hospital,
+        }));
+        navigate(`/hospital/turno/${turno.id}`);
+        }).catch(err => console.log(err));
+    };
 
     useEffect(() => {
         Service.getHospitalById(id)
@@ -96,6 +112,8 @@ const FormTurno = () => {
     }, [fechaSeleccionada]
     );
 
+    console.log(turno)
+
     return (
         <>
             <div className="formTurno-container">
@@ -104,10 +122,10 @@ const FormTurno = () => {
                         <div className="select">
                             <label for="Name">Turnos Disponibles:</label>
                             <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
-                                <option value="">Seleccione fecha y horario...</option>
+                                <option defaultValue="">Seleccione fecha y horario...</option>
                                 { fechasDisponibles().map (turno => {
                                     return (
-                                        <option onClick={() => setFechaSeleccionada(turno)} key={turno} value={turno} selected={turno} required>{turno}</option>
+                                        <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
                                     );
                                 })}
                             </select>
