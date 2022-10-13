@@ -1,6 +1,5 @@
 package ar.edu.unq.turnero.modelo
 
-//import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

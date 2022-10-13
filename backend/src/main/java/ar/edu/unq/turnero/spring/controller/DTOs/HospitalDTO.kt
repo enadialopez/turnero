@@ -2,7 +2,6 @@ package ar.edu.unq.turnero.spring.controller.DTOs
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 
 class HospitalDTO(
