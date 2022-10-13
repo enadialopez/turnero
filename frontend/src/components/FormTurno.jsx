@@ -25,8 +25,6 @@ const FormTurno = () => {
         fechaEmitido: "",
         especialidad: "",
         especialista: "",
-        nombreHospital: "",
-        direccionHospital: "",
         hospital: "",
     })
     
@@ -46,10 +44,9 @@ const FormTurno = () => {
                     id: turno.id,
                     fechaYHora: turno.fechaYHora,
                     fechaEmitido: turno.fechaEmitido,
-                    especialidad: especialidad,
+                    especialidad: turno.especialidad,
                     especialista: turno.especialista,
-                    nombreHospital: hospital.nombre,
-                    direccionHospital: hospital.direccion,
+                    hospital: turno.hospital,
                 })
             }
         });
@@ -65,19 +62,15 @@ const FormTurno = () => {
     
     const handleSubmit = (event) =>{
         event.preventDefault();
-        Service.putTurno(turno.id).then(response => {
+        Service.putActualizarTurno(turno.id, turno).then(response => {
           setTurno((prevState)=>({
+            ...prevState,
             nombreYApellidoPaciente: turno.nombreYApellidoPaciente,
             dniPaciente: turno.dniPaciente,
             telefonoPaciente: turno.telefonoPaciente,
             emailPaciente: turno.emailPaciente,
-            fechaYHora: turno.fechaYHora,
-            fechaEmitido: turno.fechaEmitido,
-            especialidad: turno.especialidad,
-            especialista: turno.especialista,
-            hospital: hospital,
-        }));
-        navigate(`/hospital/turno/${turno.id}`);
+            }));
+            navigate(`/hospital/turno/${turno.id}`);
         }).catch(err => console.log(err));
     };
 
