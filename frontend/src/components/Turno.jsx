@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import Service from '../service/service';
+import Service from '../Service/service';
 
 const Turno = () => {
 
@@ -44,9 +44,35 @@ const Turno = () => {
     console.log(turno)
 
     return (
-        <>
-            
-        </>  
+        <div>
+            <div>
+                <h1>Su turno ha sido confirmado</h1>
+            </div>
+            <div className="card ">
+                <div className="card-header row justify-content-between">
+            <div>
+                <h2> {turno.nombreHospital} </h2>
+                <p>{turno.direccionHospital}</p>
+            </div>
+                <div><h3>{turno.id}</h3></div>
+            </div>
+            <div className="card-body">
+                <div className="row justify-content-around">
+                <div>
+                    <p>FECHA: {turno.fechaYHora} </p>
+                    <p>ESPECIALIDAD: {turno.especialidad} </p>
+                    <p>PROFESIONAL: {turno.especialista} </p>
+                </div>
+                <div>
+                <h5>SI NO PODES ASISTIR AL TURNO, <br/>EN EL DIA Y HORARIO ASIGNADO, 
+                   <br/> POR FAVOR CANCELALO</h5>
+                </div>
+                </div>
+                    <footer className="blockquote-footer">
+                        {turno.fechaEmitido}</footer>
+            </div>
+        </div>
+    </div>  
     );
   }
   
