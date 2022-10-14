@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import Service from '../service/service';
+import Service from '../Service/service';
 
 const Turno = () => {
 

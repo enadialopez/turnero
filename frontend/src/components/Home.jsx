@@ -1,18 +1,29 @@
 import React, { useState }  from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
 import '../styles/Home.css';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const goSearchResults = () => {
+        navigate("/hospital/search?q=" + search + "&value=" + selection) ;
+    };
+
+    const handleButtonClick = () => {
+        if (selection == "") {setShowAlert(true)}
+        else {goSearchResults()}
+    }
 
     const [selection, setSelection] = useState(""); 
     const [search, setSearch] = useState("");
     const changeSearch = (event) => setSearch(event.target.value);
     const [disable, setDisable] = useState (true)
+    const [showAlert, setShowAlert] = useState (false)
 
     const changeSelectValue = (value) => {
         setSelection(value)
-        setDisable(false);
+        setShowAlert(false)
     }
 
     return (
@@ -23,11 +34,9 @@ const Home = () => {
                 </div>
                 <div className="search-content">  
                     <div className='search-bar'>
-                        {disable && (<div className="alert alert-danger" role="alert">ERROR</div>) }
+                        { showAlert ? <div className="alert alert-danger" role="alert">ERROR</div> : ""}
                         <input className="search-btn" type="text" placeholder="Buscar hospital" aria-label="Search" onChange={changeSearch} />
-                        <Link to={`/hospital/search?q=${search}&value=${selection}`}>
-                            <button disabled={disable} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
-                        </Link>
+                        <button onClick={() => handleButtonClick(search, selection)} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
                     </div>
                     <div className='text-2'>
                         
