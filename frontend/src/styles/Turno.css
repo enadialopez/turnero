@@ -1,0 +1,17 @@
+.turno {
+    width: 60%;
+}
+
+.card {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titulo {
+    margin: 20px;
+}
+
+.paciente{
+    margin-left: 70px;
+}
