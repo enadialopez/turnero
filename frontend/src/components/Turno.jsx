@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
 import '../styles/Turno.css';
 
@@ -19,6 +19,12 @@ const Turno = () => {
         nombreHospital: "",
         direccionHospital: "",
     })
+
+    
+    const navigate = useNavigate();
+    const goHome = () => {
+        navigate("/") ;
+    };
 
     useEffect(() => {
         Service.getTurnoById(id)
@@ -45,41 +51,45 @@ const Turno = () => {
     console.log(turno)
 
     return (
-        <div>
-            <div className="titulo">
+        <div className='turno-container'>
+            <div className="title-turno">
                 <h1>Su turno ha sido confirmado</h1>
             </div>
-            <div className="card turno" >
-                <div className="card-header row justify-content-between">
-                    <div>
-                        <h2> {turno.nombreHospital} </h2>
-                        <p>{turno.direccionHospital}</p>
-                    </div>
-                    <div>
-                        <p>CÓDIGO DEL TURNO: {turno.id}</p>
-                    </div>
-                </div>
-                <div className="card-body">
-                    <div className="row justify-content-around" >
-                        <div>
-                            <p>FECHA: {turno.fechaYHora} </p>
-                            <p>ESPECIALIDAD: {turno.especialidad} </p>
-                            <p>PROFESIONAL: {turno.especialista} </p>
+            <div className="card-turno">
+                <div className="box-turno">
+                    <div className="card-header">
+                        <div className='header-left'>
+                            <h2> {turno.nombreHospital} </h2>
+                            <p>{turno.direccionHospital}</p>
                         </div>
-                    <div>
-                        <h5>SI NO PODES ASISTIR AL TURNO, <br/>EN EL DIA Y HORARIO ASIGNADO, 
-                        <br/> POR FAVOR CANCELALO</h5>
+                        <div className='header-right'>
+                            <p>CÓDIGO DEL TURNO: {turno.id}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="paciente">
-                    <p>PACIENTE: {turno.nombreYApellidoPaciente} </p>
-                    <p>DNI: {turno.dniPaciente}</p>
-                </div>
-                    <footer className="blockquote-footer">
-                        {turno.fechaEmitido}</footer>
+                    <div className="card-body">
+                        <div className="body-left">
+                                <p>FECHA: {turno.fechaYHora} </p>
+                                <p className='especialidad-turno'>ESPECIALIDAD: {turno.especialidad}</p>
+                                <p>PROFESIONAL: {turno.especialista}</p>
+                                <p className='fecha-turno'>FECHA EMITIDO: {turno.fechaEmitido}</p> 
+                        </div>
+                        <div className='body-right'>
+                                <p>SI NO PODES ASISTIR AL TURNO EN EL DIA Y 
+                                    HORARIO ASIGNADO, POR FAVOR CANCELALO.</p>
+                        </div>
+                    </div>
+                    <div className="footer">
+                        <div className="paciente-date">
+                            <p>PACIENTE: {turno.nombreYApellidoPaciente} </p>
+                            <p>DNI: {turno.dniPaciente}</p>
+                        </div>
+                    </div>
+                </div>   
             </div>
-        </div>
-    </div>  
+            <div className='button'>
+                <button className="btn-mp" onClick={goHome} >Volver al inicio</button>
+            </div>
+        </div>  
     );
   }
   

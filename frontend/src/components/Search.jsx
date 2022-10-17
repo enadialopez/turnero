@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import Service from '../Service/service';
+import Service from '../service/service';
 import HospitalModel from './HospitalModel';
 import '../styles/Search.css';
 

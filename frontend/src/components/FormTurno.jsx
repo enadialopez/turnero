@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import Service from '../Service/service';
+import Service from '../service/service';
 import '../styles/FormTurno.css';
 
 const FormTurno = () => {
