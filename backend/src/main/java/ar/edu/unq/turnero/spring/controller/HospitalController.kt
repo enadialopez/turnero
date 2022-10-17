@@ -13,6 +13,12 @@ class HospitalController(private val hospitalService: HospitalService) {
     @PostMapping
     fun crear(@RequestBody hospital: HospitalDTO) = hospitalService.crear(hospital.aModelo())
 
+    @PutMapping("/{hospitalId}")
+    fun actualizar(@PathVariable hospitalId: Long, @RequestBody hospitalDTO: HospitalDTO) {
+        var hospitalRecuperado = hospitalService.recuperar(hospitalId.toInt())!!
+        hospitalService.actualizar(hospitalDTO.aModelo(hospitalRecuperado))
+    }
+
     @GetMapping("/{hospitalId}")
     fun recuperar(@PathVariable hospitalId: Long) = HospitalDTO.desdeModelo(hospitalService.recuperar(hospitalId.toInt())!!)
 

@@ -8,6 +8,7 @@ import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.service.HospitalService
+import ar.edu.unq.turnero.service.TurnoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -17,7 +18,9 @@ import javax.transaction.Transactional
 @Transactional
 open class HospitalServiceImp(
     @Autowired
-    private val hospitalDAO: HospitalDAO
+    private val hospitalDAO: HospitalDAO,
+    @Autowired
+    private val turnoService : TurnoService
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
@@ -58,29 +61,14 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarPorEspecialidad(busqueda: String): List<Hospital> {
-       // hospitalDAO.findByEspecialidad(busqueda)
         return hospitalDAO.findByEspecialidad(busqueda)
-        //var lista : List<Hospital> = listOf()
-        //return lista
-    }
-
-    // Las especialidades quedan como string en MAYUSCULA
-    override fun especialidadesDeHospital(idDeHospital: Int): MutableList<String> {
-        var hospital : Hospital = recuperar(idDeHospital)
-        var especialidades : List<Especialidad> = hospital.especialidades
-        var especialidadesComoString : MutableList<String> = mutableListOf()
-        especialidades.map{ e -> especialidadesComoString.add(e.toString()) }
-        return especialidadesComoString
     }
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
-        print(especialidad)
-        var enumEspecialidad = toEnum(especialidad)
         var hospital : Hospital = this.recuperar(idDeHospital)
         var turnos = hospital.turnos
         var turnosDisponibles : MutableList<Turno> = mutableListOf()
-        turnos.map{ t -> print(t.especialidad); if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
-        print(turnosDisponibles)
+        turnos.map{ t -> if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
         return turnosDisponibles
     }
 
@@ -114,6 +102,34 @@ open class HospitalServiceImp(
         } else {
             throw ErrorSelectionException()
         }
+    }
+
+    /**
+     * Crea el turno en la base de datos y lo agrega a la lista
+     * de turnos del hospital.
+     * Quedan actualizados tanto el turno como el hospital
+     * en la base de datos y sus correspondientes instancias.
+     * Devuelve el turno actualizado.
+     */
+    override fun crearTurno(turno: Turno) : Turno {
+        turnoService.crear(turno)
+        var hospital = turno.hospital
+        hospital!!.agregarTurno(turno)
+        this.actualizar(hospital)
+        return turno
+    }
+
+    /**
+     * Borra el turno de la base de datos y de la lista
+     * de turnos del hospital.
+     * Quedan actualizados tanto el turno como el hospital
+     * en la base de datos y sus correspondientes instancias.
+     */
+    override fun borrarTurno(turno: Turno) {
+        var hospital = turno.hospital
+        turnoService.eliminar(turno.id!!.toInt())
+        hospital!!.turnos.remove(turno)
+        this.actualizar(hospital)
     }
 
     override fun clear() {

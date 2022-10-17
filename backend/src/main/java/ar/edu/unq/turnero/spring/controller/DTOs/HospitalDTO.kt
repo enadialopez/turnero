@@ -2,7 +2,6 @@ package ar.edu.unq.turnero.spring.controller.DTOs
 
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
-import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 
 class HospitalDTO(
@@ -33,11 +32,18 @@ class HospitalDTO(
         val hospital = Hospital()
         hospital.id = this.id
         hospital.nombre = this.nombre!!
-        hospital.municipio = this.municipio
+        hospital.municipio = this.municipio!!
         hospital.direccion = this.direccion!!
         hospital.especialidades = transformEspecialidades(this.especialidades!!)
         hospital.turnos = this.turnos
             ?.map { MiniTurnoDTO  ->  MiniTurnoDTO.aModelo()}.toMutableList()
+        return hospital
+    }
+
+    fun aModelo(hospital : Hospital): Hospital {
+        hospital.nombre = this.nombre!!
+        hospital.municipio = this.municipio!!
+        hospital.direccion = this.direccion!!
         return hospital
     }
 

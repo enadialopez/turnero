@@ -7,8 +7,8 @@ import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 class MiniTurnoDTO(
     var id: Long?,
     var nombreYApellidoPaciente:String?,
-    var dniPaciente: Int?,
-    var telefonoPaciente: Int?,
+    var dniPaciente: Long?,
+    var telefonoPaciente: Long?,
     var emailPaciente: String?,
     var fechaYHora: String?,
     var fechaEmitido: String?,

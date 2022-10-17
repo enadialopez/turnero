@@ -4,17 +4,26 @@ import '../styles/HospitalModel.css';
 
 const HospitalModel = (props) => {
 
-    const { hospital } = props
+    const { hospital, busqueda, value } = props
 
     return (
         <div className="hospitalModel-container">
-            <Link to={`/hospital/search/${hospital.id}/especialidades`} className="link">
+            
                 <div className='box-description'>
                     <div className="name-selection">  
-                        <p className="selection-name">{hospital.nombre}</p> 
+                       { value === "nombre" || value === "municipio" ?
+                           <Link to={`/hospital/${hospital.id}/especialidades`} className="link">
+                                <p className="selection-name">{hospital.nombre}</p> 
+                            </Link>
+                        :    
+                            <Link to={`/hospital/${hospital.id}/${busqueda}/sacar-turno`} className="link">
+                                <p className="selection-name">{hospital.nombre}</p> 
+                            </Link>
+                        }   
+                        
                     </div>
                 </div>
-            </Link>
+            
         </div>
     );
 };

@@ -1,6 +1,5 @@
 package ar.edu.unq.turnero.modelo
 
-//import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -14,8 +13,8 @@ class Turno() {
     var id: Long? = null
     @Column(nullable = false, length = 500)
     var nombreYApellidoPaciente: String? = ""
-    var dniPaciente: Int? = null
-    var telefonoPaciente: Int? = null
+    var dniPaciente: Long? = null
+    var telefonoPaciente: Long? = null
     var emailPaciente: String? = ""
     var fechaYHora: String? = null
     var fechaEmitido: String? = null
@@ -23,10 +22,10 @@ class Turno() {
     var especialista: String? = null
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id")
+    //@JoinColumn(name = "hospital_id")
     var hospital: Hospital? = null
 
-    constructor(nombre: String, dni: Int, telefono: Int, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
+    constructor(nombre: String, dni: Long, telefono: Long, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
         this.nombreYApellidoPaciente = nombre
         this.dniPaciente = dni
         this.telefonoPaciente = telefono
@@ -52,14 +51,14 @@ class Turno() {
         this.nombreYApellidoPaciente = nombreNuevo
     }
 
-    fun cambiarDniPaciente(nuevoDNI: Int) {
+    fun cambiarDniPaciente(nuevoDNI: Long) {
         if(nuevoDNI.toString().length != 8) {
             throw Exception() //ErrorIntegerException()
         }
         this.dniPaciente = nuevoDNI
     }
 
-    fun cambiarTelefonoPaciente(nuevoTelefono: Int) {
+    fun cambiarTelefonoPaciente(nuevoTelefono: Long) {
         if(nuevoTelefono.toString().length != 10) {
             throw Exception() //ErrorIntegerException()
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect }   from 'react';
-import { useParams  } from "react-router-dom";
-import Service from '../Service/service';
+import { useParams, useNavigate } from "react-router-dom";
+import Service from '../service/service';
 import EspecialidadModel from './EspecialidadModel';
 import '../styles/Hospital.css';
 
@@ -14,7 +14,13 @@ const Hospital = () => {
         direccion: "",
         municipio: "",
         especialidades: [],
-      });
+    });
+
+    const navigate = useNavigate();
+
+    const goHome = () => {
+        navigate("/") ;
+    };
 
     useEffect(() => {
         Service.getHospitalById(id)
@@ -35,8 +41,9 @@ const Hospital = () => {
     return (
         <>
             <div className="hospital-container">
+                <button className="btn-mp-2" onClick={goHome} >Volver al inicio</button>
                 <div className='title-hospital'>
-                    {hospital.nombre}, sus especialidades:
+                    {hospital.nombre}, especialidades disponibles:
                 </div>
                 <div className='especialidades-hospital-box'>            
                     {hospital.especialidades.map((especialidad, idx) => {          

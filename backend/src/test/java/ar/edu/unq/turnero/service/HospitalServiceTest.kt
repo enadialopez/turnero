@@ -49,8 +49,8 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        this.service = HospitalServiceImp(hospitalDAO)
         this.turnoService = TurnoServiceImp(turnoDAO)
+        this.service = HospitalServiceImp(hospitalDAO, turnoService)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
@@ -243,16 +243,30 @@ class HospitalServiceTest {
     }
 
     @Test
-    fun seRecuperanLasEspecialidadesDeUnHospitalCorrectamente() {
-        var idGarrahan = garrahan.id!!.toInt()
-        var especialidades = service.especialidadesDeHospital(idGarrahan)
-        println(especialidades)
-        Assertions.assertTrue(especialidades.contains("DERMATOLOGIA"))
-        Assertions.assertTrue(especialidades.contains("UROLOGIA"))
-        Assertions.assertTrue(especialidades.contains("TRAUMATOLOGIA"))
-        Assertions.assertTrue(especialidades.contains("NEFROLOGIA"))
-        Assertions.assertFalse(especialidades.contains("PEDIATRIA"))
+    fun seCreaUnTurnoParaUnHospitalCorrectamente() {
+        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
+        var turnoCreado = service.crearTurno(turno)
+
+        Assertions.assertNotNull(turnoService.recuperar(turnoCreado.id!!.toInt()))
+        Assertions.assertEquals(elCruce, turnoCreado.hospital)
+        Assertions.assertEquals(1, elCruce!!.turnos.size)
     }
+
+
+    /*
+    @Test
+    fun seBorraUnTurnoDeUnHospitalCorrectamente() {
+        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
+        var turnoCreado = service.crearTurno(turno)
+        var idTurnoCreado = turnoCreado.id!!.toInt()
+
+        service.borrarTurno(turnoCreado)
+
+        Assertions.assertEquals(0, elCruce!!.turnos.size)
+        Assertions.assertNull(turnoService.recuperar(idTurnoCreado))
+    }
+
+     */
 
     @Test
     fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
@@ -276,7 +290,7 @@ class HospitalServiceTest {
 
     @AfterEach
     fun cleanUp(){
-        //turnoService.clear()
-        //.clear()
+        turnoService.clear()
+        service.clear()
     }
 }

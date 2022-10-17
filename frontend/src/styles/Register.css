@@ -1,0 +1,9 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form-register-card {
+    border-style: groove;
+    border-color: blue;
+}

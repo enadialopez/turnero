@@ -15,12 +15,12 @@ class Hospital() {
     var municipio: String? = null
     var direccion: String? = null
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "hospital",  cascade = [CascadeType.ALL], orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name="hospital_turnos",
+    /*@JoinTable(name="hospital_turnos",
         joinColumns= [JoinColumn(name="hospital_id", referencedColumnName="id")],
         inverseJoinColumns= [JoinColumn(name="turno_id", referencedColumnName="id")]
-    )
+    )*/
     var turnos: MutableList<Turno> = mutableListOf()
 
     @ElementCollection ( fetch = FetchType.EAGER)

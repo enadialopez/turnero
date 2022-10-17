@@ -51,7 +51,7 @@ class TurnoServiceTest {
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
-        this.hospitalService = HospitalServiceImp(hospitalDAO)
+        this.hospitalService = HospitalServiceImp(hospitalDAO, turnoService)
 
         evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>(), mutableListOf<Turno>())
         evitaPueblo.agregarEspecialidad(pediatria)
@@ -174,8 +174,8 @@ class TurnoServiceTest {
         turnoRecuperado = turnoService.recuperar(turnoId)
 
         Assert.assertEquals("Jorge Perez", turnoRecuperado!!.nombreYApellidoPaciente)
-        Assert.assertEquals(22345678, turnoRecuperado!!.dniPaciente)
-        Assert.assertEquals(1123456789, turnoRecuperado!!.telefonoPaciente)
+        Assert.assertEquals(22345678.toLong(), turnoRecuperado!!.dniPaciente)
+        Assert.assertEquals(1123456789.toLong(), turnoRecuperado!!.telefonoPaciente)
         Assert.assertEquals("jorgePerez@gmail.com", turnoRecuperado!!.emailPaciente)
     }
 

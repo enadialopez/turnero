@@ -7,8 +7,8 @@ import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 class TurnoDTO(
     var id: Long?,
     var nombreYApellidoPaciente:String?,
-    var dniPaciente: Int?,
-    var telefonoPaciente: Int?,
+    var dniPaciente: Long?,
+    var telefonoPaciente: Long?,
     var emailPaciente: String?,
     var fechaYHora: String?,
     var fechaEmitido: String?,
@@ -35,7 +35,7 @@ class TurnoDTO(
                 fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
                 especialista = turno.especialista,
-                hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre))
+                hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre, turno.hospital!!.direccion))
     }
 
     fun aModelo(): Turno {
@@ -50,6 +50,14 @@ class TurnoDTO(
         turno.especialidad = toEnum(this.especialidad)
         turno.especialista = this.especialista
         turno.hospital = this.hospital!!.aModelo()
+        return turno
+    }
+
+    fun aModelo(turno: Turno): Turno {
+        turno.nombreYApellidoPaciente = this.nombreYApellidoPaciente!!
+        turno.dniPaciente = this.dniPaciente!!
+        turno.telefonoPaciente = this.telefonoPaciente!!
+        turno.emailPaciente = this.emailPaciente!!
         return turno
     }
 

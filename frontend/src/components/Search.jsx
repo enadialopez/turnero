@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation , useNavigate } from 'react-router-dom';
-import Service from '../Service/service';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Service from '../service/service';
 import HospitalModel from './HospitalModel';
 import '../styles/Search.css';
 
@@ -12,18 +12,19 @@ const Search = () => {
     const [hospitales, setHospitales] = useState([]);
 
     const navigate = useNavigate();
-
     const goHome = () => {
         navigate("/") ;
-      };
+    };
 
     useEffect(() => {
-        Service.getSearch(search, value)
-            .then(response => { 
-            setHospitales(response.data)
-        }).catch(error => {
-            console.log(error)
-        });
+        if (search.length !== 0) {
+            Service.getSearch(search, value)
+                .then(response => { 
+                setHospitales(response.data)
+            }).catch(error => {
+                console.log(error)
+            });
+        }    
     }, [search, value]
     );
 
@@ -39,7 +40,7 @@ const Search = () => {
                         { hospitales.length > 0 ?
                             <div className="box-result">
                                 {hospitales.map((hospital, idx) => {          
-                                    return <HospitalModel key={hospital.id} hospital={hospital} />
+                                    return <HospitalModel key={hospital.id} hospital={hospital} value={value} busqueda={search}/>
                                 })}
                             </div>
                         :    

@@ -5,6 +5,7 @@ import ar.edu.unq.turnero.modelo.Hospital
 class MiniHospitalDTO(
     var id: Long?,
     var nombre:String?,
+    var direccion: String?,
 ) {
 
     companion object {
@@ -12,6 +13,7 @@ class MiniHospitalDTO(
             MiniHospitalDTO(
                 id = hospital.id,
                 nombre = hospital.nombre,
+                direccion = hospital.direccion,
             )
     }
 
@@ -19,6 +21,7 @@ class MiniHospitalDTO(
         val hospital = Hospital()
         hospital.id = this.id
         hospital.nombre = this.nombre!!
+        hospital.direccion = this.direccion!!
         return hospital
     }
 }

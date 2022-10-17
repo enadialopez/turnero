@@ -11,6 +11,7 @@
     text-align: center;
     padding: 0px;
     margin: 0px;
+    color: black;
   }
 
   .text-1 {
@@ -39,11 +40,23 @@
 
   .search-bar {
     width: 500px;
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     margin-top: -190px; 
     margin-bottom: -150px;
+  }
+
+  .box-search {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    width: 500px;
+  }
+
+  .alert{
+    margin: -5px;
   }
 
   .btn-secondary {
@@ -51,6 +64,12 @@
     border-radius: 50px;
     height: 50px;
     font-size: 10px;
+    background-color:rgb(21, 16, 103);
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .btn-secondary:hover, .btn-secondar:focus {
     background-color:rgb(21, 16, 103);
     cursor: pointer;
   }
@@ -79,7 +98,7 @@
     justify-content: space-between;
     margin-left: 60px;
     margin-right: 60px;
-    margin-top: -200px; 
+    margin-top: -230px; 
   }
 
   .radio {
