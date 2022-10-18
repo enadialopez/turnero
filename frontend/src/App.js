@@ -12,9 +12,6 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="navbar">
-        <Navbar/>
-      </div> 
       <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route path="/register" element={<Register/>}/>

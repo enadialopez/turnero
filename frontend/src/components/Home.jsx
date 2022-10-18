@@ -1,6 +1,7 @@
 import React, { useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
+import Navbar from '../components/Navbar';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -30,6 +31,9 @@ const Home = () => {
 
     return (
         <>
+            <div className="navbar">
+                <Navbar/>
+            </div> 
             <div className="home-container">
                 <div className='text-1'>
                     <p>BUSCAR PARA SACAR TURNO</p> 
