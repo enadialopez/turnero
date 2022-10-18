@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.service.HospitalService
+import ar.edu.unq.turnero.spring.controller.DTOs.MiniHospitalDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.HospitalDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
 import org.springframework.web.bind.annotation.*
@@ -27,7 +28,7 @@ class HospitalController(private val hospitalService: HospitalService) {
     fun recuperarPor(@RequestParam q: String, value: String) = hospitalService.recuperarPor(value, q).map { hospital -> HospitalDTO.desdeModelo(hospital)  }
 
     @GetMapping("")
-    fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> HospitalDTO.desdeModelo(hospital)  }
+    fun recuperarTodos() = hospitalService.recuperarTodos().map { hospital -> MiniHospitalDTO.desdeModelo(hospital)  }
 
     @GetMapping("/{hospitalId}/turnos/{especialidad}")
     fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: String) =
