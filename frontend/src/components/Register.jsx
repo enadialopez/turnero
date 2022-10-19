@@ -42,7 +42,7 @@ const Register = () => {
                         <button type="submit" className="btn-info b-log">REGISTRARSE</button>
                     </form>
                     <div className='modalFooter-register'>
-                        ¿Ya sos usuario? Iniciar Sesión
+                        
                     </div>
                 </div>    
             </div>
