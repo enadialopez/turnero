@@ -1,14 +1,14 @@
 package ar.edu.unq.turnero.spring.controller.DTOs
 
-import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Usuario
 
 class UsuarioDTO(
     var id: Long?,
     var nombreYApellido: String?,
-    var dni: Long? = null,
-    var email: String? = null,
-    var telefono: Long? = null) {
+    var dni: Long?,
+    var email: String?,
+    var telefono: Long?,
+    var contraseña: String?) {
 
     companion object {
         fun desdeModelo(usuario: Usuario) =
@@ -17,7 +17,8 @@ class UsuarioDTO(
                 nombreYApellido = usuario.nombreYApellido,
                 dni = usuario.dni,
                 email = usuario.email,
-                telefono = usuario.telefono
+                telefono = usuario.telefono,
+                contraseña = usuario.contraseña
             )
     }
 
@@ -28,6 +29,7 @@ class UsuarioDTO(
         usuario.dni = this.dni!!
         usuario.email = this.email!!
         usuario.telefono = this.telefono
+        usuario.contraseña = this.contraseña
         return usuario
     }
 

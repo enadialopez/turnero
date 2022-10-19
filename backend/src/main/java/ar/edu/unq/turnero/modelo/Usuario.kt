@@ -11,23 +11,23 @@ class Usuario() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
     @Column(nullable = false, length = 500)
-    var contraseña: String? = null
     var nombreYApellido: String? = null
     var dni: Long? = null
     var email: String? = null
     var telefono: Long? = null
+    var contraseña: String? = null
     /*
     @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.ALL], orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
      */
 
-    constructor(dni: Long, contraseña: String, nombreYApellido: String, email: String, telefono: Long):this() {
-        this.contraseña = contraseña
+    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, contraseña: String):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
         this.email = email
         this.telefono = telefono
+        this.contraseña = contraseña
     }
 
     override fun equals(other: Any?): Boolean {
@@ -37,11 +37,11 @@ class Usuario() {
         other as Usuario
 
         if (id != other.id) return false
-        if (contraseña != other.contraseña) return false
         if (nombreYApellido != other.nombreYApellido) return false
         if (dni != other.dni) return false
         if (email != other.email) return false
         if (telefono != other.telefono) return false
+        if (contraseña != other.contraseña) return false
 
         return true
     }

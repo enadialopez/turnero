@@ -1,9 +1,6 @@
 package ar.edu.unq.turnero.spring.controller
 
-import ar.edu.unq.turnero.service.HospitalService
 import ar.edu.unq.turnero.service.UsuarioService
-import ar.edu.unq.turnero.spring.controller.DTOs.HospitalDTO
-import ar.edu.unq.turnero.spring.controller.DTOs.MiniHospitalDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.UsuarioDTO
 import org.springframework.web.bind.annotation.*
 

@@ -15,16 +15,16 @@ open class UsuarioServiceImp(
     @Autowired
     private val usuarioDAO: UsuarioDAO): UsuarioService {
 
+    override fun crear(usuario: Usuario): Usuario {
+        this.validarCampos(usuario)
+        return usuarioDAO.save(usuario)
+    }
+
     private fun validarCampos(usuario: Usuario) {
         if(usuario.nombreYApellido == "" || usuario.dni == null || usuario.email == ""
             || usuario.contraseña == "" || usuario.telefono == null) {
             throw StringVacioException()
         }
-    }
-
-    override fun crear(usuario: Usuario): Usuario {
-        this.validarCampos(usuario)
-        return usuarioDAO.save(usuario)
     }
 
     override fun actualizar(usuario: Usuario): Usuario {

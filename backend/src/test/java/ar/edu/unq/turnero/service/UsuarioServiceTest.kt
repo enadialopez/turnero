@@ -31,8 +31,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioValido() {
-        var user: Usuario = Usuario(24456734, "123", "Candela Aguayo",
-            "candelaAguayo@yahoo.com", 42073821)
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+            24456734, "123")
         usuarioService.crear(user)
 
         Assertions.assertNotNull(user.id)
@@ -40,8 +40,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user: Usuario = Usuario(24456734, "", "Candela Aguayo",
-            "candelaAguayo@yahoo.com", 42073821)
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+            24456734, "")
 
         try {
             usuarioService.crear(user)
@@ -52,8 +52,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
-        var user: Usuario = Usuario(24456734, "123", "Candela Aguayo",
-            "candelaAguayo@yahoo.com", 42073821)
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+            24456734, "123")
         usuarioService.crear(user)
 
         var userId: Long? = user.id
@@ -64,8 +64,9 @@ class UsuarioServiceTest {
 
     @Test
     fun seIntentaRecuperaUnUsuarioQueNoExiste() {
-        var user: Usuario = Usuario(24456734, "123", "Candela Aguayo",
-            "candelaAguayo@yahoo.com", 42073821)
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+            24456734, "123")
+
         var userId: Long? = user.id
 
         try {
@@ -75,12 +76,12 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1: Usuario = Usuario(24456734, "123", "Candela Aguayo",
-            "candelaAguayo@yahoo.com", 42073821)
-        var user2: Usuario = Usuario(13456734, "456", "Marcos Galante",
-            "marcosGalante@gmail.com", 42073821)
-        var user3: Usuario = Usuario(33456734, "789", "Ximena Jida",
-            "ximeJida@hotmail.com", 42073821)
+        var user1: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+            24456734, "123")
+        var user2: Usuario = Usuario("Marcos Galante", 42073821, "marcosGalante@gmail.com",
+            13456734, "456")
+        var user3: Usuario = Usuario("Ximena Jida", 42073821, "ximeJida@hotmail.com",
+            33456734, "789")
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
