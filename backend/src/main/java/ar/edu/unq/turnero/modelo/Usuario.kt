@@ -16,11 +16,11 @@ class Usuario() {
     var email: String? = null
     var telefono: Long? = null
     var contraseña: String? = null
-    /*
-    @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.ALL], orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+
+    @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.PERSIST, CascadeType.MERGE],
+        orphanRemoval = false, fetch = FetchType.LAZY)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
-     */
+
 
     constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, contraseña: String):this() {
         this.nombreYApellido = nombreYApellido
@@ -28,6 +28,11 @@ class Usuario() {
         this.email = email
         this.telefono = telefono
         this.contraseña = contraseña
+    }
+
+    fun sacarTurno(turno: Turno) {
+        this.turnosAsignados.add(turno)
+        turno.asignarAPaciente(this)
     }
 
     override fun equals(other: Any?): Boolean {

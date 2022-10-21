@@ -66,9 +66,8 @@ open class HospitalServiceImp(
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
         var hospital : Hospital = this.recuperar(idDeHospital)
-        var turnos = hospital.turnos
-        var turnosDisponibles : MutableList<Turno> = mutableListOf()
-        turnos.map{ t -> if (t.especialidad.toString().toLowerCase() == especialidad && t.dniPaciente == null) {turnosDisponibles.add(t)} }
+        var especialidadClase = this.toEnum(especialidad)
+        var turnosDisponibles = turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital, especialidadClase)
         return turnosDisponibles
     }
 

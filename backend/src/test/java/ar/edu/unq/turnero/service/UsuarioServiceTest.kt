@@ -1,8 +1,15 @@
 package ar.edu.unq.turnero.service
 
+import ar.edu.unq.turnero.modelo.Especialidad
+import ar.edu.unq.turnero.modelo.Hospital
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
+import ar.edu.unq.turnero.persistence.HospitalDAO
+import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.persistence.UsuarioDAO
+import ar.edu.unq.turnero.service.impl.HospitalServiceImp
+import ar.edu.unq.turnero.service.impl.TurnoServiceImp
 import ar.edu.unq.turnero.service.impl.UsuarioServiceImp
 import org.junit.Assert
 import org.junit.jupiter.api.*
@@ -20,13 +27,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 class UsuarioServiceTest {
 
     lateinit var usuarioService: UsuarioService
+    lateinit var hospitalService: HospitalService
+    lateinit var turnoService: TurnoService
 
     @Autowired
     lateinit var usuarioDAO: UsuarioDAO
+    @Autowired
+    lateinit var hospitalDAO: HospitalDAO
+    @Autowired
+    lateinit var turnoDAO: TurnoDAO
 
     @BeforeEach
     fun prepare() {
         usuarioService = UsuarioServiceImp(usuarioDAO)
+        turnoService = TurnoServiceImp(turnoDAO)
+        hospitalService = HospitalServiceImp(hospitalDAO, turnoService)
     }
 
     @Test
@@ -92,8 +107,30 @@ class UsuarioServiceTest {
         Assertions.assertEquals(3, usuarios.size)
     }
 
+    @Test
+    fun userSacaTurnoDeFormaCorrecta(){
+        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        var pediatria: Especialidad = Especialidad.PEDIATRIA
+        var turnoEvita = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        evitaPueblo.agregarTurno(turnoEvita)
+        hospitalService.crear(evitaPueblo)
+
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",        1124456734, "123")
+        usuarioService.crear(user)
+
+        user.sacarTurno(turnoEvita)
+        usuarioService.actualizar(user)
+
+        var turnoCreado = turnoService.recuperar(turnoEvita.id!!.toInt())
+
+        Assertions.assertEquals(1, user.turnosAsignados.size)
+        Assertions.assertEquals(user, turnoCreado!!.paciente)
+    }
+
     @AfterEach
     fun cleanUp(){
+        turnoService.clear()
+        hospitalService.clear()
         usuarioService.clear()
     }
 
