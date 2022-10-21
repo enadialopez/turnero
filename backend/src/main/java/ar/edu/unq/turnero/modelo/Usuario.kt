@@ -3,6 +3,7 @@ package ar.edu.unq.turnero.modelo
 import org.hibernate.annotations.LazyCollection
 import org.hibernate.annotations.LazyCollectionOption
 import javax.persistence.*
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Entity
 class Usuario() {
@@ -13,21 +14,37 @@ class Usuario() {
     @Column(nullable = false, length = 500)
     var nombreYApellido: String? = null
     var dni: Long? = null
-    var email: String? = null
     var telefono: Long? = null
-    var contraseña: String? = null
+    @Column()
+    var password: String? = null
+         get() = field
+         set(value) {
+             val passwordEncoder = BCryptPasswordEncoder()
+             field = passwordEncoder.encode(value)
+         }
+    @Column(unique = true)
+    var email: String? = null
 
     @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.PERSIST, CascadeType.MERGE],
         orphanRemoval = false, fetch = FetchType.LAZY)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
 
-    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, contraseña: String):this() {
+    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
         this.email = email
         this.telefono = telefono
-        this.contraseña = contraseña
+        this.password = password
+    }
+
+    constructor(nombreYApellido: String, dni: Long):this() {
+        this.nombreYApellido = nombreYApellido
+        this.dni = dni
+    }
+
+    fun comparePassword(password: String): Boolean {
+        return BCryptPasswordEncoder().matches(password, this.password)
     }
 
     fun sacarTurno(turno: Turno) {
@@ -46,7 +63,7 @@ class Usuario() {
         if (dni != other.dni) return false
         if (email != other.email) return false
         if (telefono != other.telefono) return false
-        if (contraseña != other.contraseña) return false
+        if (password != other.password) return false
 
         return true
     }

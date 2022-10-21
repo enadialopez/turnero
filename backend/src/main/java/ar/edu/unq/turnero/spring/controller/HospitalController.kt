@@ -4,6 +4,7 @@ import ar.edu.unq.turnero.service.HospitalService
 import ar.edu.unq.turnero.spring.controller.DTOs.MiniHospitalDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.HospitalDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -15,9 +16,11 @@ class HospitalController(private val hospitalService: HospitalService) {
     fun crear(@RequestBody hospital: HospitalDTO) = hospitalService.crear(hospital.aModelo())
 
     @PutMapping("/{hospitalId}")
-    fun actualizar(@PathVariable hospitalId: Long, @RequestBody hospitalDTO: HospitalDTO) {
+    fun actualizar(@PathVariable hospitalId: Long, @RequestBody hospitalDTO: HospitalDTO) : ResponseEntity<Any> {
         var hospitalRecuperado = hospitalService.recuperar(hospitalId.toInt())!!
-        hospitalService.actualizar(hospitalDTO.aModelo(hospitalRecuperado))
+        val hospital = hospitalService.actualizar(hospitalDTO.aModelo(hospitalRecuperado))
+
+        return ResponseEntity.ok().body(hospital)
     }
 
     @GetMapping("/{hospitalId}")

@@ -1,5 +1,6 @@
 package ar.edu.unq.turnero.service.impl
 
+import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.UsuarioDAO
@@ -22,7 +23,7 @@ open class UsuarioServiceImp(
 
     private fun validarCampos(usuario: Usuario) {
         if(usuario.nombreYApellido == "" || usuario.dni == null || usuario.email == ""
-            || usuario.contraseña == "" || usuario.telefono == null) {
+            || usuario.password == "" || usuario.telefono == null) {
             throw StringVacioException()
         }
     }
@@ -37,6 +38,11 @@ open class UsuarioServiceImp(
             throw RuntimeException("El id [${usuarioId}] no existe.")
         }
         return user
+    }
+
+    override fun recuperarPorEmail(email: String) : Usuario? {
+        //validar email
+        return usuarioDAO.findByEmailContaining(email)
     }
 
     override fun recuperarTodos(): List<Usuario> {
