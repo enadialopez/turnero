@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { AiOutlineCloseCircle }from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import Service from '../service/service';
+import axios from 'axios';
 import '../styles/Register.css';
 
 const Register = () => {
@@ -13,15 +15,34 @@ const Register = () => {
         password: "",
       });
 
+    const [registerError, setRegisterError] = useState (false)
+
     const handleChange = name => event => {
-    setData(prevState => ({ ...prevState, [name]: event.target.value }));
+        setData(prevState => ({ ...prevState, [name]: event.target.value }));
     };
+
+    axios.defaults.headers['authorization'] = localStorage.getItem('token');
    
+    const handleSubmit = (event) =>{
+        event.preventDefault(); 
+        Service.postRegister(data)
+        .then(response => {
+            console.log(response)
+            //localStorage.setItem("token",response.headers.authorization)
+            navigate("/");
+          })
+          .catch(err => console.log(err));
+      }
+    
+
     const navigate = useNavigate();
 
     const goHome = () => {
         navigate("/") ;
     };
+
+    console.log(data)
+
     return (
         <>
             <div className="register-container">
@@ -31,7 +52,7 @@ const Register = () => {
                     </div>
                     <p className="form-title">REGISTRATE EN TURNERO</p>
                     
-                    <form className='formModal'>
+                    <form className='formModal' onSubmit={handleSubmit}>
                         <div className='modal-inputs'>
                             <input className="form-input" type='text' name="NombreYApellido" value={data.nombreYApellido} onChange={handleChange("nombreYApellido")} placeholder="Nombre y Apellido" required  ></input>
                             <input className="form-input" type='text' name="dni" value={data.dni} onChange={handleChange("dni")} placeholder="DNI" required></input>
