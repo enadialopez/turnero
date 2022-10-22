@@ -45,6 +45,11 @@ open class UsuarioServiceImp(
         return usuarioDAO.findByEmailContaining(email)
     }
 
+    override fun recuperarPorToken(token: String) : Usuario? {
+        //validar email
+        return usuarioDAO.findByTokenContaining(token)
+    }
+
     override fun recuperarTodos(): List<Usuario> {
         return usuarioDAO.findAllByOrderByNombreYApellidoAsc()
     }
