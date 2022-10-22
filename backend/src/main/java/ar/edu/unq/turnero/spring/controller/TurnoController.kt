@@ -17,7 +17,6 @@ class TurnoController(private val turnoService: TurnoService) {
     fun actualizar(@PathVariable turnoId: Long, @RequestBody turno: TurnoDTO) : ResponseEntity<Any>  {
         var hospitalRecuperado = turnoService.recuperar(turnoId.toInt())!!
         val turno = turnoService.actualizar(turno.aModelo(hospitalRecuperado))
-
         return ResponseEntity.ok().body(turno)
     }
 

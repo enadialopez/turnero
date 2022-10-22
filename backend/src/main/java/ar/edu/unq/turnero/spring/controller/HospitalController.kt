@@ -19,7 +19,6 @@ class HospitalController(private val hospitalService: HospitalService) {
     fun actualizar(@PathVariable hospitalId: Long, @RequestBody hospitalDTO: HospitalDTO) : ResponseEntity<Any> {
         var hospitalRecuperado = hospitalService.recuperar(hospitalId.toInt())!!
         val hospital = hospitalService.actualizar(hospitalDTO.aModelo(hospitalRecuperado))
-
         return ResponseEntity.ok().body(hospital)
     }
 
