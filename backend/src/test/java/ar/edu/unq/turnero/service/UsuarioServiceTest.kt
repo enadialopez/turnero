@@ -47,7 +47,7 @@ class UsuarioServiceTest {
     @Test
     fun seCreaUnUsuarioValido() {
         var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "123", null)
         usuarioService.crear(user)
 
         Assertions.assertNotNull(user.id)
@@ -56,7 +56,7 @@ class UsuarioServiceTest {
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
         var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "")
+            24456734, "", null)
 
         try {
             usuarioService.crear(user)
@@ -68,7 +68,7 @@ class UsuarioServiceTest {
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
         var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "123", null)
         usuarioService.crear(user)
 
         var userId: Long? = user.id
@@ -80,7 +80,7 @@ class UsuarioServiceTest {
     @Test
     fun seIntentaRecuperaUnUsuarioQueNoExiste() {
         var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "123", null)
 
         var userId: Long? = user.id
 
@@ -92,11 +92,11 @@ class UsuarioServiceTest {
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
         var user1: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "123", null)
         var user2: Usuario = Usuario("Marcos Galante", 42073821, "marcosGalante@gmail.com",
-            13456734, "456")
+            13456734, "456", null)
         var user3: Usuario = Usuario("Ximena Jida", 42073821, "ximeJida@hotmail.com",
-            33456734, "789")
+            33456734, "789", null)
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -115,7 +115,7 @@ class UsuarioServiceTest {
         evitaPueblo.agregarTurno(turnoEvita)
         hospitalService.crear(evitaPueblo)
 
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",        1124456734, "123")
+        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com", 1124456734, "123", null)
         usuarioService.crear(user)
 
         user.sacarTurno(turnoEvita)
