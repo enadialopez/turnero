@@ -6,7 +6,9 @@ export const Service = {
     getTurnosDisponiblesBy(id, especialidad) {return axios.get(`http://localhost:8080/hospital/${id}/turnos/${especialidad}`)},
     getTurnoById: function(id) {return axios.get(`http://localhost:8080/turno/${id}`)},
     putActualizarTurno: function(id, data) {return axios.put(`http://localhost:8080/turno/${id}`, data)},
-    postRegister: function(data) { return axios.post(`http://localhost:8080/register`, data)}
+    postRegister: function(data) { return axios.post(`http://localhost:8080/usuario/register`, data)},
+    postLogin: function(data) { return axios.post(`http://localhost:8080/usuario/login`, data)},
+    getUser: function() { return axios.get(`http://localhost:8080/usuario`)}
 }
 
 export default Service;
