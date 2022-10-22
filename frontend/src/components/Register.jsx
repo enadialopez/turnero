@@ -15,8 +15,6 @@ const Register = () => {
         password: "",
       });
 
-    const [registerError, setRegisterError] = useState (false)
-
     const handleChange = name => event => {
         setData(prevState => ({ ...prevState, [name]: event.target.value }));
     };
@@ -27,21 +25,17 @@ const Register = () => {
         event.preventDefault(); 
         Service.postRegister(data)
         .then(response => {
-            console.log(response)
-            //localStorage.setItem("token",response.headers.authorization)
+            localStorage.setItem("token",response.headers.authorization)
             navigate("/");
           })
           .catch(err => console.log(err));
-      }
+    };
     
-
     const navigate = useNavigate();
 
     const goHome = () => {
         navigate("/") ;
     };
-
-    console.log(data)
 
     return (
         <>
@@ -63,7 +57,6 @@ const Register = () => {
                         <button type="submit" className="btn-info b-log">REGISTRARSE</button>
                     </form>
                     <div className='modalFooter-register'>
-                        
                     </div>
                 </div>    
             </div>
