@@ -15,13 +15,8 @@ class Usuario() {
     var nombreYApellido: String? = null
     var dni: Long? = null
     var telefono: Long? = null
-    @Column()
+    var token: String? = null
     var password: String? = null
-         get() = field
-         set(value) {
-             val passwordEncoder = BCryptPasswordEncoder()
-             field = passwordEncoder.encode(value)
-         }
     @Column(unique = true)
     var email: String? = null
 
@@ -30,21 +25,18 @@ class Usuario() {
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
 
-    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String):this() {
+    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
         this.email = email
         this.telefono = telefono
         this.password = password
+        this.token = token
     }
 
     constructor(nombreYApellido: String, dni: Long):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
-    }
-
-    fun comparePassword(password: String): Boolean {
-        return BCryptPasswordEncoder().matches(password, this.password)
     }
 
     fun sacarTurno(turno: Turno) {

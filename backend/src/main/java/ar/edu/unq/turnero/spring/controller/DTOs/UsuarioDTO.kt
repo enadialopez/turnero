@@ -8,7 +8,8 @@ class UsuarioDTO(
     var dni: Long?,
     var email: String?,
     var telefono: Long?,
-    var password: String?) {
+    var password: String?,
+    var token: String?) {
 
     companion object {
         fun desdeModelo(usuario: Usuario) =
@@ -18,7 +19,8 @@ class UsuarioDTO(
                 dni = usuario.dni,
                 email = usuario.email,
                 telefono = usuario.telefono,
-                password = usuario.password
+                password = usuario.password,
+                token = usuario.token
             )
     }
 
@@ -30,6 +32,7 @@ class UsuarioDTO(
         usuario.email = this.email!!
         usuario.telefono = this.telefono
         usuario.password = this.password
+        usuario.token = this.token
         return usuario
     }
 
