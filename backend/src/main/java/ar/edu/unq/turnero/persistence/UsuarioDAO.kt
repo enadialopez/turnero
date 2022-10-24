@@ -1,0 +1,17 @@
+package ar.edu.unq.turnero.persistence
+
+import ar.edu.unq.turnero.modelo.Usuario
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface UsuarioDAO : CrudRepository<Usuario, Long>  {
+
+    fun findAllByOrderByNombreYApellidoAsc(): List<Usuario>
+
+    fun findByEmailContaining(email: String) : Usuario
+
+    fun findByTokenContaining(token: String) : Usuario
+
+    fun findByDni(dni: Long) : Usuario?
+}

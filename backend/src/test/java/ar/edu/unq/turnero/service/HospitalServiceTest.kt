@@ -270,8 +270,8 @@ class HospitalServiceTest {
 
     @Test
     fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
-        var turno = service.crear(evitaPueblo)
-        val turnoId = turno.id!!.toInt()
+        service.crear(evitaPueblo)
+        val evitaPuebloId = evitaPueblo.id!!.toInt()
 
         evitaPueblo.agregarTurno(turno1Evita)
         evitaPueblo.agregarTurno(turno2Evita)
@@ -279,11 +279,14 @@ class HospitalServiceTest {
 
         service.actualizar(evitaPueblo)
 
-        var turnoRecuperado = service.recuperar(turnoId)
+        var turnos = evitaPueblo.turnos
 
-        Assertions.assertEquals(3, turnoRecuperado!!.turnos.size)
+        Assertions.assertEquals(3, evitaPueblo!!.turnos.size)
+        Assertions.assertEquals(evitaPueblo, turnos[0].hospital)
+        Assertions.assertEquals(evitaPueblo, turnos[1].hospital)
+        Assertions.assertEquals(evitaPueblo, turnos[2].hospital)
 
-        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(turnoId, pediatria.toString().toLowerCase())
+        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(evitaPuebloId, pediatria.toString().toLowerCase())
 
         Assertions.assertEquals(1, turnosDisponiblesEvita.size)
     }

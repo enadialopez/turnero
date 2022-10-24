@@ -22,8 +22,9 @@ class Turno() {
     var especialista: String? = null
 
     @ManyToOne
-    //@JoinColumn(name = "hospital_id")
     var hospital: Hospital? = null
+    @ManyToOne
+    var paciente: Usuario? = null
 
     constructor(nombre: String, dni: Long, telefono: Long, email: String, fechaYHora: String, fecha: String, especialidad: Especialidad?, especialista: String, hospital: Hospital?):this() {
         this.nombreYApellidoPaciente = nombre
@@ -76,6 +77,15 @@ class Turno() {
         this.fechaEmitido = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm:ss a"))
     }
 
+    fun asignarAPaciente(paciente: Usuario) {
+        this.paciente = paciente
+        cambiarNombrePaciente(paciente.nombreYApellido!!)
+        cambiarDniPaciente(paciente.dni!!)
+        cambiarTelefonoPaciente(paciente.telefono!!)
+        cambiarEmailPaciente(paciente.email!!)
+        cambiarFechaEmitido()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -94,5 +104,4 @@ class Turno() {
 
         return true
     }
-
 }

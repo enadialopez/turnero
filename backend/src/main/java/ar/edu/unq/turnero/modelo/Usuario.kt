@@ -9,29 +9,36 @@ class Usuario() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
     @Column(nullable = false, length = 500)
-    var nickName: String? = null
-    var contraseña: String? = null
     var nombreYApellido: String? = null
     var dni: Long? = null
-    var email: String? = null
     var telefono: Long? = null
-    /*
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="usuario_turnosAsignados",
-        joinColumns= [JoinColumn(name="usuario", referencedColumnName="id")],
-        inverseJoinColumns= [JoinColumn(name="turno", referencedColumnName="id")]
-    )
+    var token: String? = null
+    var password: String? = null
+    @Column(unique = true)
+    var email: String? = null
+
+    @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.PERSIST, CascadeType.MERGE],
+        orphanRemoval = false, fetch = FetchType.LAZY)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
-     */
 
-    constructor(nickName: String, dni: Long, contraseña: String, nombreYApellido: String, email: String, telefono: Long):this() {
-        this.nickName = nickName
-        this.contraseña = contraseña
+    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
         this.email = email
         this.telefono = telefono
+        this.password = password
+        this.token = token
+    }
+
+    constructor(nombreYApellido: String, dni: Long):this() {
+        this.nombreYApellido = nombreYApellido
+        this.dni = dni
+    }
+
+    fun sacarTurno(turno: Turno) {
+        this.turnosAsignados.add(turno)
+        turno.asignarAPaciente(this)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -41,12 +48,11 @@ class Usuario() {
         other as Usuario
 
         if (id != other.id) return false
-        if (nickName != other.nickName) return false
-        if (contraseña != other.contraseña) return false
         if (nombreYApellido != other.nombreYApellido) return false
         if (dni != other.dni) return false
         if (email != other.email) return false
         if (telefono != other.telefono) return false
+        if (password != other.password) return false
 
         return true
     }

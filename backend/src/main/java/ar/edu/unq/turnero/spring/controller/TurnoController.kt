@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.service.TurnoService
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -13,9 +14,10 @@ class TurnoController(private val turnoService: TurnoService) {
     fun crear(@RequestBody turno: TurnoDTO) = turnoService.crear(turno.aModelo())
 
     @PutMapping("/{turnoId}")
-    fun actualizar(@PathVariable turnoId: Long, @RequestBody turno: TurnoDTO) {
+    fun actualizar(@PathVariable turnoId: Long, @RequestBody turno: TurnoDTO) : ResponseEntity<Any>  {
         var hospitalRecuperado = turnoService.recuperar(turnoId.toInt())!!
-        turnoService.actualizar(turno.aModelo(hospitalRecuperado))
+        val turno = turnoService.actualizar(turno.aModelo(hospitalRecuperado))
+        return ResponseEntity.ok().body(turno)
     }
 
     @GetMapping("/{turnoId}")

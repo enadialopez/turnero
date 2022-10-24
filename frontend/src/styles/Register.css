@@ -1,9 +1,44 @@
+body {
+    background-color: #04a76d ;
+  } 
+
 .register-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
 }
 
 .form-register-card {
-    border-style: groove;
-    border-color: blue;
+    width: 450px;
+    height: 550px;
+    border-width: 2px;
+    border-radius: 10px  ;
+    background-color: white;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-title {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.form-input {
+    margin: 10px;
+    width: 70%;
+    height: 40px;
+    border-radius: 5px;
+    border-style: double;
+    border-color: gainsboro
+}
+
+.btn-close {
+    display: flex;
+    justify-content: right;
+    cursor: pointer;
 }

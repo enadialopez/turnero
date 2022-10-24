@@ -3,10 +3,13 @@ package ar.edu.unq.turnero.service
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
+import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.persistence.TurnoDAO
+import ar.edu.unq.turnero.persistence.UsuarioDAO
 import ar.edu.unq.turnero.service.impl.HospitalServiceImp
 import ar.edu.unq.turnero.service.impl.TurnoServiceImp
+import ar.edu.unq.turnero.service.impl.UsuarioServiceImp
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -21,11 +24,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 class HospitalData {
     lateinit var turnoService: TurnoService
     lateinit var service: HospitalService
+    lateinit var usuarioService: UsuarioService
 
     @Autowired
     lateinit var hospitalDAO : HospitalDAO
     @Autowired
     lateinit var turnoDAO : TurnoDAO
+    @Autowired
+    lateinit var usuarioDAO : UsuarioDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var elCruce: Hospital
@@ -61,10 +67,22 @@ class HospitalData {
     var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
+    var user1: Usuario = Usuario("Candela Aguayo", 24456334, "candelaAguayo@yahoo.com",
+        42073821, "123", null)
+    var user2: Usuario = Usuario("Marcos Galante", 13456734, "marcosGalante@gmail.com",
+        42073821, "456", null)
+    var user3: Usuario = Usuario("Ximena Jida", 9456734, "ximeJida@hotmail.com",
+        42073821, "789", null)
+
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
         this.service = HospitalServiceImp(hospitalDAO, turnoService)
+        this.usuarioService = UsuarioServiceImp(usuarioDAO)
+
+        usuarioService.crear(user1)
+        usuarioService.crear(user2)
+        usuarioService.crear(user3)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",

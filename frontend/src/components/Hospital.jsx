@@ -1,6 +1,7 @@
 import React, { useState, useEffect }   from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
+import Navbar from '../components/Navbar';
 import EspecialidadModel from './EspecialidadModel';
 import '../styles/Hospital.css';
 
@@ -40,6 +41,9 @@ const Hospital = () => {
 
     return (
         <>
+            <div className="navbar">
+                <Navbar/>
+            </div> 
             <div className="hospital-container">
                 <button className="btn-mp-2" onClick={goHome} >Volver al inicio</button>
                 <div className='title-hospital'>

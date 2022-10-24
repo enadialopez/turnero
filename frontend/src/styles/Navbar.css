@@ -1,29 +1,125 @@
-  .navbar-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 102.4%;
-    margin: -20px;
-  }
+.navbar-container {
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0px;
+  background-color: white;
+  color: black;
+}
 
-  .nav {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white ;
-    padding-top: 10px; 
-    margin: 0px;   
-  }
+.navbar {
+  background-color: white ;
+}
+
+.nav-left, .nav-medium, .nav-right {
+  display: flex;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.nav-right {
+  justify-content: right;
+}
+
+.button-nb {
+  text-decoration: none;
+  color: black;
+  margin: 15px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.button-nb:hover {
+  text-decoration: none;
+  color: black;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.modal-content {
+  text-align: center;
+  border-radius: 10px;
+  padding: 0px;
+}
+
+.modal-header {
+  font-size: 45px;
+  font-weight: 900;
+  margin-left: 50px;
+}
+
+.modal-title-register {
+  font-size: 28px;
+}
+
+.modal-body {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-inputs {
+  margin-bottom: 20px;
+}
+
+.form-input-login, .form-input-register {
+  width: 70%;
+  height: 40px;
+  border-radius: 5px;
+  border-style: double;
+  border-color: gainsboro
+}
+
+.form-input-register {
+  margin: 10px;
+}
+
+.form-input-login {
+  margin: 20px;
+}
+
+.form-input::placeholder {
+  text-align: left;
+}
+
+.b-log {
+  width: 70%;
+  height: 50px;
+  border-radius: 10px;
+  border-color:rgb(21, 16, 103);
+  background-color:rgb(21, 16, 103);
+  margin-bottom: 10px;
+}
+
+.b-log:hover {
+  border-color:rgb(21, 16, 103);
+  background-color:rgb(21, 16, 103);
+}
+
+.modalForm {
+  display: grid;
+  justify-content: left;
+  align-items: center;
+  padding: 20px;
+}
+
+.modalFooter-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
 
 
-  
 
-  
-  
-  
-  
-  
+
+
+
+
+
