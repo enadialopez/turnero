@@ -26,8 +26,8 @@ class UsuarioController(private val usuarioService: UsuarioService) {
             .signWith(SignatureAlgorithm.HS512, "secret").compact()
         response.addHeader("Authorization", jwt)
         user.token = jwt
-        usuarioService.actualizar(user)
-        return ResponseEntity.ok().body("Ok")
+        val userResponse = usuarioService.actualizar(user)
+        return ResponseEntity.ok().body(userResponse)
     }
 
     @PostMapping("/login")

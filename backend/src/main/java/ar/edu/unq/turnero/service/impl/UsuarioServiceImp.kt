@@ -1,6 +1,5 @@
 package ar.edu.unq.turnero.service.impl
 
-import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.UsuarioDAO
@@ -46,7 +45,7 @@ open class UsuarioServiceImp(
     }
 
     override fun recuperarPorToken(token: String) : Usuario? {
-        //validar email
+        //validar token
         return usuarioDAO.findByTokenContaining(token)
     }
 
