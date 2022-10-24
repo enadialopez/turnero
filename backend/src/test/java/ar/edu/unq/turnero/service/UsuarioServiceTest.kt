@@ -4,6 +4,7 @@ import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
+import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.persistence.TurnoDAO
@@ -11,7 +12,6 @@ import ar.edu.unq.turnero.persistence.UsuarioDAO
 import ar.edu.unq.turnero.service.impl.HospitalServiceImp
 import ar.edu.unq.turnero.service.impl.TurnoServiceImp
 import ar.edu.unq.turnero.service.impl.UsuarioServiceImp
-import org.junit.Assert
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -66,6 +66,46 @@ class UsuarioServiceTest {
     }
 
     @Test
+    fun seCreaUnUsuarioInvalidoPorDniMenorAlPermitido() {
+        var user: Usuario = Usuario("Candela Aguayo", 999999, "candelaAguayo@yahoo.com",
+            24456734, "", null)
+
+        try {
+            usuarioService.crear(user)
+        } catch (e: DniInvalidoException) {
+            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
+        }
+    }
+
+    @Test
+    fun noSePuedeCrearUsuarioPorqueYaExisteOtroUsuarioConElMismoDni() {
+        var user1: Usuario = Usuario("Candela Aguayo", 24456735, "candelaAguayo@gmail.com",
+            42073821, "123", null)
+        usuarioService.crear(user1)
+
+        var user2: Usuario = Usuario("Marcos DaPena", 24456735, "marcosDaPena@hotmail.com",
+            1123986659, "123", null)
+
+        try {
+            usuarioService.crear(user2)
+        } catch (e: DniInvalidoException) {
+            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
+        }
+    }
+
+    @Test
+    fun seCreaUnUsuarioInvalidoPorDniMayorAlPermitido() {
+        var user: Usuario = Usuario("Candela Aguayo", 100000000, "candelaAguayo@yahoo.com",
+            24456734, "", null)
+
+        try {
+            usuarioService.crear(user)
+        } catch (e: DniInvalidoException) {
+            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
+        }
+    }
+
+    @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
         var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
             24456734, "123", null)
@@ -91,12 +131,12 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123", null)
-        var user2: Usuario = Usuario("Marcos Galante", 42073821, "marcosGalante@gmail.com",
-            13456734, "456", null)
-        var user3: Usuario = Usuario("Ximena Jida", 42073821, "ximeJida@hotmail.com",
-            33456734, "789", null)
+        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
+            42073821, "123", null)
+        var user2: Usuario = Usuario("Marcos Galante", 13456734, "marcosGalante@gmail.com",
+            42073821, "456", null)
+        var user3: Usuario = Usuario("Ximena Jida", 33456734, "ximeJida@hotmail.com",
+            42073821, "789", null)
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -105,6 +145,40 @@ class UsuarioServiceTest {
         var usuarios = usuarioService.recuperarTodos()
 
         Assertions.assertEquals(3, usuarios.size)
+    }
+
+    @Test
+    fun seRecuperaUnUsuarioDeFormaCorrectaPorSuEmail() {
+        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
+            42073821, "123", null)
+        var user2: Usuario = Usuario("Marcos DaPena", 16648900, "marcosDaPena@hotmail.com",
+            1123986659, "123", null)
+        var user3: Usuario = Usuario("Diana Melgar", 42073821, "dianaMelgar@gmail.com",
+            1145090065, "123", null)
+        usuarioService.crear(user1)
+        usuarioService.crear(user2)
+        usuarioService.crear(user3)
+
+        var userRecuperado: Usuario? = usuarioService.recuperarPorEmail("marcosDaPena@hotmail.com")
+
+        Assertions.assertEquals(user2, userRecuperado)
+    }
+
+    @Test
+    fun noSeRecuperaUnUsuarioPorSuEmailPorqueElEmailEsIncorrecto() {
+        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
+            42073821, "123", null)
+        var user2: Usuario = Usuario("Marcos DaPena", 16648900, "marcosDaPena@hotmail.com",
+            1123986659, "123", null)
+        var user3: Usuario = Usuario("Diana Melgar", 42073821, "dianaMelgar@gmail.com",
+            1145090065, "123", null)
+        usuarioService.crear(user1)
+        usuarioService.crear(user2)
+        usuarioService.crear(user3)
+
+        try {
+            usuarioService.recuperarPorEmail("marcosPena@hotmail.com")
+        } catch (e: Exception) { }
     }
 
     @Test
