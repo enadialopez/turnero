@@ -25,8 +25,6 @@ class Hospital() {
     @Enumerated(EnumType.STRING)
     var especialidades: MutableList<Especialidad> = mutableListOf<Especialidad>()
 
-
-
     constructor(nombre: String, municipio: String, direccion: String, especialidades: MutableList<Especialidad>, turnos: MutableList<Turno>):this() {
         this.nombre = nombre
         this.municipio = municipio
@@ -56,6 +54,4 @@ class Hospital() {
 
         return true
     }
-
-
 }

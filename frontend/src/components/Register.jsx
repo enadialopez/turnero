@@ -25,7 +25,7 @@ const Register = () => {
         event.preventDefault(); 
         Service.postRegister(data)
         .then(response => {
-            localStorage.setItem("token",response.headers.authorization)
+            localStorage.setItem("token", response.data.token);
             navigate("/");
           })
           .catch(err => console.log(err));

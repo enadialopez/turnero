@@ -40,8 +40,8 @@ const Navbar = () => {
         return(
             <>
                 <div className="buttons-content">
-                    <a className="button-nb" href={`/profile`} id="btn"> PROFILE </a>
-                    <a className="button-nb" onClick={() => logout()}  id="btn"> LOG OUT</a>
+                    <a className="button-nb" /*href={`/profile`}*/ id="btn"> PERFIL </a>
+                    <a className="button-nb" onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
                 </div>
             </>
         )

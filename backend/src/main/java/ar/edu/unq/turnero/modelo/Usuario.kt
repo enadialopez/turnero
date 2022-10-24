@@ -1,9 +1,6 @@
 package ar.edu.unq.turnero.modelo
 
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 import javax.persistence.*
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Entity
 class Usuario() {
