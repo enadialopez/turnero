@@ -67,11 +67,11 @@ class HospitalData {
     var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
-    var user1: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
+    var user1: Usuario = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
     24456734, "123", null)
-    var user2: Usuario = Usuario("Marcos Galante", 42073821, "marcosGalante@gmail.com",
+    var user2: Usuario = Usuario("Marcos Galante", null, 42073821, "marcosGalante@gmail.com",
         13456734, "456", null)
-    var user3: Usuario = Usuario("Ximena Jida", 42073821, "ximeJida@hotmail.com",
+    var user3: Usuario = Usuario("Ximena Jida", null, 42073821, "ximeJida@hotmail.com",
         33456734, "789", null)
 
     @BeforeEach
@@ -649,6 +649,7 @@ class HospitalData {
         turnoService.crear(turnoEvita1)
         //turnoService.crear(turno2)
         turnoService.crear(turnoEvita3)
+
     }
 
     @Test

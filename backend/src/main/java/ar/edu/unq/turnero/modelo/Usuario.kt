@@ -23,7 +23,7 @@ class Usuario() {
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
 
-    constructor(nombreYApellido: String, image: String, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
+    constructor(nombreYApellido: String, image: String?, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
         this.nombreYApellido = nombreYApellido
         this.image = image
         this.dni = dni
