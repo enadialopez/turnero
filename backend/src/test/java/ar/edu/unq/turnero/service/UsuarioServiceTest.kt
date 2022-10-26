@@ -4,6 +4,7 @@ import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
+import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.persistence.TurnoDAO

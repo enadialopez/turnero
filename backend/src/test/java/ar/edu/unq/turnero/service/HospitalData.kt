@@ -649,7 +649,6 @@ class HospitalData {
         turnoService.crear(turnoEvita1)
         //turnoService.crear(turno2)
         turnoService.crear(turnoEvita3)
-
     }
 
     @Test

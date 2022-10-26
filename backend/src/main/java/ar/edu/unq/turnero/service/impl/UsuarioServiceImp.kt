@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Usuario
+import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.UsuarioDAO
 import ar.edu.unq.turnero.service.UsuarioService
@@ -21,9 +22,17 @@ open class UsuarioServiceImp(
     }
 
     private fun validarCampos(usuario: Usuario) {
-        if(usuario.nombreYApellido == "" || usuario.dni == null || usuario.email == ""
+        if(usuario.nombreYApellido == "" || validarDNI(usuario.dni) || usuario.email == ""
             || usuario.password == "" || usuario.telefono == null) {
             throw StringVacioException()
+        }
+    }
+
+    private fun validarDNI(dni: Long?) : Boolean {
+        if(dni == null || dni <= 999999 || dni > 99999999 || usuarioDAO.findByDni(dni) != null) {
+            throw DniInvalidoException()
+        } else {
+            return false
         }
     }
 
