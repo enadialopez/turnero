@@ -14,6 +14,7 @@ class MiniTurnoDTO(
     var fechaEmitido: String?,
     var especialidad: String?,
     var especialista:  String?,
+    var hospitalNombre: String?,
 ) {
 
     companion object {
@@ -28,7 +29,8 @@ class MiniTurnoDTO(
                 fechaYHora = turno.fechaYHora,
                 fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
-                especialista = turno.especialista)
+                especialista = turno.especialista,
+                hospitalNombre = turno.hospital!!.nombre)
     }
 
     fun aModelo(): Turno {

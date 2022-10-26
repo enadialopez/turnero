@@ -22,7 +22,7 @@ class UsuarioController(private val usuarioService: UsuarioService) {
         val issuer = user!!.id.toString()
         val jwt = Jwts.builder()
             .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 2000))
+            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000))
             .signWith(SignatureAlgorithm.HS512, "secret").compact()
         response.addHeader("Authorization", jwt)
         user.token = jwt
@@ -45,7 +45,7 @@ class UsuarioController(private val usuarioService: UsuarioService) {
     }
 
     @GetMapping("")
-    fun recuperar(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String  ) : ResponseEntity<Any> {
+    fun recuperar(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String) : ResponseEntity<Any> {
         val user = usuarioService.recuperarPorToken(token)
         return ResponseEntity.ok().body(UsuarioDTO.desdeModelo(user!!))
     }

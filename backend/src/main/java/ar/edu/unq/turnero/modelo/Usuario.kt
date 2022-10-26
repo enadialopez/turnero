@@ -10,6 +10,7 @@ class Usuario() {
     var id: Long? = null
     @Column(nullable = false, length = 500)
     var nombreYApellido: String? = null
+    var image: String? = null
     var dni: Long? = null
     var telefono: Long? = null
     var token: String? = null
@@ -22,8 +23,9 @@ class Usuario() {
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
 
-    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
+    constructor(nombreYApellido: String, image: String, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
         this.nombreYApellido = nombreYApellido
+        this.image = image
         this.dni = dni
         this.email = email
         this.telefono = telefono
@@ -49,6 +51,7 @@ class Usuario() {
 
         if (id != other.id) return false
         if (nombreYApellido != other.nombreYApellido) return false
+        if (image != other.image) return false
         if (dni != other.dni) return false
         if (email != other.email) return false
         if (telefono != other.telefono) return false

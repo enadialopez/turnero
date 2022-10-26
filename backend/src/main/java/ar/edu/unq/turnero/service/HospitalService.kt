@@ -1,6 +1,5 @@
 package ar.edu.unq.turnero.service
 
-import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 
