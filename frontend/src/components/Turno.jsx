@@ -49,8 +49,6 @@ const Turno = () => {
     }, [id]
     );
 
-    console.log(turno)
-
     return (
         <>
             <div className="navbar">

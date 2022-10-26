@@ -28,6 +28,10 @@ const FormTurno = () => {
         especialista: "",
         hospital: "",
     })
+    const [data, setData] = useState({
+        to: "+541130457224",
+        message: "Usted tiene un turno asignado",
+    });
     
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
@@ -52,6 +56,7 @@ const FormTurno = () => {
             }
         });
     }; 
+    const isLogged = !!localStorage.getItem("token");
 
     const changeHandler = (e) => {
         setFechaSeleccionada(e.target.value);
@@ -61,7 +66,7 @@ const FormTurno = () => {
         setTurno(prevState => ({ ...prevState, [name]: event.target.value }));
     };
     
-    const handleSubmit = (event) =>{
+    const handleSubmit = (event) => {
         event.preventDefault();
         Service.putActualizarTurno(turno.id, turno).then(response => {
           setTurno((prevState)=>({
@@ -106,7 +111,7 @@ const FormTurno = () => {
     }, [fechaSeleccionada]
     );
 
-    console.log(turno)
+    console.log(data)
 
     return (
         <>
@@ -114,40 +119,50 @@ const FormTurno = () => {
                 <Navbar/>
             </div> 
             <div className="formTurno-container">
-                <div className='form-content'>    
-                    <form onSubmit={handleSubmit}>  
-                        <div className="select">
-                            <label for="Name">Turnos Disponibles:</label>
-                            <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
-                                <option defaultValue="">Seleccione fecha y horario...</option>
-                                { fechasDisponibles().map (turno => {
-                                    return (
-                                        <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
-                                    );
-                                })}
-                            </select>
+                { isLogged 
+                        ?
+                        <>
+                            <div className='form-content'>    
+                                <form onSubmit={handleSubmit}>  
+                                    <div className="select">
+                                        <label for="Name">Turnos Disponibles:</label>
+                                        <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
+                                            <option defaultValue="">Seleccione fecha y horario...</option>
+                                            { fechasDisponibles().map (turno => {
+                                                return (
+                                                    <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
+                                                );
+                                            })}
+                                        </select>
+                                    </div>
+                                    <div className="login-form-group">
+                                        <label for="Name">Nombre y Apellido:</label>
+                                        <input className="form-control" type="text" name="nombrePaciente" value={turno.nombreYApellidoPaciente} onChange={handleChange("nombreYApellidoPaciente")} placeholder="Nombre y Apellido" required />
+                                    </div>
+                                    <div className="login-form-group">
+                                        <label for="Name">DNI:</label>
+                                        <input className="form-control" type="text" name="dniPaciente" value={turno.dniPaciente} onChange={handleChange("dniPaciente")} placeholder="DNI" required />
+                                    </div>
+                                    <div className="login-form-group">
+                                        <label for="Name">Email:</label>
+                                        <input className="form-control" type="text" name="emailPaciente" value={turno.emailPaciente} onChange={handleChange("emailPaciente")} placeholder="Email" required />
+                                    </div>
+                                    <div className="login-form-group">
+                                        <label for="Name">Telefono:</label>
+                                        <input className="form-control" type="text" name="telefonoPaciente" value={turno.telefonoPaciente} onChange={handleChange("telefonoPaciente")} placeholder="Telefono / Celular" required />
+                                    </div>
+                                    <div className="turno-button-content">
+                                        <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
+                                    </div>
+                                </form>     
+                            </div>     
+                        </>    
+                        :
+                        <div className='card-notlogged'>
+                            <p> Usted debe iniciar sesión para 
+                                poder completar el formulario de turno</p>
                         </div>
-                        <div className="login-form-group">
-                            <label for="Name">Nombre y Apellido:</label>
-                            <input className="form-control" type="text" name="nombrePaciente" value={turno.nombreYApellidoPaciente} onChange={handleChange("nombreYApellidoPaciente")} placeholder="Nombre y Apellido" required />
-                        </div>
-                        <div className="login-form-group">
-                            <label for="Name">DNI:</label>
-                            <input className="form-control" type="text" name="dniPaciente" value={turno.dniPaciente} onChange={handleChange("dniPaciente")} placeholder="DNI" required />
-                        </div>
-                        <div className="login-form-group">
-                            <label for="Name">Email:</label>
-                            <input className="form-control" type="text" name="emailPaciente" value={turno.emailPaciente} onChange={handleChange("emailPaciente")} placeholder="Email" required />
-                        </div>
-                        <div className="login-form-group">
-                            <label for="Name">Telefono:</label>
-                            <input className="form-control" type="text" name="telefonoPaciente" value={turno.telefonoPaciente} onChange={handleChange("telefonoPaciente")} placeholder="Telefono / Celular" required />
-                        </div>
-                        <div className="turno-button-content">
-                            <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
-                        </div>
-                    </form>     
-                </div>     
+                }
             </div>
         </>  
     );
