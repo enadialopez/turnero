@@ -41,7 +41,7 @@ class UsuarioServiceTest {
     fun prepare() {
         usuarioService = UsuarioServiceImp(usuarioDAO)
         turnoService = TurnoServiceImp(turnoDAO)
-        hospitalService = HospitalServiceImp(hospitalDAO, turnoService)
+        hospitalService = HospitalServiceImp(hospitalDAO)
     }
 
     @Test
@@ -55,7 +55,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", null,42043821, "candelaAguayo@yahoo.com",
             24456734, "", null)
 
         try {
@@ -91,12 +91,12 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1 = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
-            24456734, "123", null)
-        var user2: Usuario = Usuario("Marcos Galante", null,42073821, "marcosGalante@gmail.com",
-            13456734, "456", null)
-        var user3: Usuario = Usuario("Ximena Jida", null,42073821, "ximeJida@hotmail.com",
-            33456734, "789", null)
+        var user1 = Usuario("Candela Aguayo", null,24456734, "candelaAguayo@yahoo.com",
+            42073821, "123", null)
+        var user2: Usuario = Usuario("Marcos Galante", null,13456734, "marcosGalante@gmail.com",
+            42073821, "456", null)
+        var user3: Usuario = Usuario("Ximena Jida", null, 33456734, "ximeJida@hotmail.com",
+            42073821, "789", null)
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)

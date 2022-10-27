@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.service
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
+import ar.edu.unq.turnero.modelo.Usuario
 //import ar.edu.unq.turnero.modelo.exception.ErrorIntegerException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.*
@@ -23,11 +24,14 @@ class TurnoServiceTest {
 
     lateinit var turnoService: TurnoService
     lateinit var hospitalService: HospitalService
+    lateinit var usuarioService: UsuarioService
 
     @Autowired
     lateinit var turnoDAO: TurnoDAO
     @Autowired
     lateinit var hospitalDAO: HospitalDAO
+    @Autowired
+    lateinit var usuarioDAO: UsuarioDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var elCruce: Hospital
@@ -51,7 +55,8 @@ class TurnoServiceTest {
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
-        this.hospitalService = HospitalServiceImp(hospitalDAO, turnoService)
+        this.hospitalService = HospitalServiceImp(hospitalDAO)
+        this.usuarioService = UsuarioServiceImp(usuarioDAO)
 
         evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>(), mutableListOf<Turno>())
         evitaPueblo.agregarEspecialidad(pediatria)
@@ -243,6 +248,27 @@ class TurnoServiceTest {
         Assertions.assertEquals(2, turnos.size)
     }
 
+    @Test
+    fun unTurnoSeAsignaAUsuarioDeFormaCorrecta(){
+        var user = Usuario("Candela Aguayo", null,42473021, "candelaAguayo@yahoo.com", 1124456734, "123", null)
+        usuarioService.crear(user)
+
+        user.sacarTurno(turno1Evita)
+        user.sacarTurno(turno2Evita)
+        user.sacarTurno(turno1Wilde)
+        turnoService.actualizar(turno1Evita)
+        turnoService.actualizar(turno2Evita)
+        turnoService.actualizar(turno1Wilde)
+
+        var turno1 = turnoService.recuperar(turno1Evita.id!!.toInt())
+        var turno2 = turnoService.recuperar(turno2Evita.id!!.toInt())
+        var turno3 = turnoService.recuperar(turno1Wilde.id!!.toInt())
+
+        Assertions.assertEquals(3, user.turnosAsignados.size)
+        Assertions.assertEquals(user, turno1!!.paciente)
+        Assertions.assertEquals(user, turno2!!.paciente)
+        Assertions.assertEquals(user, turno3!!.paciente)
+    }
 
 
 

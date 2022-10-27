@@ -18,9 +18,7 @@ import javax.transaction.Transactional
 @Transactional
 open class HospitalServiceImp(
     @Autowired
-    private val hospitalDAO: HospitalDAO,
-    @Autowired
-    private val turnoService : TurnoService
+    private val hospitalDAO: HospitalDAO
     ) : HospitalService {
 
     override fun crear(hospital: Hospital): Hospital {
@@ -65,10 +63,8 @@ open class HospitalServiceImp(
     }
 
     override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
-        var hospital : Hospital = this.recuperar(idDeHospital)
         var especialidadClase = this.toEnum(especialidad)
-        var turnosDisponibles = turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital, especialidadClase)
-        return turnosDisponibles
+        return hospitalDAO.turnos(idDeHospital.toLong(), especialidadClase)
     }
 
     private fun toEnum(especialidad: String): Especialidad {
@@ -101,34 +97,6 @@ open class HospitalServiceImp(
         } else {
             throw ErrorSelectionException()
         }
-    }
-
-    /**
-     * Crea el turno en la base de datos y lo agrega a la lista
-     * de turnos del hospital.
-     * Quedan actualizados tanto el turno como el hospital
-     * en la base de datos y sus correspondientes instancias.
-     * Devuelve el turno actualizado.
-     */
-    override fun crearTurno(turno: Turno) : Turno {
-        turnoService.crear(turno)
-        var hospital = turno.hospital
-        hospital!!.agregarTurno(turno)
-        this.actualizar(hospital)
-        return turno
-    }
-
-    /**
-     * Borra el turno de la base de datos y de la lista
-     * de turnos del hospital.
-     * Quedan actualizados tanto el turno como el hospital
-     * en la base de datos y sus correspondientes instancias.
-     */
-    override fun borrarTurno(turno: Turno) {
-        var hospital = turno.hospital
-        turnoService.eliminar(turno.id!!.toInt())
-        hospital!!.turnos.remove(turno)
-        this.actualizar(hospital)
     }
 
     override fun clear() {
