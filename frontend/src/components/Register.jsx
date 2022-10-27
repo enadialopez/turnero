@@ -14,6 +14,7 @@ const Register = () => {
         email: "",
         telefono: "",
         password: "",
+        token: "",
       });
 
     const handleChange = name => event => {
@@ -38,6 +39,8 @@ const Register = () => {
         navigate("/") ;
     };
 
+    console.log(data)
+
     return (
         <>
             <div className="register-container">
@@ -48,17 +51,17 @@ const Register = () => {
                     <p className="form-title">REGISTRATE EN TURNERO</p>
                     <form className='formModal' onSubmit={handleSubmit}>
                         <div className='modal-inputs-register'>
-                            <label for="GET-name">Nombre y Apellido(*)</label>
+                            <label>Nombre y Apellido(*)</label>
                             <input className="form-input" type='text' name="NombreYApellido" value={data.nombreYApellido} onChange={handleChange("nombreYApellido")} placeholder="Roberto Gomez" required ></input>
                             <label>Imagen</label>
-                            <input className="form-input" type='text' name="image" value={data.image} onChange={handleChange("image")} placeholder="https://example.es/slide.jpg" required></input>
-                            <label for="GET-name">DNI(*)</label>
+                            <input className="form-input" type='text' name="image" value={data.image} onChange={handleChange("image")} placeholder="https://example.es/slide.jpg"></input>
+                            <label>DNI(*)</label>
                             <input className="form-input" type='text' name="dni" value={data.dni} onChange={handleChange("dni")} placeholder="20345678" required></input>
-                            <label for="GET-name">Email(*)</label>
+                            <label>Email(*)</label>
                             <input className="form-input" type='email' name="email" value={data.email} onChange={handleChange("email")} placeholder="example@gmail.com" required ></input>
                             <label className='label'>Telefono</label>
-                            <input className="form-input" type='text' name="telefono" value={data.telefono} onChange={handleChange("telefono")} placeholder=" +541122334455" required ></input>
-                            <label for="GET-name">Contraseña(*)</label>
+                            <input className="form-input" type='text' name="telefono" value={data.telefono} onChange={handleChange("telefono")} placeholder=" +541122334455"></input>
+                            <label>Contraseña(*)</label>
                             <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="example" required></input> 
                         </div>
                         <button type="submit" className="btn-info b-register">REGISTRARSE</button>

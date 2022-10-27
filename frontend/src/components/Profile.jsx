@@ -31,7 +31,7 @@ const Profile = () => {
               nombreYApellido: response.data.nombreYApellido,
               dni: response.data.dni,
               email: response.data.email,
-              telefono: response.data.dni,  
+              telefono: response.data.telefono,  
               turnosAsignados: response.data.turnosAsignados,
             }));
           }).catch(error => {
@@ -39,10 +39,6 @@ const Profile = () => {
           });
         }}, [isLogged]
     );  
-
-    const handleSubmit = (event) =>{
-      
-  };
 
     return (
         <>

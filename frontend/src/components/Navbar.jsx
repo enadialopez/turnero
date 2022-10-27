@@ -53,6 +53,7 @@ const Navbar = () => {
     const buttonsSinLoguearse = () => {
         return(
           <>
+            <a className="button-nb" href={`/`} id="btn"> INICIO </a>
             <a className="button-nb" href="/register">REGISTRARSE</a>
           </>  
         )
