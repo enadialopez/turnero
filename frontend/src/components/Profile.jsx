@@ -40,6 +40,8 @@ const Profile = () => {
         }}, [isLogged]
     );  
 
+    console.log(user)
+
     return (
         <>
             <div className="navbar">

@@ -14,7 +14,7 @@ const Register = () => {
         email: "",
         telefono: "",
         password: "",
-        token: "",
+        turnosAsignados: []
       });
 
     const handleChange = name => event => {

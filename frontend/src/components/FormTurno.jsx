@@ -111,8 +111,6 @@ const FormTurno = () => {
     }, [fechaSeleccionada]
     );
 
-    console.log(data)
-
     return (
         <>
             <div className="navbar">
