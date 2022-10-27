@@ -23,7 +23,7 @@ open class UsuarioServiceImp(
 
     private fun validarCampos(usuario: Usuario) {
         if(usuario.nombreYApellido == "" || validarDNI(usuario.dni) || usuario.email == ""
-            || usuario.password == "" || usuario.telefono == null) {
+            || usuario.password == "") {
             throw StringVacioException()
         }
     }
