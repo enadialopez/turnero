@@ -250,7 +250,7 @@ class TurnoServiceTest {
 
     @Test
     fun unTurnoSeAsignaAUsuarioDeFormaCorrecta(){
-        var user = Usuario("Candela Aguayo", null,42473021, "candelaAguayo@yahoo.com", 1124456734, "123", null)
+        var user = Usuario("Candela Aguayo", null,42473021, "candelaAguayo@yahoo.com", 1124456734, "123")
         usuarioService.crear(user)
 
         user.sacarTurno(turno1Evita)

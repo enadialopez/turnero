@@ -22,15 +22,13 @@ class Usuario() {
         orphanRemoval = false, fetch = FetchType.LAZY)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
-
-    constructor(nombreYApellido: String, image: String?, dni: Long, email: String, telefono: Long, password: String, token: String?):this() {
+    constructor(nombreYApellido: String, image: String?, dni: Long, email: String, telefono: Long, password: String):this() {
         this.nombreYApellido = nombreYApellido
         this.image = image
         this.dni = dni
         this.email = email
         this.telefono = telefono
         this.password = password
-        this.token = token
     }
 
     constructor(nombreYApellido: String, dni: Long):this() {

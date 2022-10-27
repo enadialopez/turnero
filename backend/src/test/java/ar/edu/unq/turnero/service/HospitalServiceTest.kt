@@ -24,11 +24,14 @@ class HospitalServiceTest {
 
     lateinit var service: HospitalService
     lateinit var turnoService: TurnoService
+    lateinit var usuarioService: UsuarioService
 
     @Autowired
     lateinit var hospitalDAO: HospitalDAO
     @Autowired
     lateinit var turnoDAO: TurnoDAO
+    @Autowired
+    lateinit var usuarioDAO: UsuarioDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var garrahan: Hospital
@@ -49,7 +52,8 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        this.turnoService = TurnoServiceImp(turnoDAO)
+        usuarioService = UsuarioServiceImp(usuarioDAO)
+        turnoService = TurnoServiceImp(turnoDAO)
         this.service = HospitalServiceImp(hospitalDAO)
 
         evitaPueblo = Hospital(
