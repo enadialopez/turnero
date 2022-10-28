@@ -90,7 +90,6 @@ const Turno = () => {
                     </div>   
                 </div>
                 <div className='button'>
-                    <button className="btn-mp" onClick={goHome} >Volver al inicio</button>
                 </div>
             </div> 
         </> 

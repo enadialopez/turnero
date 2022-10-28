@@ -12,7 +12,7 @@ import java.util.*
 import javax.servlet.http.HttpServletResponse
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("/usuario")
 class UsuarioController(private val usuarioService: UsuarioService) {
 

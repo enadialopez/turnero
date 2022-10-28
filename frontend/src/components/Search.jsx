@@ -35,7 +35,6 @@ const Search = () => {
                 <Navbar/>
             </div> 
             <div className="search-container">
-                <button className="btn-mp" onClick={goHome} >Volver al inicio</button>
                 <div className="content">  
                     <div className="text-result">
                         <p>Tu resultado por {value}: </p>
