@@ -28,6 +28,14 @@ const FormTurno = () => {
         especialista: "",
         hospital: "",
     })
+
+    const [user, setUser] = useState ({
+        idUser: "",
+        nombreYApellidoUser: "",
+        dniUser: "",
+        telefonoUser: "",
+        emailUser: "",
+    })
     const [data, setData] = useState({
         to: "+541130457224",
         message: "Usted tiene un turno asignado",
@@ -65,20 +73,43 @@ const FormTurno = () => {
     const handleChange = name => event => {
         setTurno(prevState => ({ ...prevState, [name]: event.target.value }));
     };
+
+    useEffect(() => {
+        if (isLogged){
+          Service.getUser()
+          .then(response => {
+            setUser({
+              idUser: response.data.id,
+              nombreYApellidoUser: response.data.nombreYApellido,
+              dniUser: response.data.dni,
+              telefonoUser: response.data.telefono, 
+              emailUser: response.data.email, 
+            });
+          }).catch(error => {
+            console.log(error)
+          });
+        }}, [isLogged]
+    ); 
     
     const handleSubmit = (event) => {
+        console.log(turno.dniPaciente);
+        console.log(user.dniUser)
         event.preventDefault();
         Service.putActualizarTurno(turno.id, turno).then(response => {
           setTurno((prevState)=>({
             ...prevState,
-            nombreYApellidoPaciente: turno.nombreYApellidoPaciente,
-            dniPaciente: turno.dniPaciente,
-            telefonoPaciente: turno.telefonoPaciente,
-            emailPaciente: turno.emailPaciente,
+            nombreYApellidoPaciente: user.nombreYApellidoUser,
+            dniPaciente: user.dniUser,
+            telefonoPaciente: user.telefonoUser,
+            emailPaciente: user.emailUser,
             }));
             navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => console.log(err));
+        }).catch(err => console.log(turno.dniPaciente));
+        
     };
+    
+    
+     
 
     useEffect(() => {
         Service.getHospitalById(id)
@@ -110,6 +141,7 @@ const FormTurno = () => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
     );
+    
 
     return (
         <>
@@ -132,22 +164,6 @@ const FormTurno = () => {
                                                 );
                                             })}
                                         </select>
-                                    </div>
-                                    <div className="login-form-group">
-                                        <label for="Name">Nombre y Apellido:</label>
-                                        <input className="form-control" type="text" name="nombrePaciente" value={turno.nombreYApellidoPaciente} onChange={handleChange("nombreYApellidoPaciente")} placeholder="Nombre y Apellido" required />
-                                    </div>
-                                    <div className="login-form-group">
-                                        <label for="Name">DNI:</label>
-                                        <input className="form-control" type="text" name="dniPaciente" value={turno.dniPaciente} onChange={handleChange("dniPaciente")} placeholder="DNI" required />
-                                    </div>
-                                    <div className="login-form-group">
-                                        <label for="Name">Email:</label>
-                                        <input className="form-control" type="text" name="emailPaciente" value={turno.emailPaciente} onChange={handleChange("emailPaciente")} placeholder="Email" required />
-                                    </div>
-                                    <div className="login-form-group">
-                                        <label for="Name">Telefono:</label>
-                                        <input className="form-control" type="text" name="telefonoPaciente" value={turno.telefonoPaciente} onChange={handleChange("telefonoPaciente")} placeholder="Telefono / Celular" required />
                                     </div>
                                     <div className="turno-button-content">
                                         <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
