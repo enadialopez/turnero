@@ -18,7 +18,7 @@ class Usuario() {
     @Column(unique = true)
     var email: String? = null
 
-    @OneToMany(mappedBy = "paciente",  cascade = [CascadeType.PERSIST, CascadeType.MERGE],
+    @OneToMany(mappedBy = "paciente", cascade = [CascadeType.PERSIST, CascadeType.MERGE],
         orphanRemoval = false, fetch = FetchType.LAZY)
     var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
@@ -39,6 +39,12 @@ class Usuario() {
     fun sacarTurno(turno: Turno) {
         this.turnosAsignados.add(turno)
         turno.asignarAPaciente(this)
+    }
+
+    fun cancelarTurno(turno: Turno) {
+        turnosAsignados.map{ t -> if (t.equals(turno)) {
+            t.desasignarAPaciente()
+            turnosAsignados.remove(t)} }
     }
 
     override fun equals(other: Any?): Boolean {

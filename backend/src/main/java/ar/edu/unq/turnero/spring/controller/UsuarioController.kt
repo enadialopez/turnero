@@ -52,4 +52,7 @@ class UsuarioController(private val usuarioService: UsuarioService) {
 
     @GetMapping("/todos")
     fun recuperarTodos() = usuarioService.recuperarTodos().map { usuario -> UsuarioDTO.desdeModelo(usuario)  }
+
+    @DeleteMapping("/{usuarioId}")
+    fun eliminar(@PathVariable usuarioId: Int) = usuarioService.eliminar(usuarioId)
 }

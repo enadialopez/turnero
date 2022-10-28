@@ -115,18 +115,67 @@ class UsuarioServiceTest {
         evitaPueblo.agregarTurno(turnoEvita)
         hospitalService.crear(evitaPueblo)
 
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com", 1124456734, "123")
+        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "123")
         usuarioService.crear(user)
 
         user.sacarTurno(turnoEvita)
-        usuarioService.actualizar(user)
+        var usuarioActualizado = usuarioService.actualizar(user)
+        //var turnoActualizado = turnoService.actualizar(turnoEvita)
 
-        var turnoCreado = turnoService.recuperar(turnoEvita.id!!.toInt())
+        var turnoActualizado = turnoService.recuperar(turnoEvita.id!!.toInt())
+        var pacienteDelTurno = turnoActualizado!!.paciente
 
-        Assertions.assertEquals(1, user.turnosAsignados.size)
-        Assertions.assertEquals(user, turnoCreado!!.paciente)
+        Assertions.assertEquals(1, usuarioActualizado.turnosAsignados.size)
+        Assertions.assertEquals(user.id, pacienteDelTurno!!.id)
     }
 
+    @Test
+    fun seEliminaUnUsarioCorrectamente() {
+        var user = Usuario("Candela Aguayo", null, 27456734, "candelaAguayo@yahoo.com",
+            42073821, "123")
+        usuarioService.crear(user)
+        var usuarioId = user.id!!.toInt()
+
+        Assertions.assertNotNull(usuarioService.recuperar(usuarioId))
+
+        usuarioService.eliminar(usuarioId)
+
+        try {
+            usuarioService.recuperar(usuarioId)
+        } catch (e: RuntimeException) {
+            Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
+        }
+    }
+/*
+    @Test
+    fun seEliminaUnUsarioConTurnosCorrectamente() {
+        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        var pediatria: Especialidad = Especialidad.PEDIATRIA
+        var turnoEvita1 = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        var turnoEvita2 = Turno("25/10/2022         15:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        evitaPueblo.agregarTurno(turnoEvita1)
+        evitaPueblo.agregarTurno(turnoEvita2)
+        hospitalService.crear(evitaPueblo)
+
+        var user = Usuario("Candela Aguayo", null, 27406734, "candelaAguayo@yahoo.com",
+            1142073821, "123")
+        usuarioService.crear(user)
+
+        user.sacarTurno(turnoEvita1)
+        user.sacarTurno(turnoEvita2)
+        usuarioService.actualizar(user)
+
+        var usuarioId = user.id!!.toInt()
+
+        usuarioService.eliminar(usuarioId)
+
+        try {
+            usuarioService.recuperar(usuarioId)
+        } catch (e: RuntimeException) {
+            Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
+        }
+    }
+*/
     @AfterEach
     fun cleanUp(){
         turnoService.clear()

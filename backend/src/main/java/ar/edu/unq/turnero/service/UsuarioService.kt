@@ -9,6 +9,7 @@ interface UsuarioService {
     fun recuperarPorEmail(email: String) : Usuario?
     fun recuperarPorToken(token: String) : Usuario?
     fun recuperarTodos(): List<Usuario>
+    fun eliminar(usuarioId: Int)
     fun clear()
 
 }

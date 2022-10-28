@@ -86,6 +86,15 @@ class Turno() {
         cambiarFechaEmitido()
     }
 
+    fun desasignarAPaciente() {
+        this.paciente = null
+        cambiarNombrePaciente("")
+        dniPaciente = null
+        telefonoPaciente = null
+        cambiarEmailPaciente("")
+        fechaEmitido = null
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

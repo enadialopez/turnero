@@ -62,6 +62,10 @@ open class UsuarioServiceImp(
         return usuarioDAO.findAllByOrderByNombreYApellidoAsc()
     }
 
+    override fun eliminar(usuarioId: Int) {
+        usuarioDAO.deleteById(usuarioId.toLong())
+    }
+
     override fun clear() {
         usuarioDAO.deleteAll()
     }
