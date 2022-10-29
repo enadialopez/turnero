@@ -30,11 +30,11 @@ const FormTurno = () => {
     })
 
     const [user, setUser] = useState ({
-        idUser: "",
-        nombreYApellidoUser: "",
-        dniUser: "",
-        telefonoUser: "",
-        emailUser: "",
+        id: "",
+        nombreYApellido: "",
+        dni: "",
+        telefono: "",
+        email: "",
     })
     const [data, setData] = useState({
         to: "+541130457224",
@@ -53,14 +53,19 @@ const FormTurno = () => {
     const turnoByFecha = (fecha) => {
         turnos.forEach( turno => {
             if( turno.fechaYHora === fecha) {
-                setTurno({
+                setTurno((prevState)=>({
+                    ...prevState,
                     id: turno.id,
                     fechaYHora: turno.fechaYHora,
                     fechaEmitido: turno.fechaEmitido,
                     especialidad: turno.especialidad,
                     especialista: turno.especialista,
                     hospital: turno.hospital,
-                })
+                    nombreYApellidoPaciente: user.nombreYApellido,
+                    dniPaciente: user.dni,
+                    telefonoPaciente: user.telefono,
+                    emailPaciente: user.email,
+                }))
             }
         });
     }; 
@@ -70,20 +75,16 @@ const FormTurno = () => {
         setFechaSeleccionada(e.target.value);
     };
 
-    const handleChange = name => event => {
-        setTurno(prevState => ({ ...prevState, [name]: event.target.value }));
-    };
-
     useEffect(() => {
         if (isLogged){
           Service.getUser()
           .then(response => {
             setUser({
-              idUser: response.data.id,
-              nombreYApellidoUser: response.data.nombreYApellido,
-              dniUser: response.data.dni,
-              telefonoUser: response.data.telefono, 
-              emailUser: response.data.email, 
+              id: response.data.id,
+              nombreYApellido: response.data.nombreYApellido,
+              dni: response.data.dni,
+              telefono: response.data.telefono, 
+              email: response.data.email, 
             });
           }).catch(error => {
             console.log(error)
@@ -91,22 +92,17 @@ const FormTurno = () => {
         }}, [isLogged]
     ); 
     
-    const handleSubmit = (event) => {
-        console.log(turno.dniPaciente);
-        console.log(user)
-        event.preventDefault();
+    const handleSubmit = () => {
         Service.putActualizarTurno(turno.id, turno).then(response => {
-          setTurno((prevState)=>({
-            ...prevState,
-            nombreYApellidoPaciente: "Candela Aguayo",
-            dniPaciente: "42073810",
-            telefonoPaciente: "24456734",
-            emailPaciente: "candelaAguayo@yahoo.com",
-            }));
+            setTurno((prevState)=>({
+                ...prevState,
+            }));  
+            console.log(turno.id)  
             navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => {console.log(err)});
-    }; 
-
+        }).catch(err => console.log(turno.dniPaciente));
+        
+    };
+    
     useEffect(() => {
         Service.getHospitalById(id)
             .then(response => { 
@@ -137,7 +133,6 @@ const FormTurno = () => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
     );
-    
 
     return (
         <>
@@ -151,7 +146,7 @@ const FormTurno = () => {
                             <div className='form-content'>    
                                 <form onSubmit={handleSubmit}>  
                                     <div className="select">
-                                        <label for="Name">Turnos Disponibles:</label>
+                                        <label htmlFor="Name">Turnos Disponibles:</label>
                                         <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
                                             <option defaultValue="">Seleccione fecha y horario...</option>
                                             { fechasDisponibles().map (turno => {
