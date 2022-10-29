@@ -93,23 +93,19 @@ const FormTurno = () => {
     
     const handleSubmit = (event) => {
         console.log(turno.dniPaciente);
-        console.log(user.dniUser)
+        console.log(user)
         event.preventDefault();
         Service.putActualizarTurno(turno.id, turno).then(response => {
           setTurno((prevState)=>({
             ...prevState,
-            nombreYApellidoPaciente: user.nombreYApellidoUser,
-            dniPaciente: user.dniUser,
-            telefonoPaciente: user.telefonoUser,
-            emailPaciente: user.emailUser,
+            nombreYApellidoPaciente: "Candela Aguayo",
+            dniPaciente: "42073810",
+            telefonoPaciente: "24456734",
+            emailPaciente: "candelaAguayo@yahoo.com",
             }));
             navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => console.log(turno.dniPaciente));
-        
-    };
-    
-    
-     
+        }).catch(err => {console.log(err)});
+    }; 
 
     useEffect(() => {
         Service.getHospitalById(id)
