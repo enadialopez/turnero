@@ -68,17 +68,17 @@ class HospitalData {
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
     var user1: Usuario = Usuario("Candela Aguayo", null, 42073810, "candelaAguayo@yahoo.com",
-    24456734, "123")
+    1124456734, "123")
     var user2: Usuario = Usuario("Marcos Galante", null, 42073822, "marcosGalante@gmail.com",
-        13456734, "456")
+        1113456734, "456")
     var user3: Usuario = Usuario("Ximena Jida", null, 42043821, "ximeJida@hotmail.com",
-        33456734, "789")
+        1133456734, "789")
 
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
         this.service = HospitalServiceImp(hospitalDAO)
-        this.usuarioService = UsuarioServiceImp(usuarioDAO)
+        this.usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -649,6 +649,11 @@ class HospitalData {
         turnoService.crear(turnoEvita1)
         //turnoService.crear(turno2)
         turnoService.crear(turnoEvita3)
+
+        user1.sacarTurno(turnoEvita1)
+        user1.sacarTurno(turnoEvita7)
+        user1.sacarTurno(turnoEvita8)
+        usuarioService.actualizar(user1)
     }
 
     @Test

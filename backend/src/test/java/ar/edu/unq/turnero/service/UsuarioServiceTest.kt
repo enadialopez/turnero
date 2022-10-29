@@ -39,8 +39,8 @@ class UsuarioServiceTest {
 
     @BeforeEach
     fun prepare() {
-        usuarioService = UsuarioServiceImp(usuarioDAO)
         turnoService = TurnoServiceImp(turnoDAO)
+        usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
         hospitalService = HospitalServiceImp(hospitalDAO)
     }
 
@@ -55,8 +55,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user = Usuario("Candela Aguayo", null,42043821, "candelaAguayo@yahoo.com",
-            24456734, "")
+        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayo@yahoo.com",
+            42043821, "")
 
         try {
             usuarioService.crear(user)
@@ -146,7 +146,7 @@ class UsuarioServiceTest {
             Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
         }
     }
-/*
+
     @Test
     fun seEliminaUnUsarioConTurnosCorrectamente() {
         var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
@@ -165,6 +165,8 @@ class UsuarioServiceTest {
         user.sacarTurno(turnoEvita2)
         usuarioService.actualizar(user)
 
+        Assertions.assertEquals(2, user.turnosAsignados.size)
+
         var usuarioId = user.id!!.toInt()
 
         usuarioService.eliminar(usuarioId)
@@ -175,7 +177,7 @@ class UsuarioServiceTest {
             Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
         }
     }
-*/
+
     @AfterEach
     fun cleanUp(){
         turnoService.clear()

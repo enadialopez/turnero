@@ -46,9 +46,9 @@ class Turno() {
     }
 
     fun cambiarNombrePaciente(nombreNuevo: String) {
-        if(nombreNuevo == "") {
+        /*if(nombreNuevo == "") {
             throw StringVacioException()
-        }
+        }*/
         this.nombreYApellidoPaciente = nombreNuevo
     }
 
@@ -67,9 +67,9 @@ class Turno() {
     }
 
     fun cambiarEmailPaciente(nuevoEmail: String) {
-        if(nuevoEmail == "") {
+        /*if(nuevoEmail == "") {
             throw StringVacioException()
-        }
+        }*/
         this.emailPaciente = nuevoEmail
     }
 

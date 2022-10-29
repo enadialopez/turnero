@@ -4,6 +4,7 @@ import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.UsuarioDAO
+import ar.edu.unq.turnero.service.TurnoService
 import ar.edu.unq.turnero.service.UsuarioService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -14,7 +15,8 @@ import javax.transaction.Transactional
 @Transactional
 open class UsuarioServiceImp(
     @Autowired
-    private val usuarioDAO: UsuarioDAO): UsuarioService {
+    private val usuarioDAO: UsuarioDAO,
+    private val turnoService: TurnoService): UsuarioService {
 
     override fun crear(usuario: Usuario): Usuario {
         this.validarCampos(usuario)
@@ -63,6 +65,11 @@ open class UsuarioServiceImp(
     }
 
     override fun eliminar(usuarioId: Int) {
+        /*var user = recuperar(usuarioId)
+        user!!.turnosAsignados.map {t -> t.desasignarAPaciente()}
+        actualizar(user)*/
+        //usuarioDAO.borrarUsuarioDeTodosSusTurnos(usuarioId.toLong())
+        turnoService.borrarUsuarioDeTodosSusTurnos(usuarioId)
         usuarioDAO.deleteById(usuarioId.toLong())
     }
 

@@ -56,7 +56,7 @@ class TurnoServiceTest {
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
         this.hospitalService = HospitalServiceImp(hospitalDAO)
-        this.usuarioService = UsuarioServiceImp(usuarioDAO)
+        this.usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
 
         evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>(), mutableListOf<Turno>())
         evitaPueblo.agregarEspecialidad(pediatria)
@@ -265,9 +265,41 @@ class TurnoServiceTest {
         var turno3 = turnoService.recuperar(turno1Wilde.id!!.toInt())
 
         Assertions.assertEquals(3, user.turnosAsignados.size)
-        Assertions.assertEquals(user, turno1!!.paciente)
-        Assertions.assertEquals(user, turno2!!.paciente)
-        Assertions.assertEquals(user, turno3!!.paciente)
+        Assertions.assertEquals(user.id, turno1!!.paciente!!.id)
+        Assertions.assertEquals(user.id, turno2!!.paciente!!.id)
+        Assertions.assertEquals(user.id, turno3!!.paciente!!.id)
+    }
+
+    @Test
+    fun seBorraAlUsuarioDeUnTurnoAsignadoCorrectamente() {
+        var user = Usuario("Candela Aguayo", null,32023021, "cndelaAguayo@yahoo.com", 1124456734, "123")
+        usuarioService.crear(user)
+
+        user.sacarTurno(turno1Evita)
+        user.sacarTurno(turno2Evita)
+        user.sacarTurno(turno1Wilde)
+        turnoService.actualizar(turno1Evita)
+        turnoService.actualizar(turno2Evita)
+        turnoService.actualizar(turno1Wilde)
+
+        var turno1 = turnoService.recuperar(turno1Evita.id!!.toInt())
+        var turno2 = turnoService.recuperar(turno2Evita.id!!.toInt())
+        var turno3 = turnoService.recuperar(turno1Wilde.id!!.toInt())
+
+        Assertions.assertEquals(3, user.turnosAsignados.size)
+        Assertions.assertEquals(user.id, turno1!!.paciente!!.id)
+        Assertions.assertEquals(user.id, turno2!!.paciente!!.id)
+        Assertions.assertEquals(user.id, turno3!!.paciente!!.id)
+
+        turnoService.borrarUsuarioDeTodosSusTurnos(user.id!!.toInt())
+
+        var turnoRecuperado1 = turnoService.recuperar(turno1Evita.id!!.toInt())
+        var turnoRecuperado2 = turnoService.recuperar(turno2Evita.id!!.toInt())
+        var turnoRecuperado3 = turnoService.recuperar(turno1Wilde.id!!.toInt())
+
+        Assertions.assertNull(turnoRecuperado1!!.paciente)
+        Assertions.assertNull(turnoRecuperado2!!.paciente)
+        Assertions.assertNull(turnoRecuperado3!!.paciente)
     }
 
 

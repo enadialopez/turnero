@@ -52,8 +52,8 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        usuarioService = UsuarioServiceImp(usuarioDAO)
         turnoService = TurnoServiceImp(turnoDAO)
+        usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
         this.service = HospitalServiceImp(hospitalDAO)
 
         evitaPueblo = Hospital(

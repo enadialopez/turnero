@@ -13,4 +13,5 @@ interface TurnoService {
     fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: Hospital, especialidad: Especialidad) : List<Turno>
     fun eliminar(turnoId:Int)
     fun clear()
+    fun borrarUsuarioDeTodosSusTurnos(usuarioId: Int)
 }
