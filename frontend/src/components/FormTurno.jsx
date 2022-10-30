@@ -3,12 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
 import Navbar from '../components/Navbar';
 import '../styles/FormTurno.css';
-
 const FormTurno = () => {
-
     const { id, especialidad } = useParams();
     const navigate = useNavigate();
-
     const [hospital, setHospital] = useState({
         id: "",
         nombre: "",
@@ -28,28 +25,18 @@ const FormTurno = () => {
         especialista: "",
         hospital: "",
     })
-
-    const [user, setUser] = useState ({
-        idUser: "",
-        nombreYApellidoUser: "",
-        dniUser: "",
-        telefonoUser: "",
-        emailUser: "",
-    })
     const [data, setData] = useState({
         to: "+541130457224",
         message: "Usted tiene un turno asignado",
     });
-    
+
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
-
     const fechasDisponibles = () => {
         let fechas = [];
         turnos.map( turno => fechas.push(turno.fechaYHora));
         return fechas;
     };
-
     const turnoByFecha = (fecha) => {
         turnos.forEach( turno => {
             if( turno.fechaYHora === fecha) {
@@ -69,48 +56,23 @@ const FormTurno = () => {
     const changeHandler = (e) => {
         setFechaSeleccionada(e.target.value);
     };
-
     const handleChange = name => event => {
         setTurno(prevState => ({ ...prevState, [name]: event.target.value }));
     };
 
-    useEffect(() => {
-        if (isLogged){
-          Service.getUser()
-          .then(response => {
-            setUser({
-              idUser: response.data.id,
-              nombreYApellidoUser: response.data.nombreYApellido,
-              dniUser: response.data.dni,
-              telefonoUser: response.data.telefono, 
-              emailUser: response.data.email, 
-            });
-          }).catch(error => {
-            console.log(error)
-          });
-        }}, [isLogged]
-    ); 
-    
     const handleSubmit = (event) => {
-        console.log(turno.dniPaciente);
-        console.log(user.dniUser)
         event.preventDefault();
         Service.putActualizarTurno(turno.id, turno).then(response => {
           setTurno((prevState)=>({
             ...prevState,
-            nombreYApellidoPaciente: user.nombreYApellidoUser,
-            dniPaciente: user.dniUser,
-            telefonoPaciente: user.telefonoUser,
-            emailPaciente: user.emailUser,
+            nombreYApellidoPaciente: turno.nombreYApellidoPaciente,
+            dniPaciente: turno.dniPaciente,
+            telefonoPaciente: turno.telefonoPaciente,
+            emailPaciente: turno.emailPaciente,
             }));
             navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => console.log(turno.dniPaciente));
-        
+        }).catch(err => console.log(err));
     };
-    
-    
-     
-
     useEffect(() => {
         Service.getHospitalById(id)
             .then(response => { 
@@ -126,7 +88,6 @@ const FormTurno = () => {
         });
     }, [id]
     );
-
     useEffect(() => {
         Service.getTurnosDisponiblesBy(hospital.id, especialidad)
             .then(response => { 
@@ -136,12 +97,13 @@ const FormTurno = () => {
         });
     }, [especialidad, hospital]
     );
-
     useEffect(() => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
     );
-    
+
+    console.log(hospital)
+    console.log(turno)
 
     return (
         <>
@@ -150,32 +112,50 @@ const FormTurno = () => {
             </div> 
             <div className="formTurno-container">
                 { isLogged 
-                        ?
-                        <>
-                            <div className='form-content'>    
-                                <form onSubmit={handleSubmit}>  
-                                    <div className="select">
-                                        <label for="Name">Turnos Disponibles:</label>
-                                        <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
-                                            <option defaultValue="">Seleccione fecha y horario...</option>
-                                            { fechasDisponibles().map (turno => {
-                                                return (
-                                                    <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
-                                                );
-                                            })}
-                                        </select>
-                                    </div>
-                                    <div className="turno-button-content">
-                                        <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
-                                    </div>
-                                </form>     
-                            </div>     
-                        </>    
-                        :
-                        <div className='card-notlogged'>
-                            <p> Usted debe iniciar sesión para 
-                                poder completar el formulario de turno</p>
-                        </div>
+                ?
+                <>
+                    <div className='form-content'>    
+                        <form onSubmit={handleSubmit}>  
+                            <div className="select">
+                                <label for="Name">Turnos Disponibles:</label>
+                                <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
+                                    <option defaultValue="">Seleccione fecha y horario...</option>
+                                    { fechasDisponibles().map (turno => {
+                                        return (
+                                            <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
+                            <div className="login-form-group">
+                                <label for="Name">Nombre y Apellido:</label>
+                                <input className="form-control" type="text" name="nombrePaciente" value={turno.nombreYApellidoPaciente} onChange={handleChange("nombreYApellidoPaciente")} placeholder="Nombre y Apellido" required />
+                            </div>
+                            <div className="login-form-group">
+                                <label for="Name">DNI:</label>
+                                <input className="form-control" type="text" name="dniPaciente" value={turno.dniPaciente} onChange={handleChange("dniPaciente")} placeholder="DNI" required />
+                            </div>
+                            <div className="login-form-group">
+                                <label for="Name">Email:</label>
+                                <input className="form-control" type="text" name="emailPaciente" value={turno.emailPaciente} onChange={handleChange("emailPaciente")} placeholder="Email" required />
+                            </div>
+                            <div className="login-form-group">
+                                <label for="Name">Telefono:</label>
+                                <input className="form-control" type="text" name="telefonoPaciente" value={turno.telefonoPaciente} onChange={handleChange("telefonoPaciente")} placeholder="Telefono / Celular" required />
+                            </div>
+                            <div className="turno-button-content">
+                                <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
+                            </div>
+                        </form>     
+                    </div>     
+                </>    
+                :
+                <> 
+                    <div className='card-notlogged'>
+                        <p> Usted debe iniciar sesión para 
+                            poder completar el formulario de turno</p>
+                    </div>
+                </>     
                 }
             </div>
         </>  

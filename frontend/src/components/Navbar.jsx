@@ -23,7 +23,7 @@ const Navbar = () => {
         event.preventDefault();
         Service.postLogin(data)
         .then(response => {
-            console.log(response.data.token)
+            console.log(response)
             localStorage.setItem("token", response.data.token);
             window.location.reload();  
           })
@@ -33,7 +33,6 @@ const Navbar = () => {
     const logout = () => {
         localStorage.removeItem("userData");
         localStorage.removeItem("token");
-        navigate('/');
     };
 
     const buttonsLogueado = () => {
@@ -42,7 +41,7 @@ const Navbar = () => {
                 <div className="buttons-content">
                     <a className="button-nb" href={`/`} id="btn"> INICIO </a>
                     <a className="button-nb" href={`/profile`} id="btn"> PERFIL </a>
-                    <a className="button-nb" onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
+                    <a className="button-nb" href={"/"} onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
                 </div>
             </>
         )

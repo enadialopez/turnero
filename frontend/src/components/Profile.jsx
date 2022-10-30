@@ -1,11 +1,11 @@
 import React, { useState, useEffect }  from 'react';
+import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Service from '../service/service';
 import axios from 'axios';
 import '../styles/Profile.css';
 
 const Profile = () => {
-
     const [user, setUser] = useState({
         id: "",
         nombreYApellido: "",
@@ -14,9 +14,9 @@ const Profile = () => {
         email: "",
         telefono: "",
         password: "",
-        turnosAsignados: [],
+        //turnosAsignados: [],
     });
-
+    const navigate = useNavigate();
     const isLogged = !!localStorage.getItem("token");
 
     axios.defaults.headers['authorization'] = localStorage.getItem('token');
@@ -32,7 +32,7 @@ const Profile = () => {
               dni: response.data.dni,
               email: response.data.email,
               telefono: response.data.telefono,  
-              turnosAsignados: response.data.turnosAsignados,
+              //turnosAsignados: response.data.turnosAsignados,
             }));
           }).catch(error => {
             console.log(error)
@@ -40,7 +40,16 @@ const Profile = () => {
         }}, [isLogged]
     );  
 
-    console.log(user)
+    const deleteAccount = () => {
+      Service.deleteUser(user.id)
+      .then( _ => {
+        localStorage.removeItem("token");  
+        navigate("/")
+        window.location.reload();  
+      }).catch(error => {
+        console.log(error)
+      });
+  };
 
     return (
         <>
@@ -65,22 +74,20 @@ const Profile = () => {
                               <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                      <p className="ask" id="exampleModalLongTitle">¿Estas seguro de cerrar tu cuenta?</p>
+                                      <p className="ask" id="exampleModalLongTitle">¿Estas segura/o de cerrar tu cuenta?</p>
                                     </div>
                                     <div className="modal-body-profile">
-                                      <button type="submit" className="btn-info b-profile" id='confirm'>Si, cerrar cuenta</button>
-                                      <button type="button" className="btn-info b-profile" data-dismiss="modal" aria-label="Close">Cancelar</button> 
+                                      <button className="btn-info b-profile" id='confirm' onClick={() => deleteAccount()}>Si, cerrar cuenta</button>
+                                      <button className="btn-info b-profile" data-dismiss="modal" aria-label="Close">Cancelar</button> 
                                     </div>
                                 </div>
                               </div>
                             </div>
-                        </div>
-                        
+                        </div>  
                       </div>
-                      
                  </div>
                  <div className='profile-turnos'>
-                      turnos asignados
+                     
                  </div>
             </div>
         </>  
