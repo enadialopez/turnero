@@ -2,6 +2,7 @@ package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.service.UsuarioService
 import ar.edu.unq.turnero.spring.controller.DTOs.MiniUsuarioDTO
+import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.UsuarioDTO
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -39,6 +40,7 @@ class UsuarioController(private val usuarioService: UsuarioService) {
             .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 2000))
             .signWith(SignatureAlgorithm.HS512, "secret").compact()
         response.addHeader("Authorization", jwt)
+        response.setHeader("Authorization", jwt)
         user.token = jwt
         val userResponse = usuarioService.actualizar(user)
         return ResponseEntity.ok().body(userResponse)
@@ -49,6 +51,9 @@ class UsuarioController(private val usuarioService: UsuarioService) {
         val user = usuarioService.recuperarPorToken(token)
         return ResponseEntity.ok().body(UsuarioDTO.desdeModelo(user!!))
     }
+
+    @GetMapping("/{usuarioId}")
+    fun recuperarTurnosDeUsuario(@PathVariable usuarioId: Int) = usuarioService.recuperarTurnosDeUsuario(usuarioId).map { turno -> TurnoDTO.desdeModelo(turno)  }
 
     @GetMapping("/todos")
     fun recuperarTodos() = usuarioService.recuperarTodos().map { usuario -> UsuarioDTO.desdeModelo(usuario)  }

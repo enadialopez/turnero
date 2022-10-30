@@ -1,5 +1,6 @@
 package ar.edu.unq.turnero.service.impl
 
+import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
@@ -51,13 +52,24 @@ open class UsuarioServiceImp(
     }
 
     override fun recuperarPorEmail(email: String) : Usuario? {
-        //validar email
-        return usuarioDAO.findByEmailContaining(email)
+        val user = usuarioDAO.findByEmailContaining(email)
+        if( user == null) {
+            throw RuntimeException("No existe un usuario con ese email registrado.")
+        }
+        return user
     }
 
     override fun recuperarPorToken(token: String) : Usuario? {
-        //validar token
-        return usuarioDAO.findByTokenContaining(token)
+        val user = usuarioDAO.findByToken(token)
+        if( user == null) {
+            throw RuntimeException("No existe un usuario con el token asignado.")
+        }
+        return user
+    }
+
+    override fun recuperarTurnosDeUsuario(id: Int) : List<Turno> {
+        val user = this.recuperar(id)
+        return turnoService.recuperarTurnosAsignadosAUsuario(user!!.dni!!)
     }
 
     override fun recuperarTodos(): List<Usuario> {
