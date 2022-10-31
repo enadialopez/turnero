@@ -1,11 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-import javax.naming.directory.InvalidAttributesException
-
-class PasswordInvalidoException: InvalidAttributesException() {
+class PasswordInvalidoException: Exception() {
 
     override val message: String?
-        get() = "Debe ingresar un Password valido."
+        get() = "La contraseña debe contener al menos 8 caracteres."
 
     companion object {
         private val serialVersionUID = 1L

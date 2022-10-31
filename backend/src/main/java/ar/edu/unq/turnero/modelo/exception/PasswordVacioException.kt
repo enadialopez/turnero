@@ -1,11 +1,12 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class EmailExistenteException: Exception() {
+class PasswordVacioException : Exception() {
 
     override val message: String?
-        get() = "El email ya se encuentra registrado."
+        get() = "Debe ingresar una contraseña."
 
     companion object {
+
         private val serialVersionUID = 1L
     }
 }
