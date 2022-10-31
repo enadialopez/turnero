@@ -68,11 +68,11 @@ class HospitalData {
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
     var user1: Usuario = Usuario("Candela Aguayo", null, 42073810, "candelaaguayo@yahoo.com",
-    1124456734, "123")
+    1124456734, "12345678")
     var user2: Usuario = Usuario("Marcos Galante", null, 42073822, "marcosgalante@gmail.com",
-        1113456734, "456")
+        1113456734, "45678912")
     var user3: Usuario = Usuario("Ximena Jida", null, 42043821, "ximejida@hotmail.com",
-        1133456734, "789")
+        1133456734, "78912345")
 
     @BeforeEach
     fun prepare() {
@@ -647,7 +647,7 @@ class HospitalData {
         turno = Turno("05/12/2022     09:15 hs", pediatria, "Leonardo Sanchez", sanRoque)
         turno = Turno("015/11/2022     13:30 hs", urologia, "Leonardo Sanchez", sanRoque)
 
-        /*
+
         turnoService.crear(turno)
         turnoService.crear(turnoEvita1)
         turnoService.crear(turnoEvita2)
@@ -657,7 +657,7 @@ class HospitalData {
         user2.sacarTurno(turnoEvita7)
         user2.sacarTurno(turnoEvita8)
         usuarioService.actualizar(user2)
-        */
+
 
     }
 

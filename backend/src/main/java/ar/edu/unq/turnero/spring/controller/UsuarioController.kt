@@ -2,10 +2,7 @@ package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.service.UsuarioService
-import ar.edu.unq.turnero.spring.controller.DTOs.Message
-import ar.edu.unq.turnero.spring.controller.DTOs.MiniUsuarioDTO
-import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
-import ar.edu.unq.turnero.spring.controller.DTOs.UsuarioDTO
+import ar.edu.unq.turnero.spring.controller.DTOs.*
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.http.HttpHeaders
@@ -54,7 +51,6 @@ class UsuarioController(private val usuarioService: UsuarioService) {
             val userResponse = usuarioService.actualizar(user)
             return ResponseEntity.ok().body(userResponse)
         } catch (error : Exception) {
-            println(error.cause!!.message)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
         }
 
@@ -62,8 +58,12 @@ class UsuarioController(private val usuarioService: UsuarioService) {
 
     @GetMapping("")
     fun recuperar(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String) : ResponseEntity<Any> {
-        val user = usuarioService.recuperarPorToken(token)
-        return ResponseEntity.ok().body(UsuarioDTO.desdeModelo(user!!))
+        try {
+            val user = usuarioService.recuperarPorToken(token)
+            return ResponseEntity.ok().body(UsuarioLogueadoDTO.desdeModelo(user!!))
+        } catch (error : Exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
+        }
     }
 
     @GetMapping("/{usuarioId}")

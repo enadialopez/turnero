@@ -93,8 +93,11 @@ open class UsuarioServiceImp(
 
     override fun recuperarPorToken(token: String) : Usuario? {
         val user = usuarioDAO.findByToken(token)
-        if( user == null) {
-            throw RuntimeException("No existe un usuario con el token asignado.")
+        if (token == "") {
+            throw TokenInvalidoException()
+        }
+        else if ( user == null) {
+            throw Exception("No existe un usuario con el token asignado.")
         }
         return user
     }
