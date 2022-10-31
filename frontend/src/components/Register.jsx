@@ -30,7 +30,7 @@ const Register = () => {
             localStorage.setItem("token", response.data.token);
             navigate("/");
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err.response.data.message));
     };
     
     const navigate = useNavigate();
@@ -52,17 +52,17 @@ const Register = () => {
                     <form className='formModal' onSubmit={handleSubmit}>
                         <div className='modal-inputs-register'>
                             <label>Nombre y Apellido(*)</label>
-                            <input className="form-input" type='text' name="NombreYApellido" value={data.nombreYApellido} onChange={handleChange("nombreYApellido")} placeholder="Roberto Gomez" required ></input>
+                            <input className="form-input" type='text' name="NombreYApellido" value={data.nombreYApellido} onChange={handleChange("nombreYApellido")} placeholder="Roberto Gomez"></input>
                             <label>Imagen</label>
                             <input className="form-input" type='text' name="image" value={data.image} onChange={handleChange("image")} placeholder="https://example.es/slide.jpg"></input>
                             <label>DNI(*)</label>
-                            <input className="form-input" type='text' name="dni" value={data.dni} onChange={handleChange("dni")} placeholder="20345678" required></input>
+                            <input className="form-input" type='text' name="dni" value={data.dni} onChange={handleChange("dni")} placeholder="20345678"></input>
                             <label>Email(*)</label>
-                            <input className="form-input" type='email' name="email" value={data.email} onChange={handleChange("email")} placeholder="example@gmail.com" required ></input>
+                            <input className="form-input" type='email' name="email" value={data.email} onChange={handleChange("email")} placeholder="example@gmail.com"></input>
                             <label className='label'>Telefono</label>
                             <input className="form-input" type='text' name="telefono" value={data.telefono} onChange={handleChange("telefono")} placeholder=" +541122334455"></input>
                             <label>Contraseña(*)</label>
-                            <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="example" required></input> 
+                            <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Debe contener al menos 8 caracteres"></input> 
                         </div>
                         <button type="submit" className="btn-info b-register">REGISTRARSE</button>
                     </form>
