@@ -11,15 +11,15 @@ const Navbar = () => {
         email: "",
         password: ""
     });
-
-    const navigate = useNavigate();
+    const [loginError, setLoginError] = useState (false);
+    const [loginErrorName, setLoginErrorName] = useState("");
     const isLogged = !!localStorage.getItem("token");
 
     const handleChange = name => event => {
         setData(prevState => ({ ...prevState, [name]: event.target.value }));
     };
     
-    const handleSubmit = (event) =>{
+    const handleSubmit = (event) => {
         event.preventDefault();
         Service.postLogin(data)
         .then(response => {
@@ -27,8 +27,11 @@ const Navbar = () => {
             localStorage.setItem("token", response.data.token);
             window.location.reload();  
           })
-        .catch(err => console.log(err));
-    };
+        .catch(err => {
+            setLoginError(true)
+            setLoginErrorName(err.response.data.message);  
+        })
+    };  
 
     const logout = () => {
         localStorage.removeItem("userData");
@@ -93,6 +96,7 @@ const Navbar = () => {
                                                         <input className="form-input" type='text' name="email" value={data.email} onChange={handleChange("email")} placeholder="Email" required  ></input>
                                                         <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Contraseña" required></input> 
                                                     </div>
+                                                    {loginError && (<div id='alert-login' className="alert alert-danger" role="alert">{loginErrorName}</div>) }
                                                     <button type="submit" className="btn-info b-log">INICIAR SESIÓN</button>
                                                 </form>
                                             </div>
