@@ -31,7 +31,7 @@ body {
 .modal-inputs-register > label {
     display: flex;
     text-indent: 60px;
-    font-size:9px;
+    font-size:8px;
     justify-content: left;
     text-align: left;
     color: rgb(0, 0, 0);
@@ -42,7 +42,7 @@ body {
 .form-input {
     margin: 10px;
     width: 70%;
-    height: 30px;
+    height: 25px;
     border-radius: 5px;
     border-top-style:none;
     border-left-style:none;
@@ -72,4 +72,13 @@ body {
     background-color:rgb(4, 1, 59);
   }
 
+  #alert-register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 85%;
+    font-size: 13px;
+    margin: 25px 0px 0px 30px;
+  }
 
