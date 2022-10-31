@@ -5,6 +5,7 @@ import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
+import ar.edu.unq.turnero.modelo.exception.PasswordVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.persistence.TurnoDAO
@@ -47,7 +48,7 @@ class UsuarioServiceTest {
     @Test
     fun seCreaUnUsuarioValido() {
         var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "12345678")
         usuarioService.crear(user)
 
         Assertions.assertNotNull(user.id)
@@ -60,15 +61,15 @@ class UsuarioServiceTest {
 
         try {
             usuarioService.crear(user)
-        } catch (e: StringVacioException) {
-            Assertions.assertEquals("El string no puede ser vacío.", e.message)
+        } catch (e: PasswordVacioException) {
+            Assertions.assertEquals("Debe ingresar una contraseña.", e.message)
         }
     }
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
         var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+            24456734, "12345678")
         usuarioService.crear(user)
 
         var userId: Long? = user.id
@@ -92,11 +93,11 @@ class UsuarioServiceTest {
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
         var user1 = Usuario("Candela Aguayo", null,24456734, "candelaAguayo@yahoo.com",
-            42073821, "123")
+            42073821, "12345678")
         var user2: Usuario = Usuario("Marcos Galante", null,13456734, "marcosGalante@gmail.com",
-            42073821, "456")
+            42073821, "45678912")
         var user3: Usuario = Usuario("Ximena Jida", null, 33456734, "ximeJida@hotmail.com",
-            42073821, "789")
+            42073821, "78912345")
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -115,7 +116,7 @@ class UsuarioServiceTest {
         evitaPueblo.agregarTurno(turnoEvita)
         hospitalService.crear(evitaPueblo)
 
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "123")
+        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
         usuarioService.crear(user)
 
         user.sacarTurno(turnoEvita)
@@ -132,7 +133,7 @@ class UsuarioServiceTest {
     @Test
     fun seEliminaUnUsarioCorrectamente() {
         var user = Usuario("Candela Aguayo", null, 27456734, "candelaAguayo@yahoo.com",
-            42073821, "123")
+            42073821, "12345678")
         usuarioService.crear(user)
         var usuarioId = user.id!!.toInt()
 
@@ -158,7 +159,7 @@ class UsuarioServiceTest {
         hospitalService.crear(evitaPueblo)
 
         var user = Usuario("Candela Aguayo", null, 27406734, "candelaAguayo@yahoo.com",
-            1142073821, "123")
+            1142073821, "12345678")
         usuarioService.crear(user)
 
         user.sacarTurno(turnoEvita1)

@@ -15,6 +15,8 @@ interface UsuarioDAO : CrudRepository<Usuario, Long>  {
 
     fun findByEmailContaining(email: String) : Usuario
 
+    fun findByEmail(email: String) : Usuario?
+
     fun findByToken(token: String) : Usuario
 
     fun findByDni(dni: Long) : Usuario?

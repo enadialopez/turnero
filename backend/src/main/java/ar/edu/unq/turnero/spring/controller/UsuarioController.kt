@@ -1,15 +1,19 @@
 package ar.edu.unq.turnero.spring.controller
 
+import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.service.UsuarioService
+import ar.edu.unq.turnero.spring.controller.DTOs.Message
 import ar.edu.unq.turnero.spring.controller.DTOs.MiniUsuarioDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.UsuarioDTO
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.naming.directory.InvalidAttributesException
 import javax.servlet.http.HttpServletResponse
 
 @RestController
@@ -19,16 +23,21 @@ class UsuarioController(private val usuarioService: UsuarioService) {
 
     @PostMapping("/register")
     fun register(@RequestBody usuario: UsuarioDTO, response: HttpServletResponse) : ResponseEntity<Any> {
-        val user = usuarioService.crear(usuario.aModelo())
-        val issuer = user!!.id.toString()
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000))
-            .signWith(SignatureAlgorithm.HS512, "secret").compact()
-        response.addHeader("Authorization", jwt)
-        user.token = jwt
-        val userResponse = usuarioService.actualizar(user)
-        return ResponseEntity.ok().body(userResponse)
+        try {
+            val user = usuarioService.crear(usuario.aModelo())
+            val issuer = user!!.id.toString()
+            val jwt = Jwts.builder()
+                .setIssuer(issuer)
+                .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000))
+                .signWith(SignatureAlgorithm.HS512, "secret").compact()
+            response.addHeader("Authorization", jwt)
+            user.token = jwt
+            val userResponse = usuarioService.actualizar(user)
+            return ResponseEntity.ok().body(userResponse)
+        } catch (error : Exception) {
+            println(error.cause!!.message)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
+        }
     }
 
     @PostMapping("/login")

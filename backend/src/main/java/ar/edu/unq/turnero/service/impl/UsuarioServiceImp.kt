@@ -2,8 +2,7 @@ package ar.edu.unq.turnero.service.impl
 
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
-import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
-import ar.edu.unq.turnero.modelo.exception.StringVacioException
+import ar.edu.unq.turnero.modelo.exception.*
 import ar.edu.unq.turnero.persistence.UsuarioDAO
 import ar.edu.unq.turnero.service.TurnoService
 import ar.edu.unq.turnero.service.UsuarioService
@@ -25,18 +24,49 @@ open class UsuarioServiceImp(
     }
 
     private fun validarCampos(usuario: Usuario) {
-        if(usuario.nombreYApellido == "" || validarDNI(usuario.dni) || usuario.email == ""
-            || usuario.password == "") {
+        if(validarNombreYApellido(usuario.nombreYApellido) || validarDNI(usuario.dni) || validarEmail(usuario.email)
+            || validarPassword(usuario.password)) {
             throw StringVacioException()
         }
     }
 
-    private fun validarDNI(dni: Long?) : Boolean {
-        if(dni == null || dni <= 999999 || dni > 99999999 || usuarioDAO.findByDni(dni) != null) {
-            throw DniInvalidoException()
+    private fun validarNombreYApellido(nombreCompleto: String?) : Boolean {
+        if(nombreCompleto == "") {
+            throw NombreYApellidoIncompletoException()
         } else {
             return false
         }
+    }
+
+    private fun validarDNI(dni: Long?) : Boolean {
+        if(dni == null) {
+            throw DniVacioException()
+        } else if (dni <= 999999 || dni > 99999999) {
+            throw  DniInvalidoException()
+        } else if(usuarioDAO.findByDni(dni) != null) {
+            throw DniExistenteException()
+        } else {
+            return false
+        }
+    }
+
+    private fun validarEmail(email: String?) : Boolean {
+        val usuario = usuarioDAO.findByEmail(email!!)
+        if(!email!!.contains("@")) {
+           return throw EmailInvalidoException()
+        } else if (usuario != null) {
+           return throw EmailExistenteException()
+        }
+        return false
+    }
+
+    private fun validarPassword(password: String?) : Boolean {
+        if(password == "") {
+            throw PasswordVacioException()
+        } else if (password!!.length < 8){
+            throw PasswordInvalidoException()
+        }
+        return false
     }
 
     override fun actualizar(usuario: Usuario): Usuario {
