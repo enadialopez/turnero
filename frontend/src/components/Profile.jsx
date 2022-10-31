@@ -14,7 +14,7 @@ const Profile = () => {
         email: "",
         telefono: "",
         password: "",
-        //turnosAsignados: [],
+        turnosAsignados: [],
     });
     const navigate = useNavigate();
     const isLogged = !!localStorage.getItem("token");
@@ -32,7 +32,7 @@ const Profile = () => {
               dni: response.data.dni,
               email: response.data.email,
               telefono: response.data.telefono,  
-              //turnosAsignados: response.data.turnosAsignados,
+              turnosAsignados: response.data.turnosAsignados,
             }));
           }).catch(error => {
             console.log(error)
@@ -51,6 +51,7 @@ const Profile = () => {
       });
   };
 
+  console.log(user)
     return (
         <>
             <div className="navbar">

@@ -9,7 +9,7 @@
 .form-content {
    background-color: aliceblue;
    width: 500px;
-   height: 500px;
+   height: 200px;
    border-radius: 10px;
    border-style:double;
    display: grid;
