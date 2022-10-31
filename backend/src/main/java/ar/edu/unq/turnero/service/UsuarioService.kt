@@ -8,7 +8,7 @@ interface UsuarioService {
     fun actualizar(usuario: Usuario) : Usuario
     fun recuperar(usuarioId: Int) : Usuario?
     fun recuperarTurnosDeUsuario(id: Int) : List<Turno>
-    fun recuperarPorEmail(email: String) : Usuario?
+    fun recuperarUsuario(email: String, password: String) : Usuario?
     fun recuperarPorToken(token: String) : Usuario?
     fun recuperarTodos(): List<Usuario>
     fun eliminar(usuarioId: Int)

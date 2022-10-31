@@ -39,9 +39,7 @@ open class UsuarioServiceImp(
     }
 
     private fun validarDNI(dni: Long?) : Boolean {
-        if(dni == null) {
-            throw DniVacioException()
-        } else if (dni <= 999999 || dni > 99999999) {
+        if (dni == null || dni <= 999999 || dni > 99999999) {
             throw  DniInvalidoException()
         } else if(usuarioDAO.findByDni(dni) != null) {
             throw DniExistenteException()
@@ -61,9 +59,7 @@ open class UsuarioServiceImp(
     }
 
     private fun validarPassword(password: String?) : Boolean {
-        if(password == "") {
-            throw PasswordVacioException()
-        } else if (password!!.length < 8){
+        if (password!!.length < 8){
             throw PasswordInvalidoException()
         }
         return false
@@ -81,12 +77,18 @@ open class UsuarioServiceImp(
         return user
     }
 
-    override fun recuperarPorEmail(email: String) : Usuario? {
-        val user = usuarioDAO.findByEmailContaining(email)
-        if( user == null) {
-            throw RuntimeException("No existe un usuario con ese email registrado.")
+    override fun recuperarUsuario(email: String, password: String) : Usuario? {
+        val usuario = usuarioDAO.findByEmail(email!!)
+        if(!email!!.contains("@")) {
+            return throw EmailInvalidoException()
+        } else if (usuario == null) {
+            return throw EmailNoExistenteException()
+        } else if (password!!.length < 8) {
+                throw PasswordInvalidoException()
+        } else if (usuario.password != password) {
+            throw PasswordIncorrectoException()
         }
-        return user
+        return usuario
     }
 
     override fun recuperarPorToken(token: String) : Usuario? {

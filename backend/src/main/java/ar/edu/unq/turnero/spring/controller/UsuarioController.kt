@@ -35,24 +35,29 @@ class UsuarioController(private val usuarioService: UsuarioService) {
             val userResponse = usuarioService.actualizar(user)
             return ResponseEntity.ok().body(userResponse)
         } catch (error : Exception) {
-            println(error.cause!!.message)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
         }
     }
 
     @PostMapping("/login")
     fun login(@RequestBody usuario: MiniUsuarioDTO, response: HttpServletResponse) : ResponseEntity<Any> {
-        val user = usuarioService.recuperarPorEmail(usuario.email!!)
-        val issuer = user!!.id.toString()
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 2000))
-            .signWith(SignatureAlgorithm.HS512, "secret").compact()
-        response.addHeader("Authorization", jwt)
-        response.setHeader("Authorization", jwt)
-        user.token = jwt
-        val userResponse = usuarioService.actualizar(user)
-        return ResponseEntity.ok().body(userResponse)
+        try {
+            val user = usuarioService.recuperarUsuario(usuario.email!!, usuario.password!!)
+            val issuer = user!!.id.toString()
+            val jwt = Jwts.builder()
+                .setIssuer(issuer)
+                .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 2000))
+                .signWith(SignatureAlgorithm.HS512, "secret").compact()
+            response.addHeader("Authorization", jwt)
+            response.setHeader("Authorization", jwt)
+            user.token = jwt
+            val userResponse = usuarioService.actualizar(user)
+            return ResponseEntity.ok().body(userResponse)
+        } catch (error : Exception) {
+            println(error.cause!!.message)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
+        }
+
     }
 
     @GetMapping("")
