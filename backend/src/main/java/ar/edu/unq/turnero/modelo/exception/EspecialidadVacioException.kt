@@ -1,6 +1,6 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class EspecialidadVacioException : RuntimeException() {
+class EspecialidadVacioException : Exception() {
 
     override val message: String?
         get() = "El atributo no puede ser vacío."

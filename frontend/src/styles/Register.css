@@ -13,14 +13,14 @@ body {
 
 .form-register-card {
     width: 450px;
-    height: 550px;
+    height: 600px;
     border-width: 2px;
     border-radius: 10px  ;
     background-color: white;
     display: grid;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 5px;
 }
 
 .form-title {
@@ -28,17 +28,57 @@ body {
     font-weight: 900;
 }
 
+.modal-inputs-register > label {
+    display: flex;
+    text-indent: 60px;
+    font-size:8px;
+    justify-content: left;
+    text-align: left;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    margin: 0px;
+}
+
 .form-input {
     margin: 10px;
     width: 70%;
-    height: 40px;
+    height: 25px;
     border-radius: 5px;
-    border-style: double;
-    border-color: gainsboro
+    border-top-style:none;
+    border-left-style:none;
+    border-right-style:none;
+    border-bottom-style:inset;
+    border-color: rgb(185, 185, 185);
 }
 
 .btn-close {
     display: flex;
     justify-content: right;
     cursor: pointer;
+    width: 410px;
 }
+
+.b-register {
+    width: 70%;
+    height: 40px;
+    border-radius: 10px;
+    border-color:rgb(21, 16, 103);
+    background-color:rgb(21, 16, 103);
+    margin-top: 20px;
+  }
+  
+  .b-register:hover {
+    border-color:rgb(4, 1, 59);
+    background-color:rgb(4, 1, 59);
+  }
+
+  #alert-register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 85%;
+    font-size: 13px;
+    margin: 25px 0px 0px 30px;
+  }
+

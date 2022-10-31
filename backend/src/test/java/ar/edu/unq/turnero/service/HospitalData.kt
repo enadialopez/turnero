@@ -67,18 +67,18 @@ class HospitalData {
     var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
-    var user1: Usuario = Usuario("Candela Aguayo", 24456334, "candelaAguayo@yahoo.com",
-        42073821, "123", null)
-    var user2: Usuario = Usuario("Marcos Galante", 13456734, "marcosGalante@gmail.com",
-        42073821, "456", null)
-    var user3: Usuario = Usuario("Ximena Jida", 9456734, "ximeJida@hotmail.com",
-        42073821, "789", null)
+    var user1: Usuario = Usuario("Candela Aguayo", null, 42073810, "candelaaguayo@yahoo.com",
+    1124456734, "12345678")
+    var user2: Usuario = Usuario("Marcos Galante", null, 42073822, "marcosgalante@gmail.com",
+        1113456734, "45678912")
+    var user3: Usuario = Usuario("Ximena Jida", null, 42043821, "ximejida@hotmail.com",
+        1133456734, "78912345")
 
     @BeforeEach
     fun prepare() {
         this.turnoService = TurnoServiceImp(turnoDAO)
-        this.service = HospitalServiceImp(hospitalDAO, turnoService)
-        this.usuarioService = UsuarioServiceImp(usuarioDAO)
+        this.service = HospitalServiceImp(hospitalDAO)
+        this.usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -97,8 +97,8 @@ class HospitalData {
         service.crear(evitaPueblo)
 
         var turnoEvita1 = Turno("27/12/2022     17:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
-        var turnoEvita2 = Turno("27/12/2022     15:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
-        var turnoEvita3 = Turno("27/12/2022     16:45 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
+        var turnoEvita2 = Turno("31/11/2022     12:00 hs", traumatologia, "Manuel Rodriguez", evitaPueblo)
+        var turnoEvita3 = Turno("05/12/2022     09:15 hs", urologia, "Pablo Tobias", evitaPueblo)
         var turnoEvita4 = Turno("20/12/2022     10:00 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
         var turnoEvita5 = Turno("27/12/2022     08:15 hs", pediatria, "Leonardo Sanchez", evitaPueblo)
         var turnoEvita6 = Turno("03/01/2023     09:15 hs", traumatologia, "Veronica Manini", evitaPueblo)
@@ -644,11 +644,21 @@ class HospitalData {
         service.crear(joseCPaz)
 
         turno = Turno("02/11/2022     17:45 hs", traumatologia, "Leonardo Sanchez", sanRoque)
+        turno = Turno("05/12/2022     09:15 hs", pediatria, "Leonardo Sanchez", sanRoque)
+        turno = Turno("015/11/2022     13:30 hs", urologia, "Leonardo Sanchez", sanRoque)
+
 
         turnoService.crear(turno)
         turnoService.crear(turnoEvita1)
-        //turnoService.crear(turno2)
+        turnoService.crear(turnoEvita2)
         turnoService.crear(turnoEvita3)
+
+        user2.sacarTurno(turnoEvita1)
+        user2.sacarTurno(turnoEvita7)
+        user2.sacarTurno(turnoEvita8)
+        usuarioService.actualizar(user2)
+
+
     }
 
     @Test

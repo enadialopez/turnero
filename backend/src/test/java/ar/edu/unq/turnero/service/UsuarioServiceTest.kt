@@ -5,6 +5,7 @@ import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.DniInvalidoException
+import ar.edu.unq.turnero.modelo.exception.PasswordVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.HospitalDAO
 import ar.edu.unq.turnero.persistence.TurnoDAO
@@ -39,15 +40,15 @@ class UsuarioServiceTest {
 
     @BeforeEach
     fun prepare() {
-        usuarioService = UsuarioServiceImp(usuarioDAO)
         turnoService = TurnoServiceImp(turnoDAO)
-        hospitalService = HospitalServiceImp(hospitalDAO, turnoService)
+        usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
+        hospitalService = HospitalServiceImp(hospitalDAO)
     }
 
     @Test
     fun seCreaUnUsuarioValido() {
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123", null)
+        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
+            24456734, "12345678")
         usuarioService.crear(user)
 
         Assertions.assertNotNull(user.id)
@@ -55,60 +56,20 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "", null)
+        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayo@yahoo.com",
+            42043821, "")
 
         try {
             usuarioService.crear(user)
-        } catch (e: StringVacioException) {
-            Assertions.assertEquals("El string no puede ser vacío.", e.message)
-        }
-    }
-
-    @Test
-    fun seCreaUnUsuarioInvalidoPorDniMenorAlPermitido() {
-        var user: Usuario = Usuario("Candela Aguayo", 999999, "candelaAguayo@yahoo.com",
-            24456734, "", null)
-
-        try {
-            usuarioService.crear(user)
-        } catch (e: DniInvalidoException) {
-            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
-        }
-    }
-
-    @Test
-    fun noSePuedeCrearUsuarioPorqueYaExisteOtroUsuarioConElMismoDni() {
-        var user1: Usuario = Usuario("Candela Aguayo", 24456735, "candelaAguayo@gmail.com",
-            42073821, "123", null)
-        usuarioService.crear(user1)
-
-        var user2: Usuario = Usuario("Marcos DaPena", 24456735, "marcosDaPena@hotmail.com",
-            1123986659, "123", null)
-
-        try {
-            usuarioService.crear(user2)
-        } catch (e: DniInvalidoException) {
-            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
-        }
-    }
-
-    @Test
-    fun seCreaUnUsuarioInvalidoPorDniMayorAlPermitido() {
-        var user: Usuario = Usuario("Candela Aguayo", 100000000, "candelaAguayo@yahoo.com",
-            24456734, "", null)
-
-        try {
-            usuarioService.crear(user)
-        } catch (e: DniInvalidoException) {
-            Assertions.assertEquals("Debe ingresar un DNI valido.", e.message)
+        } catch (e: PasswordVacioException) {
+            Assertions.assertEquals("Debe ingresar una contraseña.", e.message)
         }
     }
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123", null)
+        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
+            24456734, "12345678")
         usuarioService.crear(user)
 
         var userId: Long? = user.id
@@ -119,8 +80,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seIntentaRecuperaUnUsuarioQueNoExiste() {
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123", null)
+        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
+            24456734, "123")
 
         var userId: Long? = user.id
 
@@ -131,12 +92,12 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
-            42073821, "123", null)
-        var user2: Usuario = Usuario("Marcos Galante", 13456734, "marcosGalante@gmail.com",
-            42073821, "456", null)
-        var user3: Usuario = Usuario("Ximena Jida", 33456734, "ximeJida@hotmail.com",
-            42073821, "789", null)
+        var user1 = Usuario("Candela Aguayo", null,24456734, "candelaAguayo@yahoo.com",
+            42073821, "12345678")
+        var user2: Usuario = Usuario("Marcos Galante", null,13456734, "marcosGalante@gmail.com",
+            42073821, "45678912")
+        var user3: Usuario = Usuario("Ximena Jida", null, 33456734, "ximeJida@hotmail.com",
+            42073821, "78912345")
 
         usuarioService.crear(user1)
         usuarioService.crear(user2)
@@ -148,40 +109,6 @@ class UsuarioServiceTest {
     }
 
     @Test
-    fun seRecuperaUnUsuarioDeFormaCorrectaPorSuEmail() {
-        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
-            42073821, "123", null)
-        var user2: Usuario = Usuario("Marcos DaPena", 16648900, "marcosDaPena@hotmail.com",
-            1123986659, "123", null)
-        var user3: Usuario = Usuario("Diana Melgar", 42073821, "dianaMelgar@gmail.com",
-            1145090065, "123", null)
-        usuarioService.crear(user1)
-        usuarioService.crear(user2)
-        usuarioService.crear(user3)
-
-        var userRecuperado: Usuario? = usuarioService.recuperarPorEmail("marcosDaPena@hotmail.com")
-
-        Assertions.assertEquals(user2, userRecuperado)
-    }
-
-    @Test
-    fun noSeRecuperaUnUsuarioPorSuEmailPorqueElEmailEsIncorrecto() {
-        var user1: Usuario = Usuario("Candela Aguayo", 24456734, "candelaAguayo@yahoo.com",
-            42073821, "123", null)
-        var user2: Usuario = Usuario("Marcos DaPena", 16648900, "marcosDaPena@hotmail.com",
-            1123986659, "123", null)
-        var user3: Usuario = Usuario("Diana Melgar", 42073821, "dianaMelgar@gmail.com",
-            1145090065, "123", null)
-        usuarioService.crear(user1)
-        usuarioService.crear(user2)
-        usuarioService.crear(user3)
-
-        try {
-            usuarioService.recuperarPorEmail("marcosPena@hotmail.com")
-        } catch (e: Exception) { }
-    }
-
-    @Test
     fun userSacaTurnoDeFormaCorrecta(){
         var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
         var pediatria: Especialidad = Especialidad.PEDIATRIA
@@ -189,16 +116,67 @@ class UsuarioServiceTest {
         evitaPueblo.agregarTurno(turnoEvita)
         hospitalService.crear(evitaPueblo)
 
-        var user: Usuario = Usuario("Candela Aguayo", 42073821, "candelaAguayo@yahoo.com", 1124456734, "123", null)
+        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
         usuarioService.crear(user)
 
         user.sacarTurno(turnoEvita)
+        var usuarioActualizado = usuarioService.actualizar(user)
+        //var turnoActualizado = turnoService.actualizar(turnoEvita)
+
+        var turnoActualizado = turnoService.recuperar(turnoEvita.id!!.toInt())
+        var pacienteDelTurno = turnoActualizado!!.paciente
+
+        Assertions.assertEquals(1, usuarioActualizado.turnosAsignados.size)
+        Assertions.assertEquals(user.id, pacienteDelTurno!!.id)
+    }
+
+    @Test
+    fun seEliminaUnUsarioCorrectamente() {
+        var user = Usuario("Candela Aguayo", null, 27456734, "candelaAguayo@yahoo.com",
+            42073821, "12345678")
+        usuarioService.crear(user)
+        var usuarioId = user.id!!.toInt()
+
+        Assertions.assertNotNull(usuarioService.recuperar(usuarioId))
+
+        usuarioService.eliminar(usuarioId)
+
+        try {
+            usuarioService.recuperar(usuarioId)
+        } catch (e: RuntimeException) {
+            Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
+        }
+    }
+
+    @Test
+    fun seEliminaUnUsarioConTurnosCorrectamente() {
+        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        var pediatria: Especialidad = Especialidad.PEDIATRIA
+        var turnoEvita1 = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        var turnoEvita2 = Turno("25/10/2022         15:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        evitaPueblo.agregarTurno(turnoEvita1)
+        evitaPueblo.agregarTurno(turnoEvita2)
+        hospitalService.crear(evitaPueblo)
+
+        var user = Usuario("Candela Aguayo", null, 27406734, "candelaAguayo@yahoo.com",
+            1142073821, "12345678")
+        usuarioService.crear(user)
+
+        user.sacarTurno(turnoEvita1)
+        user.sacarTurno(turnoEvita2)
         usuarioService.actualizar(user)
 
-        var turnoCreado = turnoService.recuperar(turnoEvita.id!!.toInt())
+        Assertions.assertEquals(2, user.turnosAsignados.size)
 
-        Assertions.assertEquals(1, user.turnosAsignados.size)
-        Assertions.assertEquals(user, turnoCreado!!.paciente)
+        var usuarioId = user.id!!.toInt()
+
+        usuarioService.eliminar(usuarioId)
+
+        try {
+            usuarioService.recuperar(usuarioId)
+        } catch (e: RuntimeException) {
+            Assertions.assertEquals("El id [${usuarioId}] no existe.", e.message)
+        }
     }
 
     @AfterEach

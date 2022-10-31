@@ -46,9 +46,9 @@ class Turno() {
     }
 
     fun cambiarNombrePaciente(nombreNuevo: String) {
-        if(nombreNuevo == "") {
+        /*if(nombreNuevo == "") {
             throw StringVacioException()
-        }
+        }*/
         this.nombreYApellidoPaciente = nombreNuevo
     }
 
@@ -67,9 +67,9 @@ class Turno() {
     }
 
     fun cambiarEmailPaciente(nuevoEmail: String) {
-        if(nuevoEmail == "") {
+        /*if(nuevoEmail == "") {
             throw StringVacioException()
-        }
+        }*/
         this.emailPaciente = nuevoEmail
     }
 
@@ -84,6 +84,15 @@ class Turno() {
         cambiarTelefonoPaciente(paciente.telefono!!)
         cambiarEmailPaciente(paciente.email!!)
         cambiarFechaEmitido()
+    }
+
+    fun desasignarAPaciente() {
+        this.paciente = null
+        cambiarNombrePaciente("")
+        dniPaciente = null
+        telefonoPaciente = null
+        cambiarEmailPaciente("")
+        fechaEmitido = null
     }
 
     override fun equals(other: Any?): Boolean {

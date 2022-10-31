@@ -1,12 +1,11 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class StringVacioException : Exception() {
+class NombreYApellidoIncompletoException : Exception() {
 
     override val message: String?
-        get() = "El string no puede ser vacío."
+        get() = "Debe ingresar un nombre y apellido para poder registrarse"
 
     companion object {
-
         private val serialVersionUID = 1L
     }
 }

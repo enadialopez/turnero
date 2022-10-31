@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Service from '../service/service';
 import Navbar from '../components/Navbar';
 import '../styles/Turno.css';
@@ -20,12 +20,6 @@ const Turno = () => {
         nombreHospital: "",
         direccionHospital: "",
     })
-
-    
-    const navigate = useNavigate();
-    const goHome = () => {
-        navigate("/") ;
-    };
 
     useEffect(() => {
         Service.getTurnoById(id)
@@ -48,8 +42,6 @@ const Turno = () => {
         });
     }, [id]
     );
-
-    console.log(turno)
 
     return (
         <>
@@ -92,7 +84,6 @@ const Turno = () => {
                     </div>   
                 </div>
                 <div className='button'>
-                    <button className="btn-mp" onClick={goHome} >Volver al inicio</button>
                 </div>
             </div> 
         </> 

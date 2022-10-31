@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class StringVacioException : Exception() {
+class DniVacioException : Exception() {
 
     override val message: String?
-        get() = "El string no puede ser vacío."
+        get() = "Debe ingresar un DNI."
 
     companion object {
 

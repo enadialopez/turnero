@@ -45,7 +45,6 @@ const Hospital = () => {
                 <Navbar/>
             </div> 
             <div className="hospital-container">
-                <button className="btn-mp-2" onClick={goHome} >Volver al inicio</button>
                 <div className='title-hospital'>
                     {hospital.nombre}, especialidades disponibles:
                 </div>

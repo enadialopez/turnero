@@ -1,12 +1,11 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class StringVacioException : Exception() {
+class PasswordIncorrectoException: Exception() {
 
     override val message: String?
-        get() = "El string no puede ser vacío."
+        get() = "La contraseña es incorrecta."
 
     companion object {
-
         private val serialVersionUID = 1L
     }
 }

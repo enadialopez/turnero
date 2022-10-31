@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class StringVacioException : Exception() {
+class PasswordVacioException : Exception() {
 
     override val message: String?
-        get() = "El string no puede ser vacío."
+        get() = "Debe ingresar una contraseña."
 
     companion object {
 

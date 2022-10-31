@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class StringVacioException : Exception() {
+class TokenInvalidoException : Exception() {
 
     override val message: String?
-        get() = "El string no puede ser vacío."
+        get() = "El token es invalido"
 
     companion object {
 

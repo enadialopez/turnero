@@ -24,11 +24,14 @@ class HospitalServiceTest {
 
     lateinit var service: HospitalService
     lateinit var turnoService: TurnoService
+    lateinit var usuarioService: UsuarioService
 
     @Autowired
     lateinit var hospitalDAO: HospitalDAO
     @Autowired
     lateinit var turnoDAO: TurnoDAO
+    @Autowired
+    lateinit var usuarioDAO: UsuarioDAO
 
     lateinit var evitaPueblo: Hospital
     lateinit var garrahan: Hospital
@@ -49,8 +52,9 @@ class HospitalServiceTest {
 
     @BeforeEach
     fun prepare() {
-        this.turnoService = TurnoServiceImp(turnoDAO)
-        this.service = HospitalServiceImp(hospitalDAO, turnoService)
+        turnoService = TurnoServiceImp(turnoDAO)
+        usuarioService = UsuarioServiceImp(usuarioDAO, turnoService)
+        this.service = HospitalServiceImp(hospitalDAO)
 
         evitaPueblo = Hospital(
             "Hospital Evita Pueblo",
@@ -67,10 +71,6 @@ class HospitalServiceTest {
         turno1Evita = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
         turno2Evita = Turno("Chiquito Garcia", 54679333, 1123409876, "perez@gmail.com", "08/11/2022  17:30 hs", "vjgvtyvv", pediatria, "Carlos Ameghino", evitaPueblo)
         turno3Evita = Turno("02/11/2022         11:15 hs", nefrologia, "Juana Molina", evitaPueblo)
-
-        turnoService.crear(turno1Evita)
-        turnoService.crear(turno2Evita)
-        turnoService.crear(turno3Evita)
 
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
@@ -245,32 +245,19 @@ class HospitalServiceTest {
     @Test
     fun seCreaUnTurnoParaUnHospitalCorrectamente() {
         var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
-        var turnoCreado = service.crearTurno(turno)
+        elCruce.agregarTurno(turno)
+        var elCruceRecuperado = service.actualizar(elCruce)
 
-        Assertions.assertNotNull(turnoService.recuperar(turnoCreado.id!!.toInt()))
-        Assertions.assertEquals(elCruce, turnoCreado.hospital)
-        Assertions.assertEquals(1, elCruce!!.turnos.size)
+        var turnoRecuperado = elCruceRecuperado.turnos[0]
+
+
+        Assertions.assertNotNull(turnoService.recuperar(turnoRecuperado.id!!.toInt()))
+        Assertions.assertEquals(elCruceRecuperado, turnoRecuperado.hospital)
+        Assertions.assertEquals(1, elCruceRecuperado!!.turnos.size)
     }
-
-
-    /*
-    @Test
-    fun seBorraUnTurnoDeUnHospitalCorrectamente() {
-        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
-        var turnoCreado = service.crearTurno(turno)
-        var idTurnoCreado = turnoCreado.id!!.toInt()
-
-        service.borrarTurno(turnoCreado)
-
-        Assertions.assertEquals(0, elCruce!!.turnos.size)
-        Assertions.assertNull(turnoService.recuperar(idTurnoCreado))
-    }
-
-     */
 
     @Test
     fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
-        service.crear(evitaPueblo)
         val evitaPuebloId = evitaPueblo.id!!.toInt()
 
         evitaPueblo.agregarTurno(turno1Evita)
@@ -281,14 +268,14 @@ class HospitalServiceTest {
 
         var turnos = evitaPueblo.turnos
 
-        Assertions.assertEquals(3, evitaPueblo!!.turnos.size)
+        Assertions.assertEquals(3, turnos.size)
         Assertions.assertEquals(evitaPueblo, turnos[0].hospital)
         Assertions.assertEquals(evitaPueblo, turnos[1].hospital)
         Assertions.assertEquals(evitaPueblo, turnos[2].hospital)
 
-        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(evitaPuebloId, pediatria.toString().toLowerCase())
+        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(evitaPuebloId, "pediatria".toString())
 
-        Assertions.assertEquals(1, turnosDisponiblesEvita.size)
+        Assertions.assertEquals(2, turnosDisponiblesEvita.size)
     }
 
     @AfterEach
