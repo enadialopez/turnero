@@ -47,7 +47,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioValido() {
-        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
@@ -56,7 +56,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayoo@yahoo.com",
             42043821, "")
 
         try {
@@ -68,7 +68,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
