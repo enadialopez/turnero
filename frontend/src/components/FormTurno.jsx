@@ -32,7 +32,6 @@ const FormTurno = () => {
         hospital: "",
     })
     const [sendSMS, setSendSMS] = useState(false);
-
     const [data, setData] = useState({
         to: "+541130457224",
         message: "",
@@ -69,7 +68,7 @@ const FormTurno = () => {
     const changeHandler = (e) => {
         setFechaSeleccionada(e.target.value);
     };
-
+    
     const setMessage = () => {
         setSendSMS(!sendSMS)
         setData((prevState)=>({
@@ -104,7 +103,7 @@ const FormTurno = () => {
             navigate(`/hospital/turno/${turno.id}`);
         }).catch(err => console.log(err));
     };
-
+    
     useEffect(() => {
         if (isLogged){
           Service.getUser()
@@ -122,7 +121,7 @@ const FormTurno = () => {
           });
         }}, [isLogged]
     );  
-
+    
     useEffect(() => {
         Service.getHospitalById(id)
             .then(response => { 
@@ -146,6 +145,7 @@ const FormTurno = () => {
         });
     }, [especialidad, hospital]
     );
+    
     useEffect(() => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
@@ -191,7 +191,7 @@ const FormTurno = () => {
                         <p> Usted debe iniciar sesión para 
                             poder completar el formulario de turno</p>
                     </div>
-                </>     
+                </>
                 }
             </div>
         </>  
