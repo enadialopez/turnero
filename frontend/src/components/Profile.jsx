@@ -2,10 +2,12 @@ import React, { useState, useEffect }  from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Service from '../service/service';
+import TurnoModel from './TurnoModel';
 import axios from 'axios';
 import '../styles/Profile.css';
 
 const Profile = () => {
+    const [turnos, setTurnos] = useState([]);
     const [user, setUser] = useState({
         id: "",
         nombreYApellido: "",
@@ -14,7 +16,6 @@ const Profile = () => {
         email: "",
         telefono: "",
         password: "",
-        turnosAsignados: [],
     });
     const navigate = useNavigate();
     const isLogged = !!localStorage.getItem("token");
@@ -37,8 +38,26 @@ const Profile = () => {
           }).catch(error => {
             console.log(error)
           });
+          Service.getTurnosAsignadosBy(user.dni)
+        .then(response => {
+          setTurnos(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+      })
         }}, [isLogged]
     );  
+
+    useEffect(() => {
+      if (isLogged) {
+        Service.getTurnosAsignadosBy(user.dni)
+        .then(response => {
+          setTurnos(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+      })}}, [turnos, isLogged, user.dni]
+  );  
 
     const deleteAccount = () => {
       Service.deleteUser(user.id)
@@ -51,7 +70,7 @@ const Profile = () => {
       });
   };
 
-  console.log(user)
+  console.log(turnos)
     return (
         <>
             <div className="navbar">
@@ -88,7 +107,10 @@ const Profile = () => {
                       </div>
                  </div>
                  <div className='profile-turnos'>
-                     
+                     <h4>Mis turnos:</h4>
+                     {turnos.map((turno, idx) => {          
+                        return <TurnoModel key={turno.id} turno={turno}/>
+                    })}
                  </div>
             </div>
         </>  
