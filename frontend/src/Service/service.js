@@ -9,7 +9,9 @@ export const Service = {
     postRegister: function(data) { return axios.post(`http://localhost:8080/usuario/register`, data)},
     postLogin: function(data) { return axios.post(`http://localhost:8080/usuario/login`, data)},
     getUser: function() { return axios.get(`http://localhost:8080/usuario`)},
-    postSMS: function(data) { return axios.post(`http://localhost:8080/sms`, data)}
+    postSMS: function(data) { return axios.post(`http://localhost:8080/sms`, data)},
+    deleteUser: function(id) { return axios.delete(`http://localhost:8080/usuario/${id}`)},
+    getTurnosAsignadosBy(dni) { return axios.get(`http://localhost:8080/turno/usuario/${dni}`)},
 }
 
 export default Service;

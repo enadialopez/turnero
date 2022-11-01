@@ -5,10 +5,9 @@
     padding: 20px;
 }
 
-.profile-dates, .profile-turnos {
+.profile-dates , .profile-turnos {
     width: 1400px;
     background-color: rgb(206, 246, 203);
-    height: 150px;
     justify-content: left;
     margin: 10px;
     padding: 0px;
@@ -59,9 +58,10 @@
     font-weight: 700;
 }
 
+
 .profile-turnos {
-    height: 150px;
     display: grid;
+    padding: 10px;
 }
 
 .profile-dates {

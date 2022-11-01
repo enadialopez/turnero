@@ -62,10 +62,10 @@ open class HospitalServiceImp(
         return hospitalDAO.findByEspecialidad(busqueda)
     }
 
-    override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
+    /*override fun recuperarTurnosDisponiblesPorEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
         var especialidadClase = this.toEnum(especialidad)
         return hospitalDAO.turnos(idDeHospital.toLong(), especialidadClase)
-    }
+    }*/
 
     private fun toEnum(especialidad: String): Especialidad {
         var nuevaEspecialidad: Especialidad

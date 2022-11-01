@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class EmailExistenteException: Exception() {
+class DniExistenteException : Exception() {
 
     override val message: String?
-        get() = "El email ya se encuentra registrado."
+        get() = "El DNI ya se encuentra registrado."
 
     companion object {
         private val serialVersionUID = 1L

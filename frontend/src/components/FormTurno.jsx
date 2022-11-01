@@ -3,18 +3,21 @@ import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
 import Navbar from '../components/Navbar';
 import '../styles/FormTurno.css';
-
 const FormTurno = () => {
-
     const { id, especialidad } = useParams();
     const navigate = useNavigate();
-
     const [hospital, setHospital] = useState({
         id: "",
         nombre: "",
         direccion: "",
-        municipio: "",
-        especialidades: [],
+
+    });
+    const [user, setUser] = useState({
+        id: "",
+        nombreYApellido: "",
+        dni: "",
+        email: "",
+        telefono: "",
     });
     const [turno, setTurno] = useState({
         id: "",
@@ -28,32 +31,23 @@ const FormTurno = () => {
         especialista: "",
         hospital: "",
     })
-
-    const [user, setUser] = useState ({
-        id: "",
-        nombreYApellido: "",
-        dni: "",
-        telefono: "",
-        email: "",
-    })
+    const [sendSMS, setSendSMS] = useState(false);
     const [data, setData] = useState({
         to: "+541130457224",
-        message: "Usted tiene un turno asignado",
+        message: "",
     });
-    
+
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
-
     const fechasDisponibles = () => {
         let fechas = [];
         turnos.map( turno => fechas.push(turno.fechaYHora));
         return fechas;
     };
-
     const turnoByFecha = (fecha) => {
         turnos.forEach( turno => {
             if( turno.fechaYHora === fecha) {
-                setTurno((prevState)=>({
+                setTurno((prevState)=> ({
                     ...prevState,
                     id: turno.id,
                     fechaYHora: turno.fechaYHora,
@@ -74,34 +68,59 @@ const FormTurno = () => {
     const changeHandler = (e) => {
         setFechaSeleccionada(e.target.value);
     };
+    
+    const setMessage = () => {
+        setSendSMS(!sendSMS)
+        setData((prevState)=>({
+        ...prevState,
+            message: `Hola, ${user.nombreYApellido}. Usted tiene un turno el ${turno.fechaYHora} para ${turno.especialidad} con el especialista ${turno.especialista} en
+                 el hospital ${turno.hospital.nombre}`
+        }));
+    }
 
+    const sendMessage = () => {
+        if(sendSMS) {
+            Service.postSMS(data)
+            .then(_ => {
+             setData((prevState)=>({
+                 ...prevState,
+             }));
+         })}
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        Service.putActualizarTurno(turno.id, turno)
+        .then(_ => {
+            setTurno((prevState)=>({
+            ...prevState,
+            nombreYApellidoPaciente: user.nombreYApellido,
+            dniPaciente: user.dni,
+            telefonoPaciente: user.telefono,
+            emailPaciente: user.email,
+            }));
+            sendMessage();
+            navigate(`/hospital/turno/${turno.id}`);
+        }).catch(err => console.log(err));
+    };
+    
     useEffect(() => {
         if (isLogged){
           Service.getUser()
           .then(response => {
-            setUser({
+            setUser((prevState) => ({
+              ...prevState,
               id: response.data.id,
               nombreYApellido: response.data.nombreYApellido,
               dni: response.data.dni,
-              telefono: response.data.telefono, 
-              email: response.data.email, 
-            });
+              email: response.data.email,
+              telefono: response.data.telefono,  
+            }));
           }).catch(error => {
             console.log(error)
           });
         }}, [isLogged]
-    ); 
-    
-    const handleSubmit = () => {
-        Service.putActualizarTurno(turno.id, turno).then(response => {
-            setTurno((prevState)=>({
-                ...prevState,
-            }));  
-            console.log(turno.id)  
-            navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => console.log(turno.dniPaciente));
-        
-    };
+    );  
     
     useEffect(() => {
         Service.getHospitalById(id)
@@ -110,8 +129,6 @@ const FormTurno = () => {
                     id: response.data.id,
                     nombre: response.data.nombre,
                     direccion: response.data.direccion,
-                    municipio: response.data.municipio,
-                    especialidades : response.data.especialidades
                   })      
         }).catch(error => {
             console.log(error)
@@ -128,11 +145,15 @@ const FormTurno = () => {
         });
     }, [especialidad, hospital]
     );
-
+    
     useEffect(() => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
     );
+
+    console.log(user)
+    console.log(sendSMS)
+    console.log(data)
 
     return (
         <>
@@ -141,32 +162,36 @@ const FormTurno = () => {
             </div> 
             <div className="formTurno-container">
                 { isLogged 
-                        ?
-                        <>
-                            <div className='form-content'>    
-                                <form onSubmit={handleSubmit}>  
-                                    <div className="select">
-                                        <label htmlFor="Name">Turnos Disponibles:</label>
-                                        <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
-                                            <option defaultValue="">Seleccione fecha y horario...</option>
-                                            { fechasDisponibles().map (turno => {
-                                                return (
-                                                    <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
-                                                );
-                                            })}
-                                        </select>
-                                    </div>
-                                    <div className="turno-button-content">
-                                        <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
-                                    </div>
-                                </form>     
-                            </div>     
-                        </>    
-                        :
-                        <div className='card-notlogged'>
-                            <p> Usted debe iniciar sesión para 
-                                poder completar el formulario de turno</p>
-                        </div>
+                ?
+                <>
+                    <div className='form-content'>    
+                        <form onSubmit={handleSubmit}>  
+                            <div className="select">
+                                <label for="Name">Turnos Disponibles:</label>
+                                <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
+                                    <option defaultValue="">Seleccione fecha y horario...</option>
+                                    { fechasDisponibles().map (turno => {
+                                        return (
+                                            <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
+                                <input type="checkbox" onClick={() => setMessage()}/>
+                                <label htmlFor="sms"> Recibir Notificación por mensaje de texto</label>
+                            <div className="turno-button-content">
+                                <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
+                            </div>
+                        </form>     
+                    </div>     
+                </>    
+                :
+                <> 
+                    <div className='card-notlogged'>
+                        <p> Usted debe iniciar sesión para 
+                            poder completar el formulario de turno</p>
+                    </div>
+                </>
                 }
             </div>
         </>  

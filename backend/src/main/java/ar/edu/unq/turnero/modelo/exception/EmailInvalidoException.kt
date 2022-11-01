@@ -1,11 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-import javax.naming.directory.InvalidAttributesException
-
-class EmailInvalidoException: InvalidAttributesException() {
+class EmailInvalidoException: Exception() {
 
     override val message: String?
-        get() = "Debe ingresar un Email valido."
+            get() = "El email no es valido, debe contener @"
 
     companion object {
         private val serialVersionUID = 1L

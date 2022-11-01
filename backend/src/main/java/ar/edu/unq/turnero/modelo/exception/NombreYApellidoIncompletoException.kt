@@ -1,9 +1,9 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class EmailExistenteException: Exception() {
+class NombreYApellidoIncompletoException : Exception() {
 
     override val message: String?
-        get() = "El email ya se encuentra registrado."
+        get() = "Debe ingresar un nombre y apellido para poder registrarse"
 
     companion object {
         private val serialVersionUID = 1L
