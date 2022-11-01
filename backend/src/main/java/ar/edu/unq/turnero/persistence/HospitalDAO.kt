@@ -19,6 +19,6 @@ interface HospitalDAO : CrudRepository<Hospital, Long> {
     @Query( "SELECT * FROM hospital h INNER JOIN hospital_especialidades he ON h.id = he.hospital_id WHERE he.especialidad LIKE %?1%", nativeQuery= true )
     fun findByEspecialidad(especialidad: String) : List<Hospital>
 
-    @Query( "SELECT t FROM Hospital h JOIN h.turnos t WHERE h.id = ?1 AND t.especialidad = ?2 AND t.fechaEmitido = null" )
-    fun turnos(hospitalId: Long, especialidad: Especialidad) : List<Turno>
+    //@Query( "SELECT t FROM Hospital h JOIN h.turnos t WHERE h.id = ?1 AND t.especialidad = ?2 AND t.fechaEmitido = null" )
+    //fun turnos(hospitalId: Long, especialidad: Especialidad) : List<Turno>
 }

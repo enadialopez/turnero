@@ -15,8 +15,8 @@ class Hospital() {
     var municipio: String? = null
     var direccion: String? = null
 
-    @OneToMany(mappedBy = "hospital",  cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var turnos: MutableList<Turno> = mutableListOf()
+    //@OneToMany(mappedBy = "hospital",  cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    //var turnos: MutableList<Turno> = mutableListOf()
 
     @ElementCollection ( fetch = FetchType.EAGER)
     @CollectionTable(name = "hospital_especialidades")
@@ -30,7 +30,7 @@ class Hospital() {
         this.municipio = municipio
         this.direccion = direccion
         this.especialidades = especialidades
-        this.turnos = turnos
+        //this.turnos = turnos
     }
 
     fun agregarEspecialidad(nuevaEspecialidad: Especialidad) {
@@ -38,7 +38,7 @@ class Hospital() {
     }
 
     fun agregarTurno(nuevaTurno: Turno) {
-        this.turnos.add(nuevaTurno)
+        //this.turnos.add(nuevaTurno)
     }
 
     override fun equals(other: Any?): Boolean {

@@ -116,6 +116,16 @@ class HospitalData {
         evitaPueblo.agregarTurno(turnoEvita8)
         evitaPueblo.agregarTurno(turnoEvita9)
 
+        turnoService.crear(turnoEvita1)
+        turnoService.crear(turnoEvita2)
+        turnoService.crear(turnoEvita3)
+        turnoService.crear(turnoEvita4)
+        turnoService.crear(turnoEvita5)
+        turnoService.crear(turnoEvita6)
+        turnoService.crear(turnoEvita7)
+        turnoService.crear(turnoEvita8)
+        turnoService.crear(turnoEvita9)
+
         service.actualizar(evitaPueblo)
 
 

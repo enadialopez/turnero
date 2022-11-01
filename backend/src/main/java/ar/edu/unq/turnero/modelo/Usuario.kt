@@ -18,9 +18,9 @@ class Usuario() {
     @Column(unique = true)
     var email: String? = null
 
-    @OneToMany(mappedBy = "paciente", cascade = [CascadeType.PERSIST, CascadeType.MERGE],
-        orphanRemoval = false, fetch = FetchType.LAZY)
-    var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
+    //@OneToMany(mappedBy = "paciente", cascade = [CascadeType.PERSIST, CascadeType.MERGE],
+    //    orphanRemoval = false, fetch = FetchType.LAZY)
+    //var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
 
     constructor(nombreYApellido: String, image: String?, dni: Long, email: String, telefono: Long, password: String):this() {
         this.nombreYApellido = nombreYApellido
@@ -37,16 +37,16 @@ class Usuario() {
     }
 
     fun sacarTurno(turno: Turno) {
-        this.turnosAsignados.add(turno)
+        //this.turnosAsignados.add(turno)
         turno.asignarAPaciente(this)
     }
-
+/*
     fun cancelarTurno(turno: Turno) {
         turnosAsignados.map{ t -> if (t.equals(turno)) {
             t.desasignarAPaciente()
             turnosAsignados.remove(t)} }
     }
-
+*/
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
