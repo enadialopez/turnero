@@ -116,6 +116,16 @@ class HospitalData {
         evitaPueblo.agregarTurno(turnoEvita8)
         evitaPueblo.agregarTurno(turnoEvita9)
 
+        turnoService.crear(turnoEvita1)
+        turnoService.crear(turnoEvita2)
+        turnoService.crear(turnoEvita3)
+        turnoService.crear(turnoEvita4)
+        turnoService.crear(turnoEvita5)
+        turnoService.crear(turnoEvita6)
+        turnoService.crear(turnoEvita7)
+        turnoService.crear(turnoEvita8)
+        turnoService.crear(turnoEvita9)
+
         service.actualizar(evitaPueblo)
 
 
@@ -647,11 +657,14 @@ class HospitalData {
         turno = Turno("05/12/2022     09:15 hs", pediatria, "Leonardo Sanchez", sanRoque)
         turno = Turno("015/11/2022     13:30 hs", urologia, "Leonardo Sanchez", sanRoque)
 
+        turnoEvita1.asignarAPaciente(user2)
+        turnoEvita2.asignarAPaciente(user2)
+        turnoEvita3.asignarAPaciente(user2)
 
         turnoService.crear(turno)
-        turnoService.crear(turnoEvita1)
-        turnoService.crear(turnoEvita2)
-        turnoService.crear(turnoEvita3)
+        turnoService.actualizar(turnoEvita1)
+        turnoService.actualizar(turnoEvita2)
+        turnoService.actualizar(turnoEvita3)
 
         user2.sacarTurno(turnoEvita1)
         user2.sacarTurno(turnoEvita7)

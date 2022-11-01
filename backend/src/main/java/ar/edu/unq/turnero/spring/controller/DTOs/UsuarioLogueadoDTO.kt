@@ -10,7 +10,7 @@ class UsuarioLogueadoDTO(
     var email: String?,
     var telefono: Long?,
     var password: String?,
-    var turnosAsignados: MutableList<TurnoAsignadoDTO>?,
+    //var turnosAsignados: MutableList<TurnoAsignadoDTO>?,
     var token: String?) {
 
     companion object {
@@ -23,7 +23,7 @@ class UsuarioLogueadoDTO(
                 email = usuario.email,
                 telefono = usuario.telefono,
                 password = usuario.password,
-                turnosAsignados = usuario.turnosAsignados.map { turno -> TurnoAsignadoDTO.desdeModelo(turno)}.toMutableList(),
+                //turnosAsignados = usuario.turnosAsignados.map { turno -> TurnoAsignadoDTO.desdeModelo(turno)}.toMutableList(),
                 token = usuario.token
             )
     }
