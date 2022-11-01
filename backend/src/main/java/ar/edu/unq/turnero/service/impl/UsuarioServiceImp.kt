@@ -104,11 +104,6 @@ open class UsuarioServiceImp(
         return user
     }
 
-    override fun recuperarTurnosDeUsuario(id: Int) : List<Turno> {
-        val user = this.recuperar(id)
-        return turnoService.recuperarTurnosAsignadosAUsuario(user!!.dni!!)
-    }
-
     override fun recuperarTodos(): List<Usuario> {
         return usuarioDAO.findAllByOrderByNombreYApellidoAsc()
     }

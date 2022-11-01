@@ -66,9 +66,6 @@ class UsuarioController(private val usuarioService: UsuarioService) {
         }
     }
 
-    @GetMapping("/{usuarioId}")
-    fun recuperarTurnosDeUsuario(@PathVariable usuarioId: Int) = usuarioService.recuperarTurnosDeUsuario(usuarioId).map { turno -> TurnoDTO.desdeModelo(turno)  }
-
     @GetMapping("/todos")
     fun recuperarTodos() = usuarioService.recuperarTodos().map { usuario -> UsuarioDTO.desdeModelo(usuario)  }
 

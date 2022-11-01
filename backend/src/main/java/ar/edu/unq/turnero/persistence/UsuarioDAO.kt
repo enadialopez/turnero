@@ -13,8 +13,6 @@ interface UsuarioDAO : CrudRepository<Usuario, Long>  {
 
     fun findAllByOrderByNombreYApellidoAsc(): List<Usuario>
 
-    fun findByEmailContaining(email: String) : Usuario
-
     fun findByEmail(email: String) : Usuario?
 
     fun findByToken(token: String) : Usuario

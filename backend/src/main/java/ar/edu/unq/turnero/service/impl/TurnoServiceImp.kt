@@ -64,7 +64,7 @@ open class TurnoServiceImp(
         return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital, especialidad)
     }
 
-    override fun recuperarTurnosAsignadosAUsuario(dni: Long): List<Turno> {
+    override fun recuperarTurnosDe(dni: Long): List<Turno> {
           return turnoDAO.turnosAsignadosAUsuarioPor(dni)
     }
 
