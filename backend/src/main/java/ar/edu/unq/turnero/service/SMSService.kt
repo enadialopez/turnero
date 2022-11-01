@@ -12,7 +12,7 @@ import java.net.URI
 class SMSService {
 
     private val ACCOUNT_SID: String? = "AC268d0b045d2b3e270fc1f1ff55f8e84b"
-    private val AUTH_TOKEN: String? = "205515df20b5182c7fd4f0465b24c618"
+    private val AUTH_TOKEN: String? = "fd04b805afff3ecad16b85d3fee7c8e9"
     private val FROM_NUMBER: String? = "+14634002242"
 
     fun send(sms: SMS) {

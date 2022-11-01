@@ -59,7 +59,9 @@ open class UsuarioServiceImp(
     }
 
     private fun validarPassword(password: String?) : Boolean {
-        if (password!!.length < 8){
+        if (password == "") {
+            throw PasswordVacioException()
+        } else if (password!!.length < 8){
             throw PasswordInvalidoException()
         }
         return false
