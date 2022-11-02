@@ -24,9 +24,10 @@ class TurnoController(private val turnoService: TurnoService) {
     @GetMapping("/{turnoId}")
     fun recuperar(@PathVariable turnoId: Long) = TurnoDTO.desdeModelo(turnoService.recuperar(turnoId.toInt())!!)
 
-    @GetMapping("/usuario/{usuarioDNI}")
-    fun recuperarTurnosDe(@PathVariable usuarioDNI: Long) = turnoService.recuperarTurnosDe(usuarioDNI).map { turno -> TurnoAsignadoDTO.desdeModelo(turno)  }
-
-    @GetMapping("")
+    @GetMapping("/todos")
     fun recuperarTodos() = turnoService.recuperarTodos().map { turno -> TurnoDTO.desdeModelo(turno)  }
+
+    @GetMapping("/todos/{hospitalId}/{especialidad}")
+    fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: String) =
+        turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospitalId.toInt(), especialidad).map { turno -> TurnoDTO.desdeModelo(turno) }
 }

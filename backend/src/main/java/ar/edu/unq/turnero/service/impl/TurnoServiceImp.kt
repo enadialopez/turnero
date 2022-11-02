@@ -3,6 +3,7 @@ package ar.edu.unq.turnero.service.impl
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
+import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.TurnoService
@@ -60,8 +61,8 @@ open class TurnoServiceImp(
         turnoDAO.deleteById(turnoId.toLong())
     }
 
-    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: Hospital, especialidad: Especialidad): List<Turno> {
-        return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital, especialidad)
+    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
+        return turnoDAO.findByHospitalIdAndEspecialidadAndDniPacienteIsNull(idDeHospital.toLong(), toEnum(especialidad))
     }
 
     override fun recuperarTurnosDe(dni: Long): List<Turno> {
@@ -70,6 +71,26 @@ open class TurnoServiceImp(
 
     override fun borrarUsuarioDeTodosSusTurnos(usuarioId: Int) {
         turnoDAO.borrarUsuarioDeTodosSusTurnos(usuarioId.toLong())
+    }
+
+    private fun toEnum(especialidad: String): Especialidad {
+        var nuevaEspecialidad: Especialidad
+        when(especialidad) {
+            "pediatria" -> nuevaEspecialidad = Especialidad.PEDIATRIA
+            "oncologia" -> nuevaEspecialidad = Especialidad.ONCOLOGIA
+            "traumatologia" -> nuevaEspecialidad = Especialidad.TRAUMATOLOGIA
+            "urologia" -> nuevaEspecialidad = Especialidad.UROLOGIA
+            "oftalmologia" -> nuevaEspecialidad = Especialidad.OFTALMOLOGIA
+            "kinesiologia" -> nuevaEspecialidad = Especialidad.KINESIOLOGIA
+            "cardiologia" -> nuevaEspecialidad = Especialidad.CARDIOLOGIA
+            "nefrologia" -> nuevaEspecialidad = Especialidad.NEFROLOGIA
+            "reumatologia" -> nuevaEspecialidad = Especialidad.REUMATOLOGIA
+            "dermatologia" -> nuevaEspecialidad = Especialidad.DERMATOLOGIA
+            else -> {
+                throw EspecialidadVacioException()
+            }
+        }
+        return nuevaEspecialidad
     }
 
     override fun clear() {

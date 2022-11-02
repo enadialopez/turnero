@@ -15,7 +15,7 @@ interface TurnoDAO : CrudRepository<Turno, Long> {
 
     fun findAllByOrderByNombreYApellidoPacienteAsc() : List<Turno>
 
-    fun findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital: Hospital, especialidad: Especialidad) : List<Turno>
+    fun findByHospitalIdAndEspecialidadAndDniPacienteIsNull(idHospital: Long, especialidad: Especialidad) : List<Turno>
 
     @Query("SELECT * FROM turno t WHERE t.dni_paciente = ?1", nativeQuery= true)
     fun turnosAsignadosAUsuarioPor(dni: Long) : List<Turno>
