@@ -275,7 +275,7 @@ class HospitalServiceTest {
 
         var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(evitaPuebloId, "pediatria".toString())
 
-        Assertions.assertEquals(2, turnosDisponiblesEvita.size)
+        Assertions.assertEquals(1, turnosDisponiblesEvita.size)
     }
 
     @AfterEach

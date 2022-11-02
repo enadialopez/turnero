@@ -15,7 +15,7 @@ interface TurnoDAO : CrudRepository<Turno, Long> {
 
     fun findAllByOrderByNombreYApellidoPacienteAsc() : List<Turno>
 
-    fun findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital: Hospital, especialidad: Especialidad) : List<Turno>
+    fun findByHospitalIdAndEspecialidadAndDniPacienteIsNull(idHospital: Long, especialidad: Especialidad) : List<Turno>
 
     @Modifying
     @Query( "UPDATE turno t SET t.paciente_id = null WHERE t.paciente_id = ?1", nativeQuery= true )

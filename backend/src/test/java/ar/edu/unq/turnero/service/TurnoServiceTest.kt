@@ -243,7 +243,7 @@ class TurnoServiceTest {
 
     @Test
     fun seRecuperanLosTurnosDelHospitalEvitaEnPediatria() {
-        var turnos = turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(evitaPueblo!!, pediatria)
+        var turnos = turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(evitaPueblo!!.id!!.toInt(), "pediatria")
 
         Assertions.assertEquals(2, turnos.size)
     }
