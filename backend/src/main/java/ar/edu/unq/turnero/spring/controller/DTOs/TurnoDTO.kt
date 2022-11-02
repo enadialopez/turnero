@@ -15,6 +15,7 @@ class TurnoDTO(
     var especialidad: String?,
     var especialista:  String?,
     var hospital: MiniHospitalDTO?,
+    var paciente: MiniUsuarioDTO?,
 ) {
 
     companion object {
@@ -36,7 +37,8 @@ class TurnoDTO(
                 especialidad = turno.especialidad.toString().toLowerCase(),
                 especialista = turno.especialista,
                 hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre, turno.hospital!!.direccion, turno.hospital!!.especialidades.map { especialidad -> especialidad.toString().toLowerCase()}
-                    .toCollection(HashSet()).toList(),))
+                    .toCollection(HashSet()).toList(),),
+                paciente = MiniUsuarioDTO(turno.paciente?.id, turno.paciente?.email, turno.paciente?.password))
     }
 
     fun aModelo(): Turno {
@@ -51,6 +53,7 @@ class TurnoDTO(
         turno.especialidad = toEnum(this.especialidad)
         turno.especialista = this.especialista
         turno.hospital = this.hospital!!.aModelo()
+        turno.paciente = this.paciente?.aModelo()
         return turno
     }
 
