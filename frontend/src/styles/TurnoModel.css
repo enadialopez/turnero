@@ -1,33 +1,38 @@
 .turnoModel-container {
     display: flex;
-    padding: 5px;
+    align-items: top;
+    margin: 5px;
+    max-height: 30px;
 }
 
 .card-turno {
     display: flex;
     flex-direction: row;
     justify-content:space-between;
-    background-color:rgb(229, 226, 226);
+    text-indent: 5px;
+    background-color:rgb(191, 191, 191);
     border-style:solid;
     border-width: 1px;
     border-radius: 5px;
     border-color: black;
-    width: 1350px;
+    width: 1000px;
+    min-height: 40px;
 }
 
 .button-turno {
     color: white;
-    margin: 5px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
     border-radius: 5px;
+    margin: 5px;
     border-color:rgb(107, 107, 107);
     background-color:rgb(21, 16, 103);
   }
 
 .value-turno {
     margin: 10px;
-    font-size: 15px;
+    font-size: 12px;
+    width: 100%;
 }
 
 #especialidad {

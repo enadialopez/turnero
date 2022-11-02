@@ -3,11 +3,12 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    min-height: 80vh;
 }
 
 .profile-dates , .profile-turnos {
-    width: 1400px;
-    background-color: rgb(206, 246, 203);
+    max-width: 100%;
+    background-color: rgb(229, 229, 229);
     justify-content: left;
     margin: 10px;
     padding: 0px;
@@ -62,6 +63,8 @@
 .profile-turnos {
     display: grid;
     padding: 10px;
+    min-height: 380px;
+    
 }
 
 .profile-dates {
@@ -84,10 +87,12 @@
 .b-profile {
     width: 40%;
     height: 40px;
+    font-size: 12px;
     border-radius: 10px;
     border-color:rgb(107, 107, 107);
     background-color:rgb(151, 151, 151);
     margin: 5px;
+    padding: 5px;
   }
   
   .b-profile:hover {
@@ -106,6 +111,8 @@
   }
 
 #confirm {
+    font-size: 10px;
+    padding: 2px;
     border-color:rgb(21, 16, 103);
     background-color:rgb(21, 16, 103);
 }

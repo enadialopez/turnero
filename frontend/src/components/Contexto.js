@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 export const Context = React.createContext();
 
-const ModalContext = ({children}) => {
+const ModalContext = ({children, other}) => {
 
     const [contextState, setContextState] = useState({
-        bool: false
+        bool: false,
+        message: "",
     });
 
     return(

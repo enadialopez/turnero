@@ -10,7 +10,6 @@ const FormTurno = () => {
         id: "",
         nombre: "",
         direccion: "",
-
     });
     const [user, setUser] = useState({
         id: "",

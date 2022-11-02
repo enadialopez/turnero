@@ -38,13 +38,6 @@ const Profile = () => {
           }).catch(error => {
             console.log(error)
           });
-          Service.getTurnosAsignadosBy(user.dni)
-        .then(response => {
-          setTurnos(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-      })
         }}, [isLogged]
     );  
 
@@ -56,7 +49,7 @@ const Profile = () => {
         })
         .catch(error => {
           console.log(error)
-      })}}, [turnos, isLogged, user.dni]
+      })}}, [user.dni]
   );  
 
     const deleteAccount = () => {
@@ -70,7 +63,6 @@ const Profile = () => {
       });
   };
 
-  console.log(turnos)
     return (
         <>
             <div className="navbar">
@@ -95,8 +87,10 @@ const Profile = () => {
                                 <div className="modal-content">
                                     <div className="modal-header">
                                       <p className="ask" id="exampleModalLongTitle">¿Estas segura/o de cerrar tu cuenta?</p>
+
                                     </div>
                                     <div className="modal-body-profile">
+                                    Si dá de baja su cuenta, los turnos asignados vuelven a estar como diponibles
                                       <button className="btn-info b-profile" id='confirm' onClick={() => deleteAccount()}>Si, cerrar cuenta</button>
                                       <button className="btn-info b-profile" data-dismiss="modal" aria-label="Close">Cancelar</button> 
                                     </div>
