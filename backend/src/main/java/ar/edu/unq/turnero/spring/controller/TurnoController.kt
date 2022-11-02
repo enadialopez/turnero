@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.service.TurnoService
+import ar.edu.unq.turnero.spring.controller.DTOs.TurnoAsignadoDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

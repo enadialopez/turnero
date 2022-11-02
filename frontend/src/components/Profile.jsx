@@ -1,11 +1,13 @@
 import React, { useState, useEffect }  from 'react';
+import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Service from '../service/service';
+import TurnoModel from './TurnoModel';
 import axios from 'axios';
 import '../styles/Profile.css';
 
 const Profile = () => {
-
+    const [turnos, setTurnos] = useState([]);
     const [user, setUser] = useState({
         id: "",
         nombreYApellido: "",
@@ -14,9 +16,8 @@ const Profile = () => {
         email: "",
         telefono: "",
         password: "",
-        turnosAsignados: [],
     });
-
+    const navigate = useNavigate();
     const isLogged = !!localStorage.getItem("token");
 
     axios.defaults.headers['authorization'] = localStorage.getItem('token');
@@ -37,11 +38,39 @@ const Profile = () => {
           }).catch(error => {
             console.log(error)
           });
+          Service.getTurnosAsignadosBy(user.dni)
+        .then(response => {
+          setTurnos(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+      })
         }}, [isLogged]
     );  
 
-    console.log(user)
+    useEffect(() => {
+      if (isLogged) {
+        Service.getTurnosAsignadosBy(user.dni)
+        .then(response => {
+          setTurnos(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+      })}}, [turnos, isLogged, user.dni]
+  );  
 
+    const deleteAccount = () => {
+      Service.deleteUser(user.id)
+      .then( _ => {
+        localStorage.removeItem("token");  
+        navigate("/")
+        window.location.reload();  
+      }).catch(error => {
+        console.log(error)
+      });
+  };
+
+  console.log(turnos)
     return (
         <>
             <div className="navbar">
@@ -65,22 +94,23 @@ const Profile = () => {
                               <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                      <p className="ask" id="exampleModalLongTitle">¿Estas seguro de cerrar tu cuenta?</p>
+                                      <p className="ask" id="exampleModalLongTitle">¿Estas segura/o de cerrar tu cuenta?</p>
                                     </div>
                                     <div className="modal-body-profile">
-                                      <button type="submit" className="btn-info b-profile" id='confirm'>Si, cerrar cuenta</button>
-                                      <button type="button" className="btn-info b-profile" data-dismiss="modal" aria-label="Close">Cancelar</button> 
+                                      <button className="btn-info b-profile" id='confirm' onClick={() => deleteAccount()}>Si, cerrar cuenta</button>
+                                      <button className="btn-info b-profile" data-dismiss="modal" aria-label="Close">Cancelar</button> 
                                     </div>
                                 </div>
                               </div>
                             </div>
-                        </div>
-                        
+                        </div>  
                       </div>
-                      
                  </div>
                  <div className='profile-turnos'>
-                      turnos asignados
+                     <h4>Mis turnos:</h4>
+                     {turnos.map((turno, idx) => {          
+                        return <TurnoModel key={turno.id} turno={turno}/>
+                    })}
                  </div>
             </div>
         </>  

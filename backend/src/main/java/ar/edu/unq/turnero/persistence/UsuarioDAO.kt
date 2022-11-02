@@ -13,9 +13,9 @@ interface UsuarioDAO : CrudRepository<Usuario, Long>  {
 
     fun findAllByOrderByNombreYApellidoAsc(): List<Usuario>
 
-    fun findByEmailContaining(email: String) : Usuario
+    fun findByEmail(email: String) : Usuario?
 
-    fun findByTokenContaining(token: String) : Usuario
+    fun findByToken(token: String) : Usuario
 
     fun findByDni(dni: Long) : Usuario?
     @Modifying

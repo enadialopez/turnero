@@ -11,29 +11,31 @@ const Navbar = () => {
         email: "",
         password: ""
     });
-
-    const navigate = useNavigate();
+    const [loginError, setLoginError] = useState (false);
+    const [loginErrorName, setLoginErrorName] = useState("");
     const isLogged = !!localStorage.getItem("token");
 
     const handleChange = name => event => {
         setData(prevState => ({ ...prevState, [name]: event.target.value }));
     };
     
-    const handleSubmit = (event) =>{
+    const handleSubmit = (event) => {
         event.preventDefault();
         Service.postLogin(data)
         .then(response => {
-            console.log(response.data.token)
+            console.log(response)
             localStorage.setItem("token", response.data.token);
             window.location.reload();  
           })
-        .catch(err => console.log(err));
-    };
+        .catch(err => {
+            setLoginError(true)
+            setLoginErrorName(err.response.data.message);  
+        })
+    };  
 
     const logout = () => {
         localStorage.removeItem("userData");
         localStorage.removeItem("token");
-        navigate('/');
     };
 
     const buttonsLogueado = () => {
@@ -42,7 +44,7 @@ const Navbar = () => {
                 <div className="buttons-content">
                     <a className="button-nb" href={`/`} id="btn"> INICIO </a>
                     <a className="button-nb" href={`/profile`} id="btn"> PERFIL </a>
-                    <a className="button-nb" onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
+                    <a className="button-nb" href={"/"} onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
                 </div>
             </>
         )
@@ -94,6 +96,7 @@ const Navbar = () => {
                                                         <input className="form-input" type='text' name="email" value={data.email} onChange={handleChange("email")} placeholder="Email" required  ></input>
                                                         <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Contraseña" required></input> 
                                                     </div>
+                                                    {loginError && (<div id='alert-login' className="alert alert-danger" role="alert">{loginErrorName}</div>) }
                                                     <button type="submit" className="btn-info b-log">INICIAR SESIÓN</button>
                                                 </form>
                                             </div>

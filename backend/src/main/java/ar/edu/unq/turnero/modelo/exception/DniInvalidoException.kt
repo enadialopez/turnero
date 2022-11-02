@@ -1,8 +1,6 @@
 package ar.edu.unq.turnero.modelo.exception
 
-import javax.naming.directory.InvalidAttributesException
-
-class DniInvalidoException: InvalidAttributesException() {
+class DniInvalidoException: Exception() {
 
     override val message: String?
         get() = "Debe ingresar un DNI valido."

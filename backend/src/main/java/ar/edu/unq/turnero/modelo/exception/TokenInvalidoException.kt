@@ -1,11 +1,12 @@
 package ar.edu.unq.turnero.modelo.exception
 
-class EmailExistenteException: Exception() {
+class TokenInvalidoException : Exception() {
 
     override val message: String?
-        get() = "El email ya se encuentra registrado."
+        get() = "El token es invalido"
 
     companion object {
+
         private val serialVersionUID = 1L
     }
 }
