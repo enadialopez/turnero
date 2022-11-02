@@ -62,6 +62,7 @@ class TurnoDTO(
         turno.dniPaciente = this.dniPaciente!!
         turno.telefonoPaciente = this.telefonoPaciente!!
         turno.emailPaciente = this.emailPaciente!!
+        turno.paciente = this.paciente?.aModelo()
         return turno
     }
 
