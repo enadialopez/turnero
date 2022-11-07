@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Service from '../service/service';
 import HospitalModel from './HospitalModel';
@@ -11,11 +11,6 @@ const Search = () => {
     const search = location.search.slice(3, location.search.indexOf("&"));
     const value = location.search.slice(location.search.indexOf("&")+7);
     const [hospitales, setHospitales] = useState([]);
-
-    const navigate = useNavigate();
-    const goHome = () => {
-        navigate("/") ;
-    };
 
     useEffect(() => {
         if (search.length !== 0) {
@@ -37,7 +32,7 @@ const Search = () => {
             <div className="search-container">
                 <div className="content">  
                     <div className="text-result">
-                        <p>Tu resultado por {value}: </p>
+                        <p>Tu resultado por {value}: {hospitales.length} </p>
                     </div>
                     <div>    
                         { hospitales.length > 0 ?
@@ -59,4 +54,3 @@ const Search = () => {
 }
 
 export default Search;
-

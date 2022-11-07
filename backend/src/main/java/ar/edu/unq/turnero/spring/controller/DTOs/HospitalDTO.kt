@@ -10,7 +10,7 @@ class HospitalDTO(
     var municipio: String?,
     var direccion: String?,
     var especialidades: List<String>,
-    var turnos: List<MiniTurnoDTO>
+    //var turnos: List<MiniTurnoDTO>
 ) {
 
     companion object {
@@ -23,8 +23,8 @@ class HospitalDTO(
                 especialidades = hospital.especialidades
                     .map { especialidad -> especialidad.toString().toLowerCase()}
                     .toCollection(HashSet()).toList(),
-                turnos = hospital.turnos
-                    .map { turno -> MiniTurnoDTO.desdeModelo(turno)}.toMutableList(),
+                //turnos = hospital.turnos
+                //    .map { turno -> MiniTurnoDTO.desdeModelo(turno)}.toMutableList(),
             )
     }
 
@@ -35,8 +35,8 @@ class HospitalDTO(
         hospital.municipio = this.municipio!!
         hospital.direccion = this.direccion!!
         hospital.especialidades = transformEspecialidades(this.especialidades!!)
-        hospital.turnos = this.turnos
-            ?.map { MiniTurnoDTO  ->  MiniTurnoDTO.aModelo()}.toMutableList()
+        //hospital.turnos = this.turnos
+        //    ?.map { MiniTurnoDTO  ->  MiniTurnoDTO.aModelo()}.toMutableList()
         return hospital
     }
 

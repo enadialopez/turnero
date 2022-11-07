@@ -96,7 +96,7 @@ const Navbar = () => {
                                                         <input className="form-input" type='text' name="email" value={data.email} onChange={handleChange("email")} placeholder="Email" required  ></input>
                                                         <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Contraseña" required></input> 
                                                     </div>
-                                                    {loginError && (<div id='alert-login' className="alert alert-danger" role="alert">{loginErrorName}</div>) }
+                                                    { loginError && (<div id='alert-login' className="alert alert-danger" role="alert">{loginErrorName}</div>) }
                                                     <button type="submit" className="btn-info b-log">INICIAR SESIÓN</button>
                                                 </form>
                                             </div>

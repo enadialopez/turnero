@@ -60,24 +60,21 @@ class HospitalServiceTest {
             "Hospital Evita Pueblo",
             "Berazategui",
             "Calle 136 2905",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         evitaPueblo.agregarEspecialidad(pediatria)
         evitaPueblo.agregarEspecialidad(traumatologia)
         evitaPueblo.agregarEspecialidad(urologia)
         service.crear(evitaPueblo)
 
-        turno1Evita = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
-        turno2Evita = Turno("Chiquito Garcia", 54679333, 1123409876, "perez@gmail.com", "08/11/2022  17:30 hs", "vjgvtyvv", pediatria, "Carlos Ameghino", evitaPueblo)
-        turno3Evita = Turno("02/11/2022         11:15 hs", nefrologia, "Juana Molina", evitaPueblo)
+        turno1Evita = Turno("20/10/2022 19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        turno3Evita = Turno("02/11/2022 11:15 hs", nefrologia, "Juana Molina", evitaPueblo)
 
         elCruce = Hospital(
             "Hospital El Cruce - Nestor Kirchner",
             "Florencio Varela",
             "Av. Calchaquí 5401",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         elCruce.agregarEspecialidad(pediatria)
         elCruce.agregarEspecialidad(traumatologia)
@@ -91,8 +88,7 @@ class HospitalServiceTest {
             "Hospital Quilmes - Isidoro Iriarte",
             "Quilmes",
             "Allison Bell N°770",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         iriarte.agregarEspecialidad(dermatologia)
         iriarte.agregarEspecialidad(urologia)
@@ -104,8 +100,7 @@ class HospitalServiceTest {
             "Hospital Garrahan",
             "CABA",
             "Pichincha 1890",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         garrahan.agregarEspecialidad(dermatologia)
         garrahan.agregarEspecialidad(urologia)
@@ -117,8 +112,7 @@ class HospitalServiceTest {
             "Hospital Italiano de Buenos Aires",
             "CABA",
             "Av. Juan Bautista Alberdi 439",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>(),
+            mutableListOf<Especialidad>()
         )
         italianoCABA.agregarEspecialidad(pediatria)
         italianoCABA.agregarEspecialidad(traumatologia)
@@ -133,8 +127,7 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "Calle Falsa 123",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         wilde.agregarEspecialidad(traumatologia)
         wilde.agregarEspecialidad(nefrologia)
@@ -152,7 +145,7 @@ class HospitalServiceTest {
 
     @Test
     fun NoSePuedeCrearUnHospitalSinNombreTest() {
-        val hospital = Hospital("", "municipio", "direccion", mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        val hospital = Hospital("", "municipio", "direccion", mutableListOf<Especialidad>())
         try {
             service.crear(hospital)
             Assertions.fail("Expected a StringVacioException to be thrown")
@@ -167,8 +160,7 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "",
             "Calle Falsa 123",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
 
         try {
@@ -177,8 +169,6 @@ class HospitalServiceTest {
         } catch (e: StringVacioException) {
             Assertions.assertEquals(e.message, "El string no puede ser vacío.")
         }
-
-
     }
 
     @Test
@@ -187,8 +177,7 @@ class HospitalServiceTest {
             "Hospital Zonal General de Agudos “Dr. E. Wilde”",
             "Quilmes",
             "",
-            mutableListOf<Especialidad>(),
-            mutableListOf<Turno>()
+            mutableListOf<Especialidad>()
         )
         try {
             service.crear(wilde)
@@ -218,11 +207,9 @@ class HospitalServiceTest {
     fun seRecuperanHospitalesPorEspecialidadTest() {
         var hospitales = service.recuperarPorEspecialidad("pediatria")
 
-        Assert.assertEquals(3, hospitales!!.size) // no funciona por query
+        Assert.assertEquals(3, hospitales!!.size)
         Assert.assertTrue(hospitales.contains(elCruce))
     }
-
-
 
     @Test
     fun seRecuperaPorLaEspecialidadPediatria() {
@@ -240,42 +227,6 @@ class HospitalServiceTest {
         } catch (e: ErrorSelectionException) {
             Assertions.assertEquals(e.message, "El valor pasado del selector no es correcto.")
         }
-    }
-
-    @Test
-    fun seCreaUnTurnoParaUnHospitalCorrectamente() {
-        var turno = Turno("20/10/2022         19:00 hs", pediatria, "Carla Ortiz", elCruce)
-        elCruce.agregarTurno(turno)
-        var elCruceRecuperado = service.actualizar(elCruce)
-
-        var turnoRecuperado = elCruceRecuperado.turnos[0]
-
-
-        Assertions.assertNotNull(turnoService.recuperar(turnoRecuperado.id!!.toInt()))
-        Assertions.assertEquals(elCruceRecuperado, turnoRecuperado.hospital)
-        Assertions.assertEquals(1, elCruceRecuperado!!.turnos.size)
-    }
-
-    @Test
-    fun seRecuperanLosTurnosDisponiblesDeUnHospital() {
-        val evitaPuebloId = evitaPueblo.id!!.toInt()
-
-        evitaPueblo.agregarTurno(turno1Evita)
-        evitaPueblo.agregarTurno(turno2Evita)
-        evitaPueblo.agregarTurno(turno3Evita)
-
-        service.actualizar(evitaPueblo)
-
-        var turnos = evitaPueblo.turnos
-
-        Assertions.assertEquals(3, turnos.size)
-        Assertions.assertEquals(evitaPueblo, turnos[0].hospital)
-        Assertions.assertEquals(evitaPueblo, turnos[1].hospital)
-        Assertions.assertEquals(evitaPueblo, turnos[2].hospital)
-
-        var turnosDisponiblesEvita = service.recuperarTurnosDisponiblesPorEspecialidad(evitaPuebloId, "pediatria".toString())
-
-        Assertions.assertEquals(2, turnosDisponiblesEvita.size)
     }
 
     @AfterEach

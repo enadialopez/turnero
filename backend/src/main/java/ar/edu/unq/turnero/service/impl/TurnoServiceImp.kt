@@ -3,6 +3,7 @@ package ar.edu.unq.turnero.service.impl
 import ar.edu.unq.turnero.modelo.Especialidad
 import ar.edu.unq.turnero.modelo.Hospital
 import ar.edu.unq.turnero.modelo.Turno
+import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 import ar.edu.unq.turnero.modelo.exception.StringVacioException
 import ar.edu.unq.turnero.persistence.TurnoDAO
 import ar.edu.unq.turnero.service.TurnoService
@@ -31,8 +32,8 @@ open class TurnoServiceImp(
     }
 
     private fun validarActualizacion(turno : Turno) {
-        if(turno.nombreYApellidoPaciente == "" || turno.dniPaciente == null ||
-            turno.telefonoPaciente == null || turno.emailPaciente == "") {
+        if(turno.paciente?.nombreYApellido == "" || turno.paciente?.dni == null ||
+            turno.paciente?.telefono == null || turno.paciente?.email == "") {
             throw StringVacioException()
         }
     }
@@ -52,24 +53,49 @@ open class TurnoServiceImp(
     }
 
     override fun recuperarTodos():List<Turno> {
-        return turnoDAO.findAllByOrderByNombreYApellidoPacienteAsc()
+        return turnoDAO.findAllBy()
     }
 
     override fun eliminar(turnoId:Int) {
-        this.recuperar(turnoId)
-        turnoDAO.deleteById(turnoId.toLong())
+        val turno = this.recuperar(turnoId)
+        turno.desasignarAPaciente()
+        //turnoDAO.deleteById(turnoId.toLong())
     }
 
-    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospital: Hospital, especialidad: Especialidad): List<Turno> {
-        return turnoDAO.findByHospitalAndEspecialidadAndDniPacienteIsNull(hospital, especialidad)
+    override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
+        return turnoDAO.findByHospitalIdAndEspecialidadAndPacienteIsNull(idDeHospital.toLong(), toEnum(especialidad))
     }
 
-    override fun recuperarTurnosAsignadosAUsuario(dni: Long): List<Turno> {
-          return turnoDAO.turnosAsignadosAUsuarioPor(dni)
+    override fun recuperarTurnosPorHospital(idDeHospital: Long): List<Turno> {
+        return turnoDAO.turnosDeHospital(idDeHospital)
+    }
+
+    override fun recuperarTurnosDe(id: Long): List<Turno> {
+          return turnoDAO.turnosAsignadosAUsuarioPor(id)
     }
 
     override fun borrarUsuarioDeTodosSusTurnos(usuarioId: Int) {
         turnoDAO.borrarUsuarioDeTodosSusTurnos(usuarioId.toLong())
+    }
+
+    private fun toEnum(especialidad: String): Especialidad {
+        var nuevaEspecialidad: Especialidad
+        when(especialidad) {
+            "pediatria" -> nuevaEspecialidad = Especialidad.PEDIATRIA
+            "oncologia" -> nuevaEspecialidad = Especialidad.ONCOLOGIA
+            "traumatologia" -> nuevaEspecialidad = Especialidad.TRAUMATOLOGIA
+            "urologia" -> nuevaEspecialidad = Especialidad.UROLOGIA
+            "oftalmologia" -> nuevaEspecialidad = Especialidad.OFTALMOLOGIA
+            "kinesiologia" -> nuevaEspecialidad = Especialidad.KINESIOLOGIA
+            "cardiologia" -> nuevaEspecialidad = Especialidad.CARDIOLOGIA
+            "nefrologia" -> nuevaEspecialidad = Especialidad.NEFROLOGIA
+            "reumatologia" -> nuevaEspecialidad = Especialidad.REUMATOLOGIA
+            "dermatologia" -> nuevaEspecialidad = Especialidad.DERMATOLOGIA
+            else -> {
+                throw EspecialidadVacioException()
+            }
+        }
+        return nuevaEspecialidad
     }
 
     override fun clear() {

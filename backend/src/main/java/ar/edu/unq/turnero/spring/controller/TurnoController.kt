@@ -1,6 +1,7 @@
 package ar.edu.unq.turnero.spring.controller
 
 import ar.edu.unq.turnero.service.TurnoService
+import ar.edu.unq.turnero.spring.controller.DTOs.TurnoAsignadoDTO
 import ar.edu.unq.turnero.spring.controller.DTOs.TurnoDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,6 +24,19 @@ class TurnoController(private val turnoService: TurnoService) {
     @GetMapping("/{turnoId}")
     fun recuperar(@PathVariable turnoId: Long) = TurnoDTO.desdeModelo(turnoService.recuperar(turnoId.toInt())!!)
 
-    @GetMapping("")
+    @GetMapping("/usuario/{usuarioId}")
+    fun recuperarTurnosDe(@PathVariable usuarioId: Long) = turnoService.recuperarTurnosDe(usuarioId).map { turno -> TurnoAsignadoDTO.desdeModelo(turno)  }
+
+    @GetMapping("/todos")
     fun recuperarTodos() = turnoService.recuperarTodos().map { turno -> TurnoDTO.desdeModelo(turno)  }
-}
+
+    @GetMapping("/todos/{hospitalId}")
+    fun turnosDeHospital(@PathVariable hospitalId: Long) =
+        turnoService.recuperarTurnosPorHospital(hospitalId).map { turno -> TurnoDTO.desdeModelo(turno) }
+
+    @GetMapping("/todos/{hospitalId}/{especialidad}")
+    fun turnosDisponibles(@PathVariable hospitalId: Long, @PathVariable especialidad: String) =
+        turnoService.recuperarTurnosDisponiblesPorHospitalYEspecialidad(hospitalId.toInt(), especialidad).map { turno -> TurnoDTO.desdeModelo(turno) }
+
+    @DeleteMapping("/{turnoId}")
+    fun eliminar(@PathVariable turnoId: Int) = turnoService.eliminar(turnoId)}

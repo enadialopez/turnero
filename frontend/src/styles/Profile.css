@@ -3,15 +3,14 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    min-height: 80vh;
 }
 
-.profile-dates /*, .profile-turnos*/ {
-    width: 1400px;
-    background-color: rgb(206, 246, 203);
-    height: 150px;
+.profile-dates , .profile-turnos {
+    width: 1040px;
+    background: radial-gradient(circle, rgb(200, 200, 200) 10%, rgb(203, 203, 203)48%, rgb(211, 211, 211) 91%);
     justify-content: left;
     margin: 10px;
-    padding: 0px;
     border-radius: 10px;
     border-style:groove;
     text-align: justify;
@@ -28,8 +27,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px 10px 5px 20px;
-    text-indent: 5px;
-    
+    text-indent: 5px;  
 }
 
 .box-left {
@@ -41,8 +39,7 @@
     height: 100%;
     display: flex;
     justify-content: right;
-    align-items:flex-end;
-    
+    align-items:flex-end;  
 }
 
 .user-name {
@@ -59,11 +56,12 @@
     font-weight: 700;
 }
 
-/*
 .profile-turnos {
-    height: 150px;
-    display: grid;
-}*/
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-height: 380px; 
+}
 
 .profile-dates {
     height: 150px;
@@ -85,28 +83,35 @@
 .b-profile {
     width: 40%;
     height: 40px;
+    font-size: 12px;
     border-radius: 10px;
     border-color:rgb(107, 107, 107);
     background-color:rgb(151, 151, 151);
     margin: 5px;
-  }
+    padding: 5px;
+}
   
-  .b-profile:hover {
+.b-profile:hover {
     border-color:rgb(55, 55, 55);
     background-color:rgb(55, 55, 55);
-  }
+}
 
-  .button-profile {
+.button-profile {
     color: white;
+    width: 100px;
+    height: 30px;
     margin: 15px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 10px;
     border-color:rgb(107, 107, 107);
     background-color:rgb(21, 16, 103);
-  }
+    font-family: 'Roboto', sans-serif;
+}
 
 #confirm {
+    font-size: 10px;
+    padding: 2px;
     border-color:rgb(21, 16, 103);
     background-color:rgb(21, 16, 103);
 }
@@ -114,4 +119,8 @@
 #confirm:hover {
     border-color:rgb(4, 1, 59);
     background-color:rgb(4, 1, 59);
+}
+
+.message-cuenta {
+    font-size: 13px;
 }

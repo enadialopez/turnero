@@ -47,7 +47,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioValido() {
-        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
@@ -56,9 +56,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 20456734, "candelaAguayoo@yahoo.com",
             42043821, "")
-
         try {
             usuarioService.crear(user)
         } catch (e: PasswordVacioException) {
@@ -68,7 +67,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
@@ -80,8 +79,8 @@ class UsuarioServiceTest {
 
     @Test
     fun seIntentaRecuperaUnUsuarioQueNoExiste() {
-        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
-            24456734, "123")
+        var user = Usuario("Candela Aguayo",  42073821, "candelaAguayo@yahoo.com",
+            24456734, "12345678")
 
         var userId: Long? = user.id
 
@@ -92,11 +91,11 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1 = Usuario("Candela Aguayo", null,24456734, "candelaAguayo@yahoo.com",
+        var user1 = Usuario("Candela Aguayo",24456734, "candelaAguayo@yahoo.com",
             42073821, "12345678")
-        var user2: Usuario = Usuario("Marcos Galante", null,13456734, "marcosGalante@gmail.com",
+        var user2: Usuario = Usuario("Marcos Galante",13456734, "marcosGalante@gmail.com",
             42073821, "45678912")
-        var user3: Usuario = Usuario("Ximena Jida", null, 33456734, "ximeJida@hotmail.com",
+        var user3: Usuario = Usuario("Ximena Jida", 33456734, "ximeJida@hotmail.com",
             42073821, "78912345")
 
         usuarioService.crear(user1)
@@ -110,29 +109,27 @@ class UsuarioServiceTest {
 
     @Test
     fun userSacaTurnoDeFormaCorrecta(){
-        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>())
         var pediatria: Especialidad = Especialidad.PEDIATRIA
-        var turnoEvita = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
-        evitaPueblo.agregarTurno(turnoEvita)
+        var turnoEvita = Turno("20/10/2022 19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
         hospitalService.crear(evitaPueblo)
+        turnoService.crear(turnoEvita)
 
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
+        var user = Usuario("Candela Aguayo", 42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
         usuarioService.crear(user)
 
-        user.sacarTurno(turnoEvita)
-        var usuarioActualizado = usuarioService.actualizar(user)
-        //var turnoActualizado = turnoService.actualizar(turnoEvita)
+        turnoEvita.asignarAPaciente(user)
+        var turnoActualizado = turnoService.actualizar(turnoEvita)
 
-        var turnoActualizado = turnoService.recuperar(turnoEvita.id!!.toInt())
         var pacienteDelTurno = turnoActualizado!!.paciente
 
-        Assertions.assertEquals(1, usuarioActualizado.turnosAsignados.size)
+        //Assertions.assertEquals(1, usuarioActualizado.turnosAsignados.size)
         Assertions.assertEquals(user.id, pacienteDelTurno!!.id)
     }
 
     @Test
     fun seEliminaUnUsarioCorrectamente() {
-        var user = Usuario("Candela Aguayo", null, 27456734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo",27456734, "candelaAguayo@yahoo.com",
             42073821, "12345678")
         usuarioService.crear(user)
         var usuarioId = user.id!!.toInt()
@@ -150,23 +147,23 @@ class UsuarioServiceTest {
 
     @Test
     fun seEliminaUnUsarioConTurnosCorrectamente() {
-        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905",        mutableListOf<Especialidad>(), mutableListOf<Turno>())
+        var evitaPueblo = Hospital("Hospital Evita Pueblo", "Berazategui", "Calle 136 2905", mutableListOf<Especialidad>())
         var pediatria: Especialidad = Especialidad.PEDIATRIA
-        var turnoEvita1 = Turno("20/10/2022         19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
-        var turnoEvita2 = Turno("25/10/2022         15:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
-        evitaPueblo.agregarTurno(turnoEvita1)
-        evitaPueblo.agregarTurno(turnoEvita2)
+        var turnoEvita1 = Turno("20/10/2022 19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
+        var turnoEvita2 = Turno("25/10/2022 15:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
         hospitalService.crear(evitaPueblo)
+        turnoService.crear(turnoEvita1)
+        turnoService.crear(turnoEvita2)
 
-        var user = Usuario("Candela Aguayo", null, 27406734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo",27406734, "candelaAguayo@yahoo.com",
             1142073821, "12345678")
         usuarioService.crear(user)
 
-        user.sacarTurno(turnoEvita1)
-        user.sacarTurno(turnoEvita2)
-        usuarioService.actualizar(user)
+        turnoEvita1.asignarAPaciente(user)
+        turnoEvita2.asignarAPaciente(user)
 
-        Assertions.assertEquals(2, user.turnosAsignados.size)
+        turnoService.actualizar(turnoEvita1)
+        turnoService.actualizar(turnoEvita2)
 
         var usuarioId = user.id!!.toInt()
 

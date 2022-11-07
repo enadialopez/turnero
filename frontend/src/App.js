@@ -7,6 +7,7 @@ import FormTurno from './components/FormTurno';
 import Turno from './components/Turno';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import InvalidRoute from './components/InvalidRoute';
 
 const App = () => {
 
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="/hospital/:id/:especialidad/sacar-turno" element={<FormTurno/>}/>
         <Route path="/hospital/turno/:id" element={<Turno/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="*" element={<InvalidRoute/>} />
+        <Route path="/invalidRoute" element={<InvalidRoute/>} />
       </Routes>
     </BrowserRouter>
   );

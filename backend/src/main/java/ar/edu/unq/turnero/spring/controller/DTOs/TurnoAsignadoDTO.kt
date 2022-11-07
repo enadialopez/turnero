@@ -7,6 +7,7 @@ import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 class TurnoAsignadoDTO (
     var id: Long?,
     var fechaYHora: String?,
+    var fechaEmitido: String?,
     var especialidad: String?,
     var especialista:  String?,
     var nombreHospital: String?,
@@ -18,6 +19,7 @@ class TurnoAsignadoDTO (
             TurnoAsignadoDTO(
                 id = turno.id,
                 fechaYHora = turno.fechaYHora,
+                fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
                 especialista = turno.especialista,
                 nombreHospital = turno.hospital!!.nombre!!)
@@ -27,6 +29,7 @@ class TurnoAsignadoDTO (
         val turno = Turno()
         turno.id = this.id
         turno.fechaYHora = this.fechaYHora!!
+        turno.fechaEmitido = this.fechaEmitido!!
         turno.especialidad = toEnum(this.especialidad)
         turno.especialista = this.especialista
         return turno

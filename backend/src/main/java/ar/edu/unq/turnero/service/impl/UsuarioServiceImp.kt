@@ -1,6 +1,5 @@
 package ar.edu.unq.turnero.service.impl
 
-import ar.edu.unq.turnero.modelo.Turno
 import ar.edu.unq.turnero.modelo.Usuario
 import ar.edu.unq.turnero.modelo.exception.*
 import ar.edu.unq.turnero.persistence.UsuarioDAO
@@ -59,14 +58,38 @@ open class UsuarioServiceImp(
     }
 
     private fun validarPassword(password: String?) : Boolean {
-        if (password!!.length < 8){
+        if (password == "") {
+            throw PasswordVacioException()
+        } else if (password!!.length < 8){
             throw PasswordInvalidoException()
         }
         return false
     }
 
     override fun actualizar(usuario: Usuario): Usuario {
-        return usuarioDAO.save(usuario)
+        if (usuario != null) {
+            validarActualizacion(usuario)
+            return usuarioDAO.save(usuario)
+        } else {
+            throw Exception("El usuario no existe.")
+        }
+    }
+
+    private fun validarActualizacion(usuario: Usuario) {
+         if (validarNombreYApellido(usuario.nombreYApellido) || validarPassword(usuario.password) ||
+                 validarEmailDeUsuario(usuario.email!!)) {
+             throw StringVacioException()
+         }
+    }
+
+    private fun validarEmailDeUsuario(email: String?) : Boolean {
+        val usuario = usuarioDAO.findByEmail(email!!)
+        if(!email!!.contains("@")) {
+            return throw EmailInvalidoException()
+        } else if (usuario != null && email !== usuario.email) {
+            return throw EmailExistenteException()
+        }
+        return false
     }
 
     override fun recuperar(usuarioId: Int): Usuario? {
@@ -79,7 +102,7 @@ open class UsuarioServiceImp(
 
     override fun recuperarUsuario(email: String, password: String) : Usuario? {
         val usuario = usuarioDAO.findByEmail(email!!)
-        if(!email!!.contains("@")) {
+        if (!email!!.contains("@")) {
             return throw EmailInvalidoException()
         } else if (usuario == null) {
             return throw EmailNoExistenteException()
@@ -102,20 +125,11 @@ open class UsuarioServiceImp(
         return user
     }
 
-    override fun recuperarTurnosDeUsuario(id: Int) : List<Turno> {
-        val user = this.recuperar(id)
-        return turnoService.recuperarTurnosAsignadosAUsuario(user!!.dni!!)
-    }
-
     override fun recuperarTodos(): List<Usuario> {
         return usuarioDAO.findAllByOrderByNombreYApellidoAsc()
     }
 
     override fun eliminar(usuarioId: Int) {
-        /*var user = recuperar(usuarioId)
-        user!!.turnosAsignados.map {t -> t.desasignarAPaciente()}
-        actualizar(user)*/
-        //usuarioDAO.borrarUsuarioDeTodosSusTurnos(usuarioId.toLong())
         turnoService.borrarUsuarioDeTodosSusTurnos(usuarioId)
         usuarioDAO.deleteById(usuarioId.toLong())
     }

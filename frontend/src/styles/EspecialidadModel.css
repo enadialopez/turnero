@@ -2,11 +2,13 @@
     display: flex;
     justify-content: column;
     width: 100%;
+    cursor: pointer;
 }
 
 .block-pad {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     align-content: center;
     border-style: hidden;
@@ -23,11 +25,16 @@
     align-content: center;
     text-align: center;
     font-size: 20px;
-    text-transform: capitalize;
+    text-transform:uppercase;
     color: white;
     font-weight: 600;
     margin-left: 10px;
     margin-top: 15px;
+}
+
+.alert-turnos {
+    color: aquamarine;
+    margin: 5px 20px 5px 0px;
 }
 
 .modal-body {
