@@ -1,0 +1,17 @@
+.invalid {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: aliceblue;
+    height: 100vh;
+}
+
+#btn-invalid {
+    background-color:rgb(21, 16, 103);
+    color: white;
+    width: 30%;
+    height: 50px;
+    border-radius: 10px;
+    margin: 40px;
+}

@@ -1,14 +1,14 @@
 .turnoModel-container {
     display: flex;
     align-items: top;
-    margin: 5px;
+    margin: 15px;
     max-height: 30px;
 }
 
 .card-turno {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content:space-evenly;
     text-indent: 5px;
     background-color:rgb(191, 191, 191);
     border-style:solid;
@@ -31,10 +31,14 @@
 
 .value-turno {
     margin: 10px;
-    font-size: 12px;
-    width: 100%;
+    font-size: 11px;
+    width: 20%;
 }
 
 #especialidad {
     text-transform: capitalize;
+}
+
+#codigo {
+    width: 10%;
 }

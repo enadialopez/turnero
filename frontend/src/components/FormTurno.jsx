@@ -3,7 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import Service from '../service/service';
 import Navbar from '../components/Navbar';
 import '../styles/FormTurno.css';
+
 const FormTurno = () => {
+
     const { id, especialidad } = useParams();
     const navigate = useNavigate();
     const [hospital, setHospital] = useState({
@@ -38,11 +40,14 @@ const FormTurno = () => {
 
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
+    const isLogged = !!localStorage.getItem("token");
+
     const fechasDisponibles = () => {
         let fechas = [];
         turnos.map( turno => fechas.push(turno.fechaYHora));
         return fechas;
     };
+
     const turnoByFecha = (fecha) => {
         turnos.forEach( turno => {
             if( turno.fechaYHora === fecha) {
@@ -62,7 +67,6 @@ const FormTurno = () => {
             }
         });
     }; 
-    const isLogged = !!localStorage.getItem("token");
 
     const changeHandler = (e) => {
         setFechaSeleccionada(e.target.value);
@@ -84,7 +88,7 @@ const FormTurno = () => {
              setData((prevState)=>({
                  ...prevState,
              }));
-         })}
+        })}
     }
 
     const handleSubmit = (event) => {
@@ -100,7 +104,9 @@ const FormTurno = () => {
             }));
             sendMessage();
             navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => console.log(err));
+        }).catch(err => 
+            console.log(err)
+        );
     };
     
     useEffect(() => {
@@ -150,10 +156,6 @@ const FormTurno = () => {
     }, [fechaSeleccionada]
     );
 
-    console.log(user)
-    console.log(sendSMS)
-    console.log(data)
-
     return (
         <>
             <div className="navbar">
@@ -166,18 +168,18 @@ const FormTurno = () => {
                     <div className='form-content'>    
                         <form onSubmit={handleSubmit}>  
                             <div className="select">
-                                <label for="Name">Turnos Disponibles:</label>
+                                <label htmlFor="Name">Turnos Disponibles:</label>
                                 <select id="select" value={fechaSeleccionada} onChange={changeHandler}>
                                     <option defaultValue="">Seleccione fecha y horario...</option>
                                     { fechasDisponibles().map (turno => {
                                         return (
-                                            <option onClick={() => setFechaSeleccionada(turno)} value={turno} selected={turno} required>{turno}</option>
+                                            <option onClick={() => setFechaSeleccionada(turno)} key={turno.id} value={turno} selected={turno} required>{turno}</option>
                                         );
                                     })}
                                 </select>
                             </div>
                                 <input type="checkbox" onClick={() => setMessage()}/>
-                                <label htmlFor="sms"> Recibir Notificación por mensaje de texto</label>
+                                <label htmlFor="sms" className='sms'> Recibir Notificación por mensaje de texto</label>
                             <div className="turno-button-content">
                                 <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
                             </div>
@@ -195,6 +197,6 @@ const FormTurno = () => {
             </div>
         </>  
     );
-  }
+}
   
-  export default FormTurno;
+export default FormTurno;

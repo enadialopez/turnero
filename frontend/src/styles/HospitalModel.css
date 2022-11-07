@@ -14,6 +14,8 @@
     justify-content: center;
     opacity: 0.85;
     cursor: pointer;
+    color: black;
+    
 }
 
 .link {
@@ -34,6 +36,19 @@
 .selection-name {
     text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 900;
+}
+
+.name-selection {
+    display: grid;
+    padding: 5px;
+    text-align: center;
+}
+
+.alert-turnos-2 {
+    color: red;
+    margin: 0px 0px 0px 0px;
+    font-weight: 800;
+    font-size: 13px;
 }

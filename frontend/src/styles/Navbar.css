@@ -5,19 +5,17 @@
   align-items: center;
   width: 100%;
   margin: 0px;
-  background: rgb(240, 243, 242);
-  background: radial-gradient(circle, rgb(228, 228, 228) 10%, rrgb(232, 229, 229)48%, rgb(240, 240, 237) 91%);
+  background: radial-gradient(circle, rgb(200, 200, 200) 10%, rgb(203, 203, 203)48%, rgb(211, 211, 211) 91%);
   color: black;
 }
 
 .navbar {
-  background: rgb(240, 243, 242);
+  background: radial-gradient(circle, rgb(200, 200, 200) 10%, rgb(203, 203, 203)48%, rgb(211, 211, 211) 91%);
 }
 
 .nav-left, .nav-medium, .nav-right {
   display: flex;
   justify-content: center;
-
   height: 100%;
   width: 100%;
 }
@@ -125,12 +123,3 @@
   font-size: 13px;
   margin: 20px 0px 20px 30px;
 }
-
-
-
-
-
-
-
-
-

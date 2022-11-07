@@ -7,11 +7,10 @@
 }
 
 .profile-dates , .profile-turnos {
-    max-width: 100%;
-    background-color: rgb(229, 229, 229);
+    width: 1040px;
+    background: radial-gradient(circle, rgb(200, 200, 200) 10%, rgb(203, 203, 203)48%, rgb(211, 211, 211) 91%);
     justify-content: left;
     margin: 10px;
-    padding: 0px;
     border-radius: 10px;
     border-style:groove;
     text-align: justify;
@@ -28,8 +27,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px 10px 5px 20px;
-    text-indent: 5px;
-    
+    text-indent: 5px;  
 }
 
 .box-left {
@@ -41,8 +39,7 @@
     height: 100%;
     display: flex;
     justify-content: right;
-    align-items:flex-end;
-    
+    align-items:flex-end;  
 }
 
 .user-name {
@@ -59,12 +56,11 @@
     font-weight: 700;
 }
 
-
 .profile-turnos {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-    min-height: 380px;
-    
+    min-height: 380px; 
 }
 
 .profile-dates {
@@ -93,22 +89,25 @@
     background-color:rgb(151, 151, 151);
     margin: 5px;
     padding: 5px;
-  }
+}
   
-  .b-profile:hover {
+.b-profile:hover {
     border-color:rgb(55, 55, 55);
     background-color:rgb(55, 55, 55);
-  }
+}
 
-  .button-profile {
+.button-profile {
     color: white;
+    width: 100px;
+    height: 30px;
     margin: 15px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 10px;
     border-color:rgb(107, 107, 107);
     background-color:rgb(21, 16, 103);
-  }
+    font-family: 'Roboto', sans-serif;
+}
 
 #confirm {
     font-size: 10px;
@@ -120,4 +119,8 @@
 #confirm:hover {
     border-color:rgb(4, 1, 59);
     background-color:rgb(4, 1, 59);
+}
+
+.message-cuenta {
+    font-size: 13px;
 }

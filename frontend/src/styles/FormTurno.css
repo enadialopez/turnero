@@ -6,75 +6,82 @@
   text-align: center;
   min-height: 80vh;
 }
+
 .form-content {
-   background-color: aliceblue;
-   width: 500px;
-   height: 250px;
-   border-radius: 10px;
-   border-style:double;
-   display: grid;
-   align-items: center;
-   justify-content: center;
-   text-align: left;
-   font-weight: 700;
-   font-size: 15px;
-   padding: 20px;
+  background-color: aliceblue;
+  width: 500px;
+  height: 250px;
+  border-radius: 10px;
+  border-style:double;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 20px;
 }
 
 .card-notlogged {
- background-color: aliceblue;
- width: 300px;
- height: 200px;
- border-radius: 10px;
- border-style: groove;
- display: grid;
- align-items: center;
- justify-content: center;
- text-align: center;
- font-weight: 700;
- font-size: 20px;
- padding: 20px;
+  background-color: aliceblue;
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  border-style: groove;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 20px;
 }
 
 .select {
- position: relative;
- min-width: 200px;
+  position: relative;
+  min-width: 200px;
 }
+
 .select select {
- -webkit-appearance: none;
- padding: 7px 40px 7px 12px;
- width: 100%;
- border: 1px solid #dadada;
- border-radius: 5px;
- background: rgb(255, 255, 255);
- background-color:rgb(255, 255, 255);
- cursor: pointer;
- font-family: inherit;
- font-size: 15px;
- transition: all 150ms ease;
- margin-bottom: 20px;
+  -webkit-appearance: none;
+  padding: 7px 40px 7px 12px;
+  width: 100%;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  background-color:rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  transition: all 150ms ease;
+  margin-bottom: 20px;
 }
+
 input {
- margin-bottom: 5px;
+  margin-bottom: 5px;
 }
+
 .turno-button-content {
- display: flex;
- justify-content: right;
- margin-top: 20px;
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
 }
-.btn-btn {
- background-color:rgb(21, 16, 103);
- border-radius: 10px;
- width: 150px;
- height: 35px;
- background-color:rgb(21, 16, 103);
- border-style: none;
+
+.btn-btn, .btn-btn:hover  {
+  background-color:rgb(21, 16, 103);
+  border-radius: 10px;
+  width: 150px;
+  height: 35px;
+  background-color:rgb(21, 16, 103);
+  border-style: none;
 }
-.btn-btn:hover {
- background-color:rgb(21, 16, 103);
- border-radius: 10px;
- width: 150px;
- height: 35px;
- background-color:rgb(21, 16, 103);
- border-style: none;
+
+.sms {
+  position: relative;
+  top: -2px;
+  left: 3px;
+}
+
+option {
+  text-align: center
 }
