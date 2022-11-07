@@ -66,6 +66,9 @@ class UsuarioController(private val usuarioService: UsuarioService) {
         }
     }
 
+    @PutMapping("/{usuarioId}")
+    fun actualizar(@RequestBody usuario: UsuarioDTO) = usuarioService.actualizar(usuario.aModelo())
+
     @GetMapping("/todos")
     fun recuperarTodos() = usuarioService.recuperarTodos().map { usuario -> UsuarioDTO.desdeModelo(usuario)  }
 

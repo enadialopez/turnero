@@ -25,16 +25,27 @@ const Profile = () => {
 
     axios.defaults.headers['authorization'] = localStorage.getItem('token');
 
-    const handleChange = name => event => {
-      setUser(prevState => ({ ...prevState, [name]: event.target.value }));
-  };
-
     const styles = useStyles();
 
     const [modal, setModal]=useState(false);
     const abrirCerrarModal=()=> {
       setModal(!modal)
     }
+
+    const handleChange = name => event => {
+      setUser(prevState => ({ ...prevState, [name]: event.target.value }));
+  };
+
+  const handleSub = (event) => {
+    handleSubmit(event)
+    abrirCerrarModal()
+  }
+
+  const handleSubmit = (event) =>{
+    event.preventDefault(); 
+    Service.putActualizarPerfil(user.id)
+    
+  };
 
     useEffect(() => {
         if (isLogged){
@@ -82,15 +93,19 @@ const Profile = () => {
       <div align="center">
         <h2>Editar perfil</h2>
       </div>
-      <TextField label= "Nombre y Apellido" className = {styles.textfield} value={user.nombreYApellido} onChange={handleChange("nombreYApellido")} />
+      <TextField label= "Nombre y Apellido" className = {styles.modalInputs} value={user.nombreYApellido} onChange={handleChange("nombreYApellido")} />
       <br/> <br/>
-      <TextField label= "Telefono" className = {styles.textfield} value={user.telefono} onChange={handleChange("telefono")} />
+      <TextField label= "Image" className = {styles.modalInputs} value={user.image} onChange={handleChange("imagen")} />
       <br/> <br/>
-      <TextField label= "email" className = {styles.textfield} value={user.email} onChange={handleChange("email")} />
+      <TextField label= "Email" className = {styles.modalInputs} value={user.email} onChange={handleChange("email")} />
+      <br/> <br/>
+      <TextField label= "Telefono" className = {styles.modalInputs} value={user.telefono} onChange={handleChange("telefono")} />
+      <br/> <br/>
+      <TextField label= "Contraseña" className = {styles.modalInputs} value={user.password} onChange={handleChange("password")} />
       <br/> <br/>
       <div align="right">
-        <Button onClick={()=>abrirCerrarModal()} color="primary">Aceptar</Button>
-        <Button onClick={()=>abrirCerrarModal()}>Cancelar</Button>
+        <Button onClick={handleSub} className={styles.buttonProfile} >Aceptar</Button>
+        <Button onClick={()=>abrirCerrarModal()} className={styles.buttonProfile} >Cancelar</Button>
       </div>
     </div>
   )
@@ -180,6 +195,18 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: 500,
     borderRadius: "10px",
     backgroundColor:'rgb(21, 16, 103)',
-    fontFamily: "'Roboto', sans-serif",
+    gap: "20px",
+    '&:hover': {
+      borderColor:'rgb(55, 55, 55)',
+      backgroundColor:'rgb(21, 16, 103)',
+    }
   },
+
+  modalInputs: {
+    justifyContent: 'left',
+    textAlign: 'left',
+    color: 'rgb(0, 0, 0)',
+    fontWeight: 700,
+    margin: "0px",
+},
 }))
