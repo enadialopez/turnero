@@ -47,7 +47,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioValido() {
-        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayoo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
@@ -56,7 +56,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seCreaUnUsuarioInvalidoPorFaltaDeContrasenia() {
-        var user = Usuario("Candela Aguayo", null,20456734, "candelaAguayoo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 20456734, "candelaAguayoo@yahoo.com",
             42043821, "")
         try {
             usuarioService.crear(user)
@@ -67,7 +67,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperaUnUsuarioDeFormaCorrecta() {
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaAguayoo@yahoo.com",
+        var user = Usuario("Candela Aguayo", 42073821, "candelaAguayoo@yahoo.com",
             24456734, "12345678")
         usuarioService.crear(user)
 
@@ -79,7 +79,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seIntentaRecuperaUnUsuarioQueNoExiste() {
-        var user = Usuario("Candela Aguayo", null, 42073821, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo",  42073821, "candelaAguayo@yahoo.com",
             24456734, "12345678")
 
         var userId: Long? = user.id
@@ -91,11 +91,11 @@ class UsuarioServiceTest {
 
     @Test
     fun seRecuperanTodosLosUsuariosDeFormaCorrecta() {
-        var user1 = Usuario("Candela Aguayo", null,24456734, "candelaAguayo@yahoo.com",
+        var user1 = Usuario("Candela Aguayo",24456734, "candelaAguayo@yahoo.com",
             42073821, "12345678")
-        var user2: Usuario = Usuario("Marcos Galante", null,13456734, "marcosGalante@gmail.com",
+        var user2: Usuario = Usuario("Marcos Galante",13456734, "marcosGalante@gmail.com",
             42073821, "45678912")
-        var user3: Usuario = Usuario("Ximena Jida", null, 33456734, "ximeJida@hotmail.com",
+        var user3: Usuario = Usuario("Ximena Jida", 33456734, "ximeJida@hotmail.com",
             42073821, "78912345")
 
         usuarioService.crear(user1)
@@ -115,7 +115,7 @@ class UsuarioServiceTest {
         hospitalService.crear(evitaPueblo)
         turnoService.crear(turnoEvita)
 
-        var user = Usuario("Candela Aguayo", null,42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
+        var user = Usuario("Candela Aguayo", 42073821, "candelaaAguayo@yahoo.com", 1124456734, "12345678")
         usuarioService.crear(user)
 
         turnoEvita.asignarAPaciente(user)
@@ -129,7 +129,7 @@ class UsuarioServiceTest {
 
     @Test
     fun seEliminaUnUsarioCorrectamente() {
-        var user = Usuario("Candela Aguayo", null, 27456734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo",27456734, "candelaAguayo@yahoo.com",
             42073821, "12345678")
         usuarioService.crear(user)
         var usuarioId = user.id!!.toInt()
@@ -155,7 +155,7 @@ class UsuarioServiceTest {
         turnoService.crear(turnoEvita1)
         turnoService.crear(turnoEvita2)
 
-        var user = Usuario("Candela Aguayo", null, 27406734, "candelaAguayo@yahoo.com",
+        var user = Usuario("Candela Aguayo",27406734, "candelaAguayo@yahoo.com",
             1142073821, "12345678")
         usuarioService.crear(user)
 
