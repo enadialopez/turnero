@@ -26,8 +26,8 @@ const Turno = () => {
             .then(response => { 
                 setTurno({
                     id: response.data.id,
-                    nombreYApellidoPaciente: response.data.nombreYApellidoPaciente,
-                    dniPaciente: response.data.dniPaciente,
+                    nombreYApellidoPaciente: response.data.paciente.nombreYApellido,
+                    dniPaciente: response.data.paciente.dni,
                     telefonoPaciente: response.data.telefonoPaciente,
                     emailPaciente : response.data.emailPaciente,
                     fechaYHora: response.data.fechaYHora,
