@@ -53,24 +53,25 @@ open class TurnoServiceImp(
     }
 
     override fun recuperarTodos():List<Turno> {
-        return turnoDAO.findAllByOrderByNombreYApellidoPacienteAsc()
+        return turnoDAO.findAllBy()
     }
 
     override fun eliminar(turnoId:Int) {
-        this.recuperar(turnoId)
-        turnoDAO.deleteById(turnoId.toLong())
+        val turno = this.recuperar(turnoId)
+        turno.desasignarAPaciente()
+        //turnoDAO.deleteById(turnoId.toLong())
     }
 
     override fun recuperarTurnosDisponiblesPorHospitalYEspecialidad(idDeHospital: Int, especialidad: String): List<Turno> {
-        return turnoDAO.findByHospitalIdAndEspecialidadAndDniPacienteIsNull(idDeHospital.toLong(), toEnum(especialidad))
+        return turnoDAO.findByHospitalIdAndEspecialidadAndPacienteIsNull(idDeHospital.toLong(), toEnum(especialidad))
     }
 
     override fun recuperarTurnosPorHospital(idDeHospital: Long): List<Turno> {
         return turnoDAO.turnosDeHospital(idDeHospital)
     }
 
-    override fun recuperarTurnosDe(dni: Long): List<Turno> {
-          return turnoDAO.turnosAsignadosAUsuarioPor(dni)
+    override fun recuperarTurnosDe(id: Long): List<Turno> {
+          return turnoDAO.turnosAsignadosAUsuarioPor(id)
     }
 
     override fun borrarUsuarioDeTodosSusTurnos(usuarioId: Int) {

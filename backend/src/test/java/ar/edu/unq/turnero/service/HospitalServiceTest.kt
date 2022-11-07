@@ -68,7 +68,6 @@ class HospitalServiceTest {
         service.crear(evitaPueblo)
 
         turno1Evita = Turno("20/10/2022 19:00 hs", pediatria, "Julieta Gomez", evitaPueblo)
-        turno2Evita = Turno("Chiquito Garcia", 54679333, 1123409876, "perez@gmail.com", "08/11/2022  17:30 hs", "vjgvtyvv", pediatria, "Carlos Ameghino", evitaPueblo)
         turno3Evita = Turno("02/11/2022 11:15 hs", nefrologia, "Juana Molina", evitaPueblo)
 
         elCruce = Hospital(
