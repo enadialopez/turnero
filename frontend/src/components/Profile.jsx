@@ -75,7 +75,7 @@ const Profile = () => {
 
     useEffect(() => {
       if (isLogged) {
-        Service.getTurnosAsignadosBy(user.dni)
+        Service.getTurnosAsignadosBy(user.id)
         .then(response => {
           setTurnos(response.data)
         })
@@ -102,7 +102,7 @@ const Profile = () => {
       </div>
       <TextField label= "Nombre y Apellido" className = {styles.modalInputs} value={user.nombreYApellido} onChange={handleChange("nombreYApellido")} />
       <br/> <br/>
-      <TextField label= "Imagen" className = {styles.modalInputs} value={user.image} onChange={handleChange("imagen")} />
+      <TextField label= "Imagen" className = {styles.modalInputs} value={user.image} onChange={handleChange("image")} />
       <br/> <br/>
       <TextField label= "Email" className = {styles.modalInputs} value={user.email} onChange={handleChange("email")} />
       <br/> <br/>
