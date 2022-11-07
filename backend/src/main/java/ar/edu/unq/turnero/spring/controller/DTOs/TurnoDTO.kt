@@ -6,16 +6,12 @@ import ar.edu.unq.turnero.modelo.exception.EspecialidadVacioException
 
 class TurnoDTO(
     var id: Long?,
-    var nombreYApellidoPaciente:String?,
-    var dniPaciente: Long?,
-    var telefonoPaciente: Long?,
-    var emailPaciente: String?,
     var fechaYHora: String?,
     var fechaEmitido: String?,
     var especialidad: String?,
     var especialista:  String?,
     var hospital: MiniHospitalDTO?,
-    var paciente: MiniUsuarioDTO?,
+    var paciente: PacienteDTO?,
 ) {
 
     companion object {
@@ -23,26 +19,18 @@ class TurnoDTO(
         fun desdeModelo(turno: Turno) =
             TurnoDTO(
                 id = turno.id,
-                nombreYApellidoPaciente = turno.nombreYApellidoPaciente,
-                dniPaciente = turno.dniPaciente,
-                telefonoPaciente = turno.telefonoPaciente,
-                emailPaciente = turno.emailPaciente,
                 fechaYHora = turno.fechaYHora,
                 fechaEmitido = turno.fechaEmitido,
                 especialidad = turno.especialidad.toString().toLowerCase(),
                 especialista = turno.especialista,
                 hospital = MiniHospitalDTO(turno.hospital!!.id, turno.hospital!!.nombre, turno.hospital!!.direccion, turno.hospital!!.especialidades.map { especialidad -> especialidad.toString().toLowerCase()}
                     .toCollection(HashSet()).toList(),),
-                paciente = MiniUsuarioDTO(turno.paciente?.id, turno.paciente?.email, turno.paciente?.password))
+                paciente = PacienteDTO(turno.paciente?.id, turno.paciente?.nombreYApellido, turno.paciente?.dni, turno.paciente?.email, turno.paciente?.telefono))
     }
 
     fun aModelo(): Turno {
         val turno = Turno()
         turno.id = this.id
-        turno.nombreYApellidoPaciente = this.nombreYApellidoPaciente!!
-        turno.dniPaciente = this.dniPaciente!!
-        turno.telefonoPaciente = this.telefonoPaciente!!
-        turno.emailPaciente = this.emailPaciente!!
         turno.fechaYHora = this.fechaYHora!!
         turno.fechaEmitido = this.fechaEmitido!!
         turno.especialidad = toEnum(this.especialidad)
@@ -53,10 +41,6 @@ class TurnoDTO(
     }
 
     fun aModelo(turno: Turno): Turno {
-        turno.nombreYApellidoPaciente = this.nombreYApellidoPaciente!!
-        turno.dniPaciente = this.dniPaciente!!
-        turno.telefonoPaciente = this.telefonoPaciente!!
-        turno.emailPaciente = this.emailPaciente!!
         turno.paciente = this.paciente?.aModelo()
         return turno
     }

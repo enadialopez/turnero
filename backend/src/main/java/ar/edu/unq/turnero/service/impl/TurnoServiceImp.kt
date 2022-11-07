@@ -32,8 +32,8 @@ open class TurnoServiceImp(
     }
 
     private fun validarActualizacion(turno : Turno) {
-        if(turno.nombreYApellidoPaciente == "" || turno.dniPaciente == null ||
-            turno.telefonoPaciente == null || turno.emailPaciente == "") {
+        if(turno.paciente?.nombreYApellido == "" || turno.paciente?.dni == null ||
+            turno.paciente?.telefono == null || turno.paciente?.email == "") {
             throw StringVacioException()
         }
     }
