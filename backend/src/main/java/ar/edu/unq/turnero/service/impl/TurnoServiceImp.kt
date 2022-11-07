@@ -65,6 +65,10 @@ open class TurnoServiceImp(
         return turnoDAO.findByHospitalIdAndEspecialidadAndDniPacienteIsNull(idDeHospital.toLong(), toEnum(especialidad))
     }
 
+    override fun recuperarTurnosPorHospital(idDeHospital: Long): List<Turno> {
+        return turnoDAO.turnosDeHospital(idDeHospital)
+    }
+
     override fun recuperarTurnosDe(dni: Long): List<Turno> {
           return turnoDAO.turnosAsignadosAUsuarioPor(dni)
     }
