@@ -13,7 +13,7 @@ export const Service = {
     postSMS: function(data) { return axios.post(`http://localhost:8080/sms`, data)},
     deleteUser: function(id) { return axios.delete(`http://localhost:8080/usuario/${id}`)},
     getTurnosAsignadosBy(dni) { return axios.get(`http://localhost:8080/turno/usuario/${dni}`)},
-    putActualizarPerfil: function(id) {return axios.put(`http://localhost:8080/usuario/${id}`)},
+    putActualizarPerfil: function(id, data) {return axios.put(`http://localhost:8080/usuario/${id}`, data)},
     deleteTurno: function(id) { return axios.delete(`http://localhost:8080/turno/${id}`)},
 }
 

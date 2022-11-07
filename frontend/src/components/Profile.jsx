@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import Navbar from '../components/Navbar'
 import Service from '../service/service'
 import TurnoModel from './TurnoModel'
-import {Modal, TextField, Button} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { Modal, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import '../styles/Profile.css'
 
@@ -13,38 +13,44 @@ const Profile = () => {
     const [user, setUser] = useState({
         id: "",
         nombreYApellido: "",
-        image: "https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280-580x580.jpg",
+        image: "",
         dni: "",
         email: "",
         telefono: "",
         password: "",
-    })
+    });
     const [turnos, setTurnos] = useState([]);
     const navigate = useNavigate();
     const isLogged = !!localStorage.getItem("token");
-
-    axios.defaults.headers['authorization'] = localStorage.getItem('token');
-
+    const [editError, setEditError] = useState (false);
+    const [editErrorName, setEditErrorName] = useState("");
     const styles = useStyles();
-
     const [modal, setModal]=useState(false);
     const abrirCerrarModal=()=> {
       setModal(!modal)
     }
 
+  axios.defaults.headers['authorization'] = localStorage.getItem('token');
+
+
     const handleChange = name => event => {
       setUser(prevState => ({ ...prevState, [name]: event.target.value }));
   };
 
-  const handleSub = (event) => {
-    handleSubmit(event)
-    abrirCerrarModal()
-  }
-
   const handleSubmit = (event) =>{
-    event.preventDefault(); 
-    Service.putActualizarPerfil(user.id)
-    
+    Service.putActualizarPerfil(user.id, user)
+    .then(_ => {
+      setUser((prevState)=>({
+        ...prevState,
+        image: user.image,
+      }));
+      setModal(!modal);
+      window.location.reload();  
+    })
+    .catch(err => {
+      setEditError(true)
+      setEditErrorName(err.response.data.message);  
+  })
   };
 
     useEffect(() => {
@@ -55,10 +61,11 @@ const Profile = () => {
               ...prevState,
               id: response.data.id,
               nombreYApellido: response.data.nombreYApellido,
+              image: response.data.image,
               dni: response.data.dni,
               email: response.data.email,
               telefono: response.data.telefono,  
-              turnosAsignados: response.data.turnosAsignados,
+              password: response.data.password
             }));
           }).catch(error => {
             console.log(error)
@@ -74,7 +81,7 @@ const Profile = () => {
         })
         .catch(error => {
           console.log(error)
-      })}}, [user.dni]
+      })}}, [user, isLogged]
   );  
 
     const deleteAccount = () => {
@@ -95,17 +102,18 @@ const Profile = () => {
       </div>
       <TextField label= "Nombre y Apellido" className = {styles.modalInputs} value={user.nombreYApellido} onChange={handleChange("nombreYApellido")} />
       <br/> <br/>
-      <TextField label= "Image" className = {styles.modalInputs} value={user.image} onChange={handleChange("imagen")} />
+      <TextField label= "Imagen" className = {styles.modalInputs} value={user.image} onChange={handleChange("imagen")} />
       <br/> <br/>
       <TextField label= "Email" className = {styles.modalInputs} value={user.email} onChange={handleChange("email")} />
       <br/> <br/>
       <TextField label= "Telefono" className = {styles.modalInputs} value={user.telefono} onChange={handleChange("telefono")} />
       <br/> <br/>
-      <TextField label= "Contraseña" className = {styles.modalInputs} value={user.password} onChange={handleChange("password")} />
+      <TextField label= "Contraseña" type="password" className = {styles.modalInputs} value={user.password} onChange={handleChange("password")} />
       <br/> <br/>
-      <div align="right">
-        <Button onClick={handleSub} className={styles.buttonProfile} >Aceptar</Button>
-        <Button onClick={()=>abrirCerrarModal()} className={styles.buttonProfile} >Cancelar</Button>
+      <div align="center">
+      { editError && (<div id='alert-login' className="alert alert-danger" role="alert">{editErrorName}</div>) }
+        <Button onClick={() => handleSubmit()} className={styles.buttonProfile} >Aceptar</Button>
+        <Button onClick={() => setModal(!modal)} className={styles.buttonProfile} >Cancelar</Button>
       </div>
     </div>
   )
@@ -126,12 +134,10 @@ const Profile = () => {
                           <div className='info'><p className='info-title'>DNI: </p>{user.dni}</div>
                           <div className='info'><p className='info-title'>Telefono: </p>{user.telefono}</div>
                           <div className='info'><p className='info-title'>Email: </p>{user.email}</div>
-
                         </div> 
-                        
                         <div className='box-right col-lg-8 col-md-8 col-sm-8 col-xs-8'>
                           <div className={styles.button}>
-                            <Button className={styles.buttonProfile} onClick={()=>abrirCerrarModal()} >Editar perfil</Button>
+                            <Button className={styles.buttonProfile} onClick={()=>setModal(!modal)}>Editar perfil</Button>
                               <Modal
                                 open={modal}
                                 onClose={abrirCerrarModal}>
@@ -191,8 +197,9 @@ const useStyles = makeStyles((theme)=>({
     width: "100px",
     height: "30px",
     margin: "15px",
-    fontSize: "10px",
+    fontSize: "12px",
     fontWeight: 500,
+    textTransform: "none",
     borderRadius: "10px",
     backgroundColor:'rgb(21, 16, 103)',
     gap: "20px",
