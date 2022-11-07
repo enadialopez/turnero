@@ -22,15 +22,12 @@ const FormTurno = () => {
     });
     const [turno, setTurno] = useState({
         id: "",
-        nombreYApellidoPaciente: "",
-        dniPaciente: "",
-        telefonoPaciente: "",
-        emailPaciente: "",
         fechaYHora: "",
         fechaEmitido: "",
         especialidad: "",
         especialista: "",
         hospital: "",
+        paciente: "",
     })
     const [sendSMS, setSendSMS] = useState(false);
     const [data, setData] = useState({
@@ -59,10 +56,7 @@ const FormTurno = () => {
                     especialidad: turno.especialidad,
                     especialista: turno.especialista,
                     hospital: turno.hospital,
-                    nombreYApellidoPaciente: user.nombreYApellido,
-                    dniPaciente: user.dni,
-                    telefonoPaciente: user.telefono,
-                    emailPaciente: user.email,
+                    paciente: user
                 }))
             }
         });
@@ -155,6 +149,8 @@ const FormTurno = () => {
         turnoByFecha(fechaSeleccionada);
     }, [fechaSeleccionada]
     );
+
+    console.log(turno)
 
     return (
         <>
