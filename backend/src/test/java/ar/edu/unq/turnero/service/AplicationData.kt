@@ -66,11 +66,11 @@ class AplicationData {
     var dermatologia: Especialidad = Especialidad.DERMATOLOGIA
     var oncologia: Especialidad = Especialidad.ONCOLOGIA
 
-    var user1: Usuario = Usuario("Candela Aguayo", null, 42073811, "candelaaguayo@yahoo.com",
+    var user1: Usuario = Usuario("Candela Aguayo", 42073811, "candelaaguayo@yahoo.com",
         1124456734, "12345678")
-    var user2: Usuario = Usuario("Marcos Galante", null, 42073822, "marcosgalante@gmail.com",
+    var user2: Usuario = Usuario("Marcos Galante", 42073822, "marcosgalante@gmail.com",
         1113456734, "45678912")
-    var user3: Usuario = Usuario("Ximena Jida", null, 42043821, "ximejida@hotmail.com",
+    var user3: Usuario = Usuario("Ximena Jida", 42043821, "ximejida@hotmail.com",
         1133456734, "78912345")
 
     @BeforeEach

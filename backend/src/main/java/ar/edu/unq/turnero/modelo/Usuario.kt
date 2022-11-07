@@ -10,7 +10,7 @@ class Usuario() {
     var id: Long? = null
     @Column(nullable = false, length = 500)
     var nombreYApellido: String? = null
-    var image: String? = null
+    var image: String? = "https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280-580x580.jpg"
     var dni: Long? = null
     var telefono: Long? = null
     var token: String? = null
@@ -18,14 +18,18 @@ class Usuario() {
     @Column(unique = true)
     var email: String? = null
 
-    //@OneToMany(mappedBy = "paciente", cascade = [CascadeType.PERSIST, CascadeType.MERGE],
-    //    orphanRemoval = false, fetch = FetchType.LAZY)
-    //var turnosAsignados: MutableList<Turno> = mutableListOf<Turno>()
-
-    constructor(nombreYApellido: String, image: String?, dni: Long, email: String, telefono: Long, password: String):this() {
+    constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String):this() {
         this.nombreYApellido = nombreYApellido
-        this.image = image
         this.dni = dni
+        this.email = email
+        this.telefono = telefono
+        this.password = password
+    }
+
+    constructor(nombreYApellido: String, image: String, dni: Long, email: String, telefono: Long, password: String):this() {
+        this.nombreYApellido = nombreYApellido
+        this.dni = dni
+        this.image = image
         this.email = email
         this.telefono = telefono
         this.password = password
@@ -37,16 +41,9 @@ class Usuario() {
     }
 
     fun sacarTurno(turno: Turno) {
-        //this.turnosAsignados.add(turno)
         turno.asignarAPaciente(this)
     }
-/*
-    fun cancelarTurno(turno: Turno) {
-        turnosAsignados.map{ t -> if (t.equals(turno)) {
-            t.desasignarAPaciente()
-            turnosAsignados.remove(t)} }
-    }
-*/
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

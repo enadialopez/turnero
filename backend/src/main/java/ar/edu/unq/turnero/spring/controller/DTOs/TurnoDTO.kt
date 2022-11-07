@@ -20,11 +20,6 @@ class TurnoDTO(
 
     companion object {
 
-        fun toDTO(turnos: MutableList<Turno>): List<TurnoDTO> {
-            var listDTO = listOf<TurnoDTO>()
-            turnos.map { turno -> desdeModelo(turno) }
-            return listDTO
-        }
         fun desdeModelo(turno: Turno) =
             TurnoDTO(
                 id = turno.id,
@@ -64,13 +59,6 @@ class TurnoDTO(
         turno.emailPaciente = this.emailPaciente!!
         turno.paciente = this.paciente?.aModelo()
         return turno
-    }
-
-    private fun toEspecialidades( especialidades: MutableList<Especialidad> ) : List<String> {
-        var nuevasEspecialidades : List<String> = listOf()
-        especialidades.forEach { especialidad -> nuevasEspecialidades += especialidad.toString().toLowerCase() }
-
-        return nuevasEspecialidades
     }
 
     private fun toEnum(especialidad: String?): Especialidad {

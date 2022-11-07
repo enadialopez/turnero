@@ -67,7 +67,15 @@ class UsuarioController(private val usuarioService: UsuarioService) {
     }
 
     @PutMapping("/{usuarioId}")
-    fun actualizar(@RequestBody usuario: UsuarioDTO) = usuarioService.actualizar(usuario.aModelo())
+    fun actualizar(@PathVariable usuarioId: Long, @RequestBody usuario: UsuarioEditDTO): ResponseEntity<Any> {
+        var usuarioRecuperado = usuarioService.recuperar(usuarioId.toInt())!!
+        try {
+            val usuario = usuarioService.actualizar(usuario.aModelo(usuarioRecuperado))
+            return ResponseEntity.ok().body(usuario)
+        } catch (error : Exception) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Message(error.cause!!.message!!))
+        }
+    }
 
     @GetMapping("/todos")
     fun recuperarTodos() = usuarioService.recuperarTodos().map { usuario -> UsuarioDTO.desdeModelo(usuario)  }
