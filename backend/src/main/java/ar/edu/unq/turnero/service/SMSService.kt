@@ -12,7 +12,7 @@ import java.net.URI
 class SMSService {
 
     private val ACCOUNT_SID: String? = "AC268d0b045d2b3e270fc1f1ff55f8e84b"
-    private val AUTH_TOKEN: String? = "fd04b805afff3ecad16b85d3fee7c8e9"
+    private val AUTH_TOKEN: String? = "68121216ded1e01170053200ba7314e9"
     private val FROM_NUMBER: String? = "+14634002242"
 
     fun send(sms: SMS) {
@@ -22,7 +22,6 @@ class SMSService {
         val message: Message = Message.creator(PhoneNumber(sms.to), PhoneNumber(FROM_NUMBER), sms.message)
             .setStatusCallback(URI.create("http://677add1a.ngrok.io/smscallback"))
             .create()
-        System.out.println("here is my id:" + message.getSid()) // Unique resource ID created to manage this transaction
     }
 
     fun receive(smscallback: MultiValueMap<String?, String?>?) {}
