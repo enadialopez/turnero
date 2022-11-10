@@ -10,7 +10,7 @@ class Usuario() {
     var id: Long? = null
     @Column(nullable = false, length = 500)
     var nombreYApellido: String? = null
-    var image: String? = "https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280-580x580.jpg"
+    var image: String? = ""
     var dni: Long? = null
     var telefono: Long? = null
     var token: String? = null
@@ -21,15 +21,6 @@ class Usuario() {
     constructor(nombreYApellido: String, dni: Long, email: String, telefono: Long, password: String):this() {
         this.nombreYApellido = nombreYApellido
         this.dni = dni
-        this.email = email
-        this.telefono = telefono
-        this.password = password
-    }
-
-    constructor(nombreYApellido: String, image: String, dni: Long, email: String, telefono: Long, password: String):this() {
-        this.nombreYApellido = nombreYApellido
-        this.dni = dni
-        this.image = image
         this.email = email
         this.telefono = telefono
         this.password = password

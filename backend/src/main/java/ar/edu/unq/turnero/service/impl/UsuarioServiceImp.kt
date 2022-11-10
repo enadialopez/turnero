@@ -19,6 +19,7 @@ open class UsuarioServiceImp(
 
     override fun crear(usuario: Usuario): Usuario {
         this.validarCampos(usuario)
+        this.validarImagen(usuario)
         return usuarioDAO.save(usuario)
     }
 
@@ -26,6 +27,12 @@ open class UsuarioServiceImp(
         if(validarNombreYApellido(usuario.nombreYApellido) || validarDNI(usuario.dni) || validarEmail(usuario.email)
             || validarPassword(usuario.password)) {
             throw StringVacioException()
+        }
+    }
+
+    private fun validarImagen(usuario: Usuario) {
+        if(usuario.image === "") {
+            usuario.image = "https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280-580x580.jpg"
         }
     }
 
