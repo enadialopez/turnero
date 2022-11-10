@@ -64,7 +64,7 @@ const Profile = () => {
               image: response.data.image,
               dni: response.data.dni,
               email: response.data.email,
-              telefono: response.data.telefono,  
+              telefono: "+54" + response.data.telefono,  
               password: response.data.password
             }));
           }).catch(error => {

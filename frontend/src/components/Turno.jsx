@@ -71,19 +71,17 @@ const Turno = () => {
                                     <p className='fecha-turno'>FECHA EMITIDO: {turno.fechaEmitido}</p> 
                             </div>
                             <div className='body-right'>
-                                    <p>SI NO PODES ASISTIR AL TURNO EN EL DIA Y 
+                                    <p>SI NO PUEDES ASISTIR AL TURNO EN EL DIA Y 
                                         HORARIO ASIGNADO, POR FAVOR CANCELALO.</p>
                             </div>
                         </div>
-                        <div className="footer">
+                        <div className="footer-turno">
                             <div className="paciente-date">
                                 <p>PACIENTE: {turno.nombreYApellidoPaciente} </p>
                                 <p>DNI: {turno.dniPaciente}</p>
                             </div>
                         </div>
                     </div>   
-                </div>
-                <div className='button'>
                 </div>
             </div> 
         </> 

@@ -34,6 +34,7 @@ const FormTurno = () => {
         to: "+541130457224",
         message: "",
     });
+    const [showAlertSMS, setShowAlertSMS] = useState(false);
 
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
@@ -67,10 +68,9 @@ const FormTurno = () => {
     };
     
     const setMessage = () => {
-        setSendSMS(!sendSMS)
         setData((prevState)=>({
         ...prevState,
-            message: `Hola, ${user.nombreYApellido}. Usted tiene un turno el ${turno.fechaYHora} para ${turno.especialidad} con el especialista ${turno.especialista} en
+            message: `Hola, ${user.nombreYApellido}. Usted tiene un turno el ${turno.fechaYHora} para ${turno.especialidad} con el/la especialista ${turno.especialista} en
                  el hospital ${turno.hospital.nombre}`
         }));
     }
@@ -150,7 +150,15 @@ const FormTurno = () => {
     }, [fechaSeleccionada]
     );
 
+    const handleButtonClick = () => {
+        if (user.telefono === null && sendSMS) {
+            setShowAlertSMS(true)
+        }
+    }
+
     console.log(turno)
+    console.log(sendSMS)
+    console.log(showAlertSMS)
 
     return (
         <>
@@ -174,10 +182,11 @@ const FormTurno = () => {
                                     })}
                                 </select>
                             </div>
-                                <input type="checkbox" onClick={() => setMessage()}/>
+                                <input type="checkbox" onClick={() => {setSendSMS(!sendSMS); setMessage()}}/>
                                 <label htmlFor="sms" className='sms'> Recibir Notificación por mensaje de texto</label>
+                                { showAlertSMS ? <div className="alert alert-danger" id='alertSMS' role="alert">Debe tener un telefono registrado para poder ser notificado</div> : "" }
                             <div className="turno-button-content">
-                                <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
+                                <button type="submit" className="btn-btn btn-info" onClick={() => handleButtonClick()}>Confirmar turno</button>
                             </div>
                         </form>     
                     </div>     

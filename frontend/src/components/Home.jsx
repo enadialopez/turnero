@@ -2,13 +2,15 @@ import React, { useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
 import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
 import '../styles/Home.css';
 
 const Home = () => {
 
     const [selection, setSelection] = useState(""); 
     const [search, setSearch] = useState("");
-    const [showAlert, setShowAlert] = useState (false)
+    const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
     const changeSearch = (event) => setSearch(event.target.value);
     const navigate = useNavigate();
 
@@ -16,20 +18,30 @@ const Home = () => {
         setSelection(value)
         setShowAlert(false)
     }
+    const changeState = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            goSearchResults();
+        }, 2000);
+    }
 
     const goSearchResults = () => {
-        navigate("/hospital/search?q=" + search + "&value=" + selection) ;
+        navigate("/hospital/search?q=" + search + "&value=" + selection);
     };
+
+
 
     const handleButtonClick = () => {
         if (selection === "") {
             setShowAlert(true)
         } else {
-            goSearchResults()
+            changeState();
         }
-    }
+    };
 
-    return (
+    if (!loading) {
+        return (
         <>
             <div className="navbar">
                 <Navbar/>
@@ -48,9 +60,6 @@ const Home = () => {
                             <button onClick={() => handleButtonClick(search, selection)} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
                         </div>
                     </div>
-                    <div className='text-2'>
-                        
-                    </div>
                     <div className='search-checkbox'>
                         <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("nombre")} required/><label className='checkbox'>Nombre</label>
                         <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("municipio")} required/><label className='checkbox'>Municipio</label>
@@ -58,8 +67,24 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <div className='footer'>
+            <span class="copyleft">&copy;</span>{ new Date().getFullYear() }{" | Desarrollado para Elementos de Ingeniería de Software, UNQ."}
+            </div>  
         </>  
-    );
-  }
+        );
+    } else {
+        return ( 
+            <>
+               <div className="home-loading">
+                    <Navbar/>
+                    <div className='loading'>
+                        <Loading/>
+                    </div>
+               </div>
+            </>
+            
+        )
+    }
+}
   
   export default Home;

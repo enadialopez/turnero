@@ -66,7 +66,7 @@ const Register = () => {
                             <label>Email(*)</label>
                             <input className="form-input" type='email' name="email" value={data.email} onChange={handleChange("email")} placeholder="example@gmail.com" required></input>
                             <label className='label'>Telefono</label>
-                            <input className="form-input" type='text' name="telefono" value={data.telefono} onChange={handleChange("telefono")} placeholder=" +541122334455"></input>
+                            <input className="form-input" type='text' name="telefono" value={data.telefono} onChange={handleChange("telefono")} placeholder=" 1122334455"></input>
                             <label>Contraseña(*)</label>
                             <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Debe contener al menos 8 caracteres" required></input> 
                         </div>
