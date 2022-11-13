@@ -23,14 +23,12 @@ const Home = () => {
         setTimeout(() => {
             setLoading(false);
             goSearchResults();
-        }, 2000);
+        }, 1000);
     }
 
     const goSearchResults = () => {
         navigate("/hospital/search?q=" + search + "&value=" + selection);
     };
-
-
 
     const handleButtonClick = () => {
         if (selection === "") {
@@ -68,7 +66,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='footer'>
-            <span class="copyleft">&copy;</span>{ new Date().getFullYear() }{" | Desarrollado para Elementos de Ingeniería de Software, UNQ."}
+            <span className="copyleft">&copy;</span>{ new Date().getFullYear() }{" | Desarrollado para Elementos de Ingeniería de Software, UNQ."}
             </div>  
         </>  
         );

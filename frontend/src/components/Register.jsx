@@ -72,7 +72,6 @@ const Register = () => {
                         </div>
                         {registerError && (<div id='alert-register' className="alert alert-danger" role="alert">{registerErrorName}</div>) }
                         <button type="submit" className="btn-info b-register">REGISTRARSE</button>
-                        
                     </form>
                     <div className='modalFooter-register'>
                     </div>

@@ -31,7 +31,7 @@ const FormTurno = () => {
     })
     const [sendSMS, setSendSMS] = useState(false);
     const [data, setData] = useState({
-        to: "+541130457224",
+        to: "",
         message: "",
     });
     const [showAlertSMS, setShowAlertSMS] = useState(false);
@@ -70,8 +70,8 @@ const FormTurno = () => {
     const setMessage = () => {
         setData((prevState)=>({
         ...prevState,
-            message: `Hola, ${user.nombreYApellido}. Usted tiene un turno el ${turno.fechaYHora} para ${turno.especialidad} con el/la especialista ${turno.especialista} en
-                 el hospital ${turno.hospital.nombre}`
+            to: "+54"+`${user.telefono}`,
+            message: `Hola, ${user.nombreYApellido}. Usted tiene un turno el ${turno.fechaYHora} para ${turno.especialidad} con el/la especialista ${turno.especialista} en el hospital ${turno.hospital.nombre}`
         }));
     }
 
@@ -86,21 +86,25 @@ const FormTurno = () => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        Service.putActualizarTurno(turno.id, turno)
-        .then(_ => {
-            setTurno((prevState)=>({
-            ...prevState,
-            nombreYApellidoPaciente: user.nombreYApellido,
-            dniPaciente: user.dni,
-            telefonoPaciente: user.telefono,
-            emailPaciente: user.email,
-            }));
-            sendMessage();
-            navigate(`/hospital/turno/${turno.id}`);
-        }).catch(err => 
-            console.log(err)
-        );
+        if (user.telefono === null && sendSMS) {
+            setShowAlertSMS(true);
+        } else {
+            event.preventDefault();
+            Service.putActualizarTurno(turno.id, turno)
+            .then(_ => {
+                setTurno((prevState)=>({
+                ...prevState,
+                nombreYApellidoPaciente: user.nombreYApellido,
+                dniPaciente: user.dni,
+                telefonoPaciente: user.telefono,
+                emailPaciente: user.email,
+                }));
+                sendMessage();
+                navigate(`/hospital/turno/${turno.id}`);
+            }).catch(err => 
+                console.log(err)
+            );
+        }
     };
     
     useEffect(() => {
@@ -159,6 +163,7 @@ const FormTurno = () => {
     console.log(turno)
     console.log(sendSMS)
     console.log(showAlertSMS)
+    console.log(data)
 
     return (
         <>
@@ -186,7 +191,7 @@ const FormTurno = () => {
                                 <label htmlFor="sms" className='sms'> Recibir Notificación por mensaje de texto</label>
                                 { showAlertSMS ? <div className="alert alert-danger" id='alertSMS' role="alert">Debe tener un telefono registrado para poder ser notificado</div> : "" }
                             <div className="turno-button-content">
-                                <button type="submit" className="btn-btn btn-info" onClick={() => handleButtonClick()}>Confirmar turno</button>
+                                <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
                             </div>
                         </form>     
                     </div>     
