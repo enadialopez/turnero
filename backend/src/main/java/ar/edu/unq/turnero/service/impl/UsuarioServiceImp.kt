@@ -84,9 +84,17 @@ open class UsuarioServiceImp(
 
     private fun validarActualizacion(usuario: Usuario) {
          if (validarNombreYApellido(usuario.nombreYApellido) || validarPassword(usuario.password) ||
-                 validarEmailDeUsuario(usuario.email!!)) {
+                 validarEmailDeUsuario(usuario.email!!) || validarTelefono(usuario.telefono)){
              throw StringVacioException()
          }
+    }
+
+    private fun validarTelefono(telefono: Long?) : Boolean {
+        if(telefono != null && telefono.toString().length != 10) {
+            return throw TelefonoInvalidoException()
+        } else {
+        return false
+        }
     }
 
     private fun validarEmailDeUsuario(email: String?) : Boolean {
