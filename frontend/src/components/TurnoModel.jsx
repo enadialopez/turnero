@@ -7,7 +7,6 @@ import '../styles/TurnoModel.css'
 const TurnoModel = (props) => {
 
   const { turno } = props
-
   const [stateModal, setStateModal] = useState(false);
 
   const deleteAccount = () => {

@@ -27,11 +27,10 @@ const Profile = () => {
     const styles = useStyles();
     const [modal, setModal]=useState(false);
     const abrirCerrarModal=()=> {
-      setModal(!modal)
+      setModal(!modal);
     }
 
     axios.defaults.headers['authorization'] = localStorage.getItem('token');
-
 
     const handleChange = name => event => {
       setUser(prevState => ({ ...prevState, [name]: event.target.value }));
@@ -52,14 +51,6 @@ const Profile = () => {
         setEditErrorName(err.response.data.message);  
     })
     };
-
-    const setTelefono = (number) => {
-        if (number.lentgh === 10) {
-          return "+54" + number;
-        } else {
-          return ""
-        }
-    }
 
     useEffect(() => {
         if (isLogged){

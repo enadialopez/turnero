@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiOutlineCloseCircle }from 'react-icons/ai';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Service from '../service/service';
 import axios from 'axios';
@@ -51,7 +51,7 @@ const Register = () => {
         <>
             <div className="register-container">
                 <div className="form-register-card" > 
-                    <div className="btn-close" onClick={() => goHome()} > 
+                    <div className="btn-close-register" onClick={() => goHome()} > 
                         <AiOutlineCloseCircle/>  
                     </div>
                     <p className="form-title">REGISTRATE EN TURNERO</p>

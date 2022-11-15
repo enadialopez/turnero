@@ -17,14 +17,15 @@ const Home = () => {
     const changeSelectValue = (value) => {
         setSelection(value)
         setShowAlert(false)
-    }
+    };
+    
     const changeState = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
             goSearchResults();
         }, 1000);
-    }
+    };
 
     const goSearchResults = () => {
         navigate("/hospital/search?q=" + search + "&value=" + selection);
