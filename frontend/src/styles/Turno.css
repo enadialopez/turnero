@@ -2,13 +2,14 @@
     padding: 30px;
     display: grid;
     justify-content: center;
+    color: white;
 }
 
 .title-turno {
     display: flex;
     justify-content: left;
     margin-bottom: 30px;
-    color: black;
+    color: white;
 }
 
 .card-turno {
@@ -19,9 +20,9 @@
 
 .box-turno {
     width: 1200px;
-    background-color: gainsboro;
+    background-color: rgb(60, 68, 120);
     border-style:groove;
-    border-color: black;
+    border-color: white;
     border-width:2px;
     border-radius: 5px;
 }
@@ -53,7 +54,7 @@
 .body-left, .body-right {
     width: 100%;
     border-style:groove;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     padding: 10px;
     width: 100%;

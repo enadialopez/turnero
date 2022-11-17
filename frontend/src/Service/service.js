@@ -2,6 +2,7 @@ import axios from "axios"
 
 export const Service = {
     getHospitalById: function(id) {return axios.get(`http://localhost:8080/hospital/${id}`)},
+    getHospitales: function() {return axios.get(`http://localhost:8080/hospital`)},
     getSearch: function(data, select) {return axios.get(`http://localhost:8080/hospital/search?q=${data}&value=${select}`)},
     getTurnosDeHospital(id) { return axios.get(`http://localhost:8080/turno/todos/${id}`)},
     getTurnosDisponiblesBy(id, especialidad) {return axios.get(`http://localhost:8080/turno/todos/${id}/${especialidad}`)},

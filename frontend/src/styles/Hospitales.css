@@ -1,0 +1,44 @@
+.hospitales-container{
+    display: grid;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    color: #ffffff;
+    padding: 30px;
+}
+
+.title-hospitales {
+    color: white;
+    font-size: 40px;
+    font-weight: 500;
+    text-indent: 40px;
+}
+
+.block-pad-hospital {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+    border-style: hidden;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    margin: 10px;
+    margin-left: 40px;
+    background-color: #080a2a;
+    border-color: #3f3f3f;
+    border-radius: 5px;
+}
+
+.hospital-name {
+  text-indent: 20px;
+  font-size: 17px;
+  font-weight: 500;
+}
+.hospitales-box {
+    padding: 30px;
+    width: 1500px;
+    display: grid;
+    grid-column:unset;
+}

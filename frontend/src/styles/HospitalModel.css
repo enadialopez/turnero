@@ -1,21 +1,20 @@
 .hospitalModel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-style: groove;
     border-radius: 20px;
-    margin: 20px;
-    max-width: 250px;
-    height: 150px;
-    background-image: url("https://previews.123rf.com/images/tirachard/tirachard1709/tirachard170900068/86897254-fondo-borroso-interior-hermoso-del-hospital-y-de-la-cl%C3%ADnica-de-lujo-hermoso-de-la-falta-de-definici%C3%B3.jpg");
+    margin: 10px;
+    width: 300px;
+    height: 200px;
+    background-image: url("https://media.istockphoto.com/id/1364075546/es/foto/pasillo-vac%C3%ADo-en-el-hospital-moderno-con-mostrador-de-informaci%C3%B3n-y-cama-de-hospital-en-las.jpg?s=612x612&w=0&k=20&c=etsqAKICzWoL521_ACpmy-6-TIw4cdj8EZqoqYnD5mc=");
     background-repeat:no-repeat;
     background-position-x:center;
     background-position-y:center;
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.85;
+    opacity: 0.75;
     cursor: pointer;
     color: black;
-    
 }
 
 .link {
@@ -30,13 +29,17 @@
 
 .hospitalModel-container:hover {
     opacity: 2.5;
-    transform: scale(1.07);
+    transform: scale(1.02);
+}
+
+.box-image {
+    
 }
 
 .selection-name {
     text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 900;
 }
 

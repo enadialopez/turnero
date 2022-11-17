@@ -32,7 +32,7 @@ const Search = () => {
             <div className="search-container">
                 <div className="content">  
                     <div className="text-result">
-                        <p>Tu resultado por {value}: {hospitales.length} </p>
+                        <p>Resultado por {value}: {hospitales.length} </p>
                     </div>
                     <div>    
                         { hospitales.length > 0 ?

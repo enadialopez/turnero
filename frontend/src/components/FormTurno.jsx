@@ -35,7 +35,7 @@ const FormTurno = () => {
         message: "",
     });
     const [showAlertSMS, setShowAlertSMS] = useState(false);
-
+    const [showAlertFecha, setShowAlertFecha] = useState(false);
     const [turnos, setTurnos] = useState([]);
     const [fechaSeleccionada, setFechaSeleccionada] = useState("");
     const isLogged = !!localStorage.getItem("token");
@@ -88,7 +88,10 @@ const FormTurno = () => {
     const handleSubmit = (event) => {
         if (user.telefono === null && sendSMS) {
             setShowAlertSMS(true);
-        } else {
+        } else if (fechaSeleccionada === "") {
+            setShowAlertFecha(true);
+        } 
+         else {
             event.preventDefault();
             Service.putActualizarTurno(turno.id, turno)
             .then(_ => {
@@ -100,7 +103,7 @@ const FormTurno = () => {
                 emailPaciente: user.email,
                 }));
                 sendMessage();
-                navigate(`/hospital/turno/${turno.id}`);
+                navigate(`/turno/${turno.id}`);
             }).catch(err => 
                 console.log(err)
             );
@@ -151,19 +154,8 @@ const FormTurno = () => {
     
     useEffect(() => {
         turnoByFecha(fechaSeleccionada);
-    }, [fechaSeleccionada]
+    }, [fechaSeleccionada, showAlertFecha, showAlertSMS]
     );
-
-    const handleButtonClick = () => {
-        if (user.telefono === null && sendSMS) {
-            setShowAlertSMS(true)
-        }
-    }
-
-    console.log(turno)
-    console.log(sendSMS)
-    console.log(showAlertSMS)
-    console.log(data)
 
     return (
         <>
@@ -182,7 +174,7 @@ const FormTurno = () => {
                                     <option defaultValue="">Seleccione fecha y horario...</option>
                                     { fechasDisponibles().map (turno => {
                                         return (
-                                            <option onClick={() => setFechaSeleccionada(turno)} key={turno.id} value={turno} selected={turno} required>{turno}</option>
+                                            <option onClick={() => {setFechaSeleccionada(turno); setShowAlertFecha(true) } } key={turno.id} value={turno} selected={turno} required>{turno}</option>
                                         );
                                     })}
                                 </select>
@@ -190,6 +182,7 @@ const FormTurno = () => {
                                 <input type="checkbox" onClick={() => {setSendSMS(!sendSMS); setMessage()}}/>
                                 <label htmlFor="sms" className='sms'> Recibir Notificación por mensaje de texto</label>
                                 { showAlertSMS ? <div className="alert alert-danger" id='alertSMS' role="alert">Debe tener un telefono registrado para poder ser notificado</div> : "" }
+                                { showAlertFecha ? <div className="alert alert-danger" id='alertSMS' role="alert">Debe seleccionar una fecha y horario</div> : "" }
                             <div className="turno-button-content">
                                 <button type="submit" className="btn-btn btn-info">Confirmar turno</button>
                             </div>

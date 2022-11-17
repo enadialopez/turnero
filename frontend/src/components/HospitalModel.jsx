@@ -32,6 +32,8 @@ const HospitalModel = (props) => {
     return (
         <>
             <div className="hospitalModel-container" onClick={() => goFormTurnoOrEspecialidadesIf()}>  
+                <div className='box-image'>
+                </div>
                 <div className='box-description'>
                     <div className="name-selection">  
                         <p className="selection-name" >{hospital.nombre}</p> 

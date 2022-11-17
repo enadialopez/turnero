@@ -1,23 +1,13 @@
 import React, { useState } from "react"
 import styled from 'styled-components'
-import Modal from './Modal'
-import Service from '../service/service'
+import CancelarTurno from "./modals/CancelarTurno"
 import '../styles/TurnoModel.css'
+
 
 const TurnoModel = (props) => {
 
   const { turno } = props
   const [stateModal, setStateModal] = useState(false);
-
-  const deleteAccount = () => {
-    Service.deleteTurno(turno.id)
-    .then( _ => { 
-      setStateModal(!stateModal)
-      window.location.reload();  
-    }).catch(error => {
-      console.log(error)
-    });
-  };
 
   return (
       <>  
@@ -31,19 +21,7 @@ const TurnoModel = (props) => {
             <ContenedorBotones>
               <Boton onClick={() => setStateModal(!stateModal)}>Cancelar</Boton>
             </ContenedorBotones>      
-            <Modal
-              state={stateModal}
-              setState={setStateModal}
-              title="¿Desea cancelar su turno?"
-              >
-              <Contenido>
-                <p className="message-modalCancelar"></p>
-                <BotonesConfirmacion>
-                  <Boton onClick={() => deleteAccount()}>Si</Boton>
-                  <Boton onClick={() => setStateModal(!stateModal)}>No</Boton>
-                </BotonesConfirmacion>
-              </Contenido>
-            </Modal> 
+            <CancelarTurno state={stateModal} setState={setStateModal} turno={turno}/> 
           </div>
         </div>
       </>
@@ -58,13 +36,6 @@ export default TurnoModel;
     justify-content:center;
     gap: 20px;
   `;
-  
-  const BotonesConfirmacion = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    margin-top: -20px;
-  `;
 
   const Boton = styled.button`
     display: block;
@@ -75,29 +46,18 @@ export default TurnoModel;
     border: none;
     margin: 5px;
     font-size: 12px;
-    background: rgb(21, 16, 103);
+    border-color:#A9D35A;
+    background-color:#A9D35A;
+    color:black;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     transition: .3s ease all;
+    &:hover {
+      border-color:#26B5A8;
+      background-color:#26B5A8;
+      color: white;
+    }
   `;
 
-  const Contenido = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    h1 {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    img {
-      width: 100%;
-      vertical-align: top;
-      border-radius: 3px;
-    }
-  `;
+  

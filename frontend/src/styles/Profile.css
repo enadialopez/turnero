@@ -4,11 +4,12 @@
     align-items: center;
     padding: 20px;
     min-height: 80vh;
+    color: rgb(255, 255, 255);
 }
 
 .profile-dates , .profile-turnos {
-    width: 1040px;
-    background: radial-gradient(circle, rgb(200, 200, 200) 10%, rgb(203, 203, 203)48%, rgb(211, 211, 211) 91%);
+    width: 1370px;
+    background: radial-gradient(circle, rgba(24, 22, 80, 0.5) 10%, rgba(19, 17, 69, 0.5)48%, rgba(24, 20, 81, 0.5) 91%);
     justify-content: left;
     margin: 10px;
     border-radius: 10px;
@@ -19,7 +20,7 @@
 .image {
     border-radius: 10px;
     border-style:solid;
-    border-color: rgb(172, 172, 172);
+    border-color: rgb(172, 172, 172, 0.3);
 }
 
 .dates {
@@ -64,9 +65,10 @@
 }
 
 .profile-dates {
-    height: 150px;
+    height: 170px;
     display: flex;
-    line-height:20px
+    line-height:20px;
+    padding: 10px;
 }
 
 .ask {
@@ -97,28 +99,28 @@
 }
 
 .button-profile {
-    color: white;
+    color: black;
+    font-weight: 700;
     width: 100px;
     height: 30px;
     margin: 15px;
     font-size: 12px;
-    font-weight: 500;
     border-radius: 10px;
-    border-color:rgb(107, 107, 107);
-    background-color:rgb(21, 16, 103);
+    border-color:#A9D35A;
+    background-color:#A9D35A;
     font-family: 'Roboto', sans-serif;
 }
 
 #confirm {
     font-size: 10px;
     padding: 2px;
-    border-color:rgb(21, 16, 103);
-    background-color:rgb(21, 16, 103);
+    border-color:#A9D35A;
+    background-color:#A9D35A;
 }
 
 #confirm:hover {
-    border-color:rgb(4, 1, 59);
-    background-color:rgb(4, 1, 59);
+    border-color:#26B5A8;
+    background-color:#26B5A8;
 }
 
 .message-cuenta {

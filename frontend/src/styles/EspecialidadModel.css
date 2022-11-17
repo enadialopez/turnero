@@ -1,9 +1,9 @@
 .especialidad-container{
     display: flex;
     justify-content: column;
-    width: 100%;
+    width: 1500px;
     cursor: pointer;
-    color: black;
+    color: #26B5A8;
 }
 
 .block-pad {
@@ -17,8 +17,8 @@
     width: 100%;
     height: 50px;
     margin: 10px;
-    background-color: #015d3d;
-    border-color: #015537;
+    background-color: #080a2a;
+    border-color: #3f3f3f;
     border-radius: 5px;
 }
 
@@ -34,6 +34,6 @@
 }
 
 .alert-turnos {
-    color: aquamarine;
+    color: #A9D35A;
     margin: 5px 20px 5px 0px;
 }

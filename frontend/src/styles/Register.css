@@ -1,48 +1,19 @@
-body {
-    background-color: #04a76d ;
-  } 
-
-.register-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
-}
-
-.form-register-card {
-    width: 450px;
-    height: 600px;
-    border-width: 2px;
-    border-radius: 10px  ;
-    background-color: white;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
-
-.form-title {
-    font-size: 28px;
-    font-weight: 900;
-}
 
 .modal-inputs-register > label {
     display: flex;
-    text-indent: 60px;
-    font-size:8px;
-    justify-content: left;
-    text-align: left;
-    color: rgb(0, 0, 0);
-    font-weight: 700;
-    margin: 0px;
+    text-indent: 10px;
+    font-size:10px;
+    font-weight: 400;
+}
+
+.formModal {
+    margin-top: 20px;
 }
 
 .form-input {
     margin: 10px;
-    width: 70%;
-    height: 25px;
+    width: 90%;
+    height: 50px;
     border-radius: 5px;
     border-top-style:none;
     border-left-style:none;
@@ -51,26 +22,22 @@ body {
     border-color: rgb(185, 185, 185);
 }
 
-.btn-close-register {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    cursor: pointer;
-    width: 410px;
-}
-
 .b-register {
-    width: 70%;
-    height: 40px;
+    width: 90%;
+    height: 45px;
     border-radius: 10px;
-    border-color:rgb(21, 16, 103);
-    background-color:rgb(21, 16, 103);
-    margin-top: 20px;
+    border-color:#A9D35A;
+    background-color:#A9D35A;
+    color: black;
+    font-weight: 900;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: -10px;
   }
   
   .b-register:hover {
-    border-color:rgb(4, 1, 59);
-    background-color:rgb(4, 1, 59);
+    border-color:#26B5A8;
+    background-color:#26B5A8;
   }
 
   #alert-register {
@@ -83,3 +50,18 @@ body {
     margin: 25px 0px 0px 30px;
   }
 
+  .modalFooter-register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    color: white;
+    font-weight: 700;
+  }
+
+  .button-modal-footer {
+    color: black;
+    margin: 20px;
+  }

@@ -10,17 +10,17 @@
     flex-direction: row;
     justify-content:space-evenly;
     text-indent: 5px;
-    background-color:rgb(191, 191, 191);
+    background-color:rgb(191, 191, 191, 0.1);
     border-style:solid;
     border-width: 1px;
     border-radius: 5px;
-    border-color: black;
-    width: 1000px;
+    border-color: rgb(112, 112, 112);
+    width: 100%;
     min-height: 40px;
 }
 
 .button-turno {
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 12px;
     font-weight: 500;
     border-radius: 5px;
@@ -31,7 +31,7 @@
 
 .value-turno {
     margin: 10px;
-    font-size: 11px;
+    font-size: 12px;
     width: 20%;
 }
 

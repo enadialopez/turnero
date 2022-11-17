@@ -1,6 +1,7 @@
 import React, { useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
+import logo from '../logo2.png';
 import Navbar from '../components/Navbar';
 import Loading from '../components/Loading';
 import '../styles/Home.css';
@@ -18,7 +19,7 @@ const Home = () => {
         setSelection(value)
         setShowAlert(false)
     };
-    
+
     const changeState = () => {
         setLoading(true);
         setTimeout(() => {
@@ -46,25 +47,27 @@ const Home = () => {
                 <Navbar/>
             </div> 
             <div className="home-container">
-                <div className='text-1'>
-                    <p>BUSCAR PARA SACAR TURNO</p> 
-                </div>
-                <div className="search-content">  
-                    <div className='search-bar'>
-                        <div className='message-error'>
-                            { showAlert ? <div className="alert alert-success" role="alert">Debe seleccionar una opción para realizar la busqueda</div> : ""}
+                <div className="box-container">
+                    <div className='logo-home'>
+                        <img src={logo} alt="logo" height="200" width="400"/>
+                    </div>
+                    <div className="search-content">  
+                        <div className='search-bar'>
+                            <div className='message-error'>
+                                { showAlert ? <div className="alert alert-warning" role="alert">Debe seleccionar una opción para realizar la busqueda</div> : ""}
+                            </div>
+                            <div className='box-search'>
+                                <input className="search-btn" type="text" placeholder="Buscar hospital" aria-label="Search" onChange={changeSearch} />
+                                <button onClick={() => handleButtonClick(search, selection)} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
+                            </div>
                         </div>
-                        <div className='box-search'>
-                            <input className="search-btn" type="text" placeholder="Buscar hospital" aria-label="Search" onChange={changeSearch} />
-                            <button onClick={() => handleButtonClick(search, selection)} className="btn btn-secondary" type="submit"><AiOutlineSearch color="white" size={25}/></button>
+                        <div className='search-checkbox'>
+                            <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("nombre")} required/><label className='checkbox'>Nombre</label>
+                            <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("municipio")} required/><label className='checkbox'>Municipio</label>
+                            <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("especialidad")} required/><label className='checkbox'>Especialidad</label>
                         </div>
                     </div>
-                    <div className='search-checkbox'>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("nombre")} required/><label className='checkbox'>Nombre</label>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("municipio")} required/><label className='checkbox'>Municipio</label>
-                        <input type="radio" className="radio" name="1" onClick={ () => changeSelectValue("especialidad")} required/><label className='checkbox'>Especialidad</label>
-                    </div>
-                </div>
+                </div>  
             </div>
             <div className='footer'>
             <span className="copyleft">&copy;</span>{ new Date().getFullYear() }{" | Desarrollado para Elementos de Ingeniería de Software, UNQ."}

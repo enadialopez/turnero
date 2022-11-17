@@ -1,49 +1,22 @@
-import React, { useState } from 'react'
-import Service from '../service/service';
-import logo from '../logo.png';
+import React, { useState } from 'react';
+import { BsPersonCircle } from "react-icons/bs";
+import logo from '../logo-simple.png';
+import Register from "./modals/Register";
+import Login from "./modals/Login";
 import axios from 'axios';
+import styled from 'styled-components';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
 
-    const [data, setData] = useState({
-        email: "",
-        password: ""
-    });
-    const [loginError, setLoginError] = useState (false);
-    const [loginErrorName, setLoginErrorName] = useState("");
-    const isLogged = !!localStorage.getItem("token");
-
-    const handleChange = name => event => {
-        setData(prevState => ({ ...prevState, [name]: event.target.value }));
-    };
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        Service.postLogin(data)
-        .then(response => {
-            console.log(response)
-            localStorage.setItem("token", response.data.token);
-            window.location.reload();  
-          })
-        .catch(err => {
-            setLoginError(true)
-            setLoginErrorName(err.response.data.message);  
-        })
-    };  
-
-    const logout = () => {
-        localStorage.removeItem("userData");
-        localStorage.removeItem("token");
-    };
+    const [stateModalRegister, setStateModalRegister] = useState(false); 
+    const [stateModalLogin, setStateModalLogin] = useState(false);   
 
     const buttonsLogueado = () => {
         return(
             <>
                 <div className="buttons-content">
-                    <a className="button-nb" href={`/`} id="btn"> INICIO </a>
-                    <a className="button-nb" href={`/profile`} id="btn"> PERFIL </a>
-                    <a className="button-nb" href={"/"} onClick={() => logout()}  id="btn"> CERRAR SESIÓN</a>
+                    <a className="button-nb" href={`/profile`} id="btn">PERFIL <BsPersonCircle className='icon-profile'/></a>
                 </div>
             </>
         )
@@ -54,67 +27,55 @@ const Navbar = () => {
     const buttonsSinLoguearse = () => {
         return(
           <>
-            <a className="button-nb" href={`/`} id="btn"> INICIO </a>
-            <a className="button-nb" href="/register">REGISTRARSE</a>
+            <Boton onClick={() => setStateModalRegister(!stateModalRegister)}>REGISTRARSE</Boton>
+            <Register state={stateModalRegister} setState={setStateModalRegister} setStateLogin={setStateModalLogin}/>
+            <Boton onClick={() => setStateModalLogin(!stateModalLogin)}>INICIAR SESIÓN</Boton>
+            <Login state={stateModalLogin} setState={setStateModalLogin} setStateRegister={setStateModalRegister}/>
           </>  
         )
     };
 
-    const Buttons =  !!localStorage.getItem("token")  ? buttonsLogueado : buttonsSinLoguearse;  
+    const Buttons = !!localStorage.getItem("token") ? buttonsLogueado : buttonsSinLoguearse;
 
     return (
         <>
             <div className="navbar-container">
-                <div className="col-lg-4 col-md-4 col-sm-5 col-xs-6 nav-left">
+                <div className="col-lg-5 col-md-4 col-sm-5 col-xs-6 nav-left">
+                    <Buttons/>
+                    <span className='separador'>|</span>
+                    <a className="button-nb" href={`/`} id="btn"> Inicio </a>
+                    <a className="button-nb" href={`/hospitales`} id="btn"> Hospitales Adheridos</a>
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-1 col-xs-0 nav-medium">
-                    <div className="logo-content">
-                        <a title="logo" href="/"><img src={logo} alt="logo" height="130" width="130" /></a>
-                    </div>
+                <div className="col-lg-3 col-md-4 col-sm-1 col-xs-0 nav-medium">
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6 nav-right">
-                    <Buttons/>
-                    <div>
-                        { !isLogged 
-                        ?
-                        <>
-                            <a type="button" className="button-nb" id="modal" data-toggle="modal" data-target="#exampleModalCenter">INICIAR SESIÓN</a>
-                            <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div className="modal-dialog modal-dialog-centered" role="document">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <p className="modal-title" id="exampleModalLongTitle">INICIAR SESIÓN</p>
-                                            <button type="button" className="close" id='modal-close' data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className='modalForm'>
-                                                <form className='formModal' onSubmit={handleSubmit}>
-                                                    <div className='modal-inputs'>
-                                                        <input className="form-input" type='text' name="email" value={data.email} onChange={handleChange("email")} placeholder="Email" required  ></input>
-                                                        <input className="form-input" type='password' name="password" value={data.password} onChange={handleChange("password")} placeholder="Contraseña" required></input> 
-                                                    </div>
-                                                    { loginError && (<div id='alert-login' className="alert alert-danger" role="alert">{loginErrorName}</div>) }
-                                                    <button type="submit" className="btn-info b-log">INICIAR SESIÓN</button>
-                                                </form>
-                                            </div>
-                                            <div className='modalFooter-login'>
-                                                ¿Todavia no sos usuario? <a className="button-nb" href="/register">Registrarse</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>    
-                        :
-                            <div></div>
-                        }
+                    <div className="logo-content">
+                        <a title="logo" id='logo' href="/"><img src={logo} alt="logo" height="80" width="80"/></a>
                     </div>
                 </div>  
             </div>
         </>
-    );
+    )
   }
   
   export default Navbar;
+
+  const Boton = styled.button`
+    display: block;
+    width: 150px;
+    height: 19px;
+    border: none;
+    color: #fff;
+    border: none;
+    margin: 5px;
+    font-size: 13px;
+    font-weight: 900;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    transition: .3s ease all;
+    &:hover {
+      color: #A9D35A;
+    }
+  `;
